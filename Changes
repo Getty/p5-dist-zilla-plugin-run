@@ -1,4 +1,6 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.001     2010-12-12 04:14:54 Europe/Berlin
 	- First release

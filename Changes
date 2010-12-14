@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.003     2010-12-14 03:18:00 Europe/Berlin
 	- Complete Change of API
 
 0.002     2010-12-13 18:07:27 Europe/Berlin

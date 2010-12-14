@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.004     2010-12-14 21:19:54 Europe/Berlin
 	- Minimal pod changes
 
 0.003     2010-12-14 03:18:00 Europe/Berlin

@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::Run;
-# ABSTRACT: Overview Module - just documentation
+# ABSTRACT: Running external commands on specific hooks of Dist::Zilla
 use strict;
 use warnings;
 
@@ -13,6 +13,10 @@ use warnings;
 
   [Run::AfterRelease]
   run = script/myapp_after.pl %s
+
+=head1 DESCRIPTION
+
+Please be aware that so far just commands are possible which are inside your distribution (its a TODO to fix this).
 
 =cut
 

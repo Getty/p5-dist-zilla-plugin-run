@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::Run::Role::Runner;
-# ABSTRACT: Role for the modules of Plugin::Run
+# ABSTRACT: Role for the packages of Dist::Zilla::Plugin::Run
 use Moose::Role;
 use namespace::autoclean;
 

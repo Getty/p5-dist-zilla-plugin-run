@@ -1,5 +1,5 @@
 package Dist::Zilla::Plugin::Run::AfterRelease;
-# ABSTRACT: execute a command of the distribution on (so far) release
+# ABSTRACT: execute a command of the distribution after release
 use Moose;
 with qw(
 	Dist::Zilla::Role::AfterRelease

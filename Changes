@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+	- Minimal pod changes
 
 0.003     2010-12-14 03:18:00 Europe/Berlin
 	- Complete Change of API

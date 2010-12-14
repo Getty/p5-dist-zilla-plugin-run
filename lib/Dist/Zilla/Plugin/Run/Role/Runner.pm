@@ -38,7 +38,7 @@ sub call_script {
 
 =head1 DESCRIPTION
 
-This is the base role for all the plugins T<Dist::Zilla::Plugin::Run> delivers. You dont need this.
+This is the base role for all the plugins L<Dist::Zilla::Plugin::Run> delivers. You dont need this.
 
 =cut
 

@@ -3,9 +3,6 @@ package Dist::Zilla::Plugin::Run::Role::Runner;
 use Moose::Role;
 use namespace::autoclean;
 
-
-sub mvp_multivalue_args { qw( run ) }
-
 has run => (
 	is => 'ro',
 	isa  => 'ArrayRef',
@@ -45,6 +42,17 @@ sub call_script {
         }
     } 
 }
+
+around mvp_multivalue_args => sub {
+    my ($original, $self) = @_;
+    
+    my @res = $self->$original();
+
+    push @res, qw( run );
+    
+    @res; 
+};
+
 
 =head1 DESCRIPTION
 

@@ -3,9 +3,13 @@ package Dist::Zilla::Plugin::Run::Role::Runner;
 use Moose::Role;
 use namespace::autoclean;
 
+
+sub mvp_multivalue_args { qw( run ) }
+
 has run => (
 	is => 'ro',
-	isa => 'Str',
+	isa  => 'ArrayRef',
+	default => sub { [] },
 );
 
 has notexist_fatal => (
@@ -14,26 +18,32 @@ has notexist_fatal => (
 	default => sub { 1 },
 );
 
+
 sub call_script {
 	my ( $self, @params ) = @_;
-	if ($self->run) {
-		my @cmdparts = split(' ',$self->run);
-		# this is not good, i should also check if its a command in PATH
-		if (-f $cmdparts[0]) {
-			my $command = sprintf($self->run,@params);
-			$self->log("Executing: ".$command);
-			my $output = `$command`;
-			$self->log($output);
-			$self->log_fatal("Errorlevel ".$?." on command execute") if $?;		
-			$self->log("command executed successful");
-		} else {
-			if ($self->notexist_fatal) {
-				$self->log_fatal($cmdparts[0]." command not exist - breaking up here");
-			} else {
-				$self->log($cmdparts[0]." command not exist - ignoring this");
-			}
-		}
-	}
+
+    foreach my $run_cmd (@{$self->run}) {
+
+        if ($run_cmd) {
+            my @cmdparts = split(' ',$run_cmd);
+            
+            # this is not good, i should also check if its a command in PATH
+            if (-f $cmdparts[0]) {
+                my $command = sprintf($run_cmd,@params);
+                $self->log("Executing: ".$command);
+                my $output = `$command`;
+                $self->log($output);
+                $self->log_fatal("Errorlevel ".$?." on command execute") if $?;     
+                $self->log("command executed successful");
+            } else {
+                if ($self->notexist_fatal) {
+                    $self->log_fatal($cmdparts[0]." command not exist - breaking up here");
+                } else {
+                    $self->log($cmdparts[0]." command not exist - ignoring this");
+                }
+            }
+        }
+    } 
 }
 
 =head1 DESCRIPTION

@@ -6,10 +6,12 @@ use warnings;
 =head1 SYNOPSIS
 
   [Run::BeforeRelease]
-  run = script/myapp_before.pl %s
+  run = script/myapp_before1.pl %s
+  run = script/myapp_before2.pl %s
 
   [Run::Release]
-  run = script/myapp_deploy.pl %s
+  run = script/myapp_deploy1.pl %s
+  run = script/myapp_deploy2.pl %s
 
   [Run::AfterRelease]
   run = script/myapp_after.pl %s

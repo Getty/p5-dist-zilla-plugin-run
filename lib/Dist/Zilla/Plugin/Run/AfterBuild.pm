@@ -23,7 +23,7 @@ sub after_build {
 
 =head1 DESCRIPTION
 
-This plugin executes after build a command, if its given on config. The %s get replaced by the directory, containing the distribution just built.
+This plugin executes after build a command, if its given on config. The 1st %s get replaced by the directory, containing the distribution just built.
 The 2nd - by the version of the distribution.
 
 =head2 notexist_fatal

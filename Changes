@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+	- Fixed wrong bangpath
 
 0.005     2011-04-29 22:54:18 Europe/Berlin
 

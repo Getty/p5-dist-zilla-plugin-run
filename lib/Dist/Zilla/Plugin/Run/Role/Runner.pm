@@ -9,12 +9,18 @@ has run => (
 	default => sub { [] },
 );
 
-has notexist_fatal => (
-	is => 'ro',
-	isa => 'Bool',
-	default => sub { 1 },
-);
+around BUILDARGS => sub {
+    my ( $orig, $class, @args ) = @_;
+    my $built = $class->$orig(@args);
 
+    foreach my $dep (qw( notexist_fatal )) {
+        if ( exists $built->{$dep} ) {
+            warn(" !\n ! $class attribute '$dep' is deprecated and has no effect.\n !\n");
+            delete $built->{$dep};
+        }
+    }
+    return $built;
+};
 
 sub call_script {
 	my ( $self, @params ) = @_;

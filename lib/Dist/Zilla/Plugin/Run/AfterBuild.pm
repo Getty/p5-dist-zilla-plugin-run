@@ -26,10 +26,6 @@ sub after_build {
 This plugin executes after build a command, if its given on config. The 1st %s get replaced by the directory, containing the distribution just built.
 The 2nd - by the version of the distribution.
 
-=head2 notexist_fatal
-
-If this value is set to false, the plugin will ignore a not existing script. Default is true.
-
 =cut
 
 1;

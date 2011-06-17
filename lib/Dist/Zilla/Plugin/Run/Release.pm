@@ -26,10 +26,6 @@ or
 
 This plugin executes on release a command, if its given on config. The %s get replaced by the archive of the release.
 
-=head2 notexist_fatal
-
-If this value is set to false, the plugin will ignore a not existing script. Default is true.
-
 =cut
 
 1;

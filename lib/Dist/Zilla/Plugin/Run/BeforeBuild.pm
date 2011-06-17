@@ -25,10 +25,6 @@ sub before_build {
 
 This plugin executes before build a command, if its given on config. The %s get replaced by the version of the distribution.
 
-=head2 notexist_fatal
-
-If this value is set to false, the plugin will ignore a not existing script. Default is true.
-
 =cut
 
 1;

@@ -32,10 +32,11 @@ sub call_script {
 		my $command = sprintf($run_cmd,@params);
 		$self->log("Executing: ".$command);
 		my $output = `$command`;
+		my $status = $?;
 		$self->log($output);
-		$self->log_fatal("Errorlevel ".$?." on command execute") if $?;     
+		$self->log_fatal("Errorlevel ".$status." on command execute") if $status;
 		$self->log("command executed successful");
-            
+
         }
     } 
 }

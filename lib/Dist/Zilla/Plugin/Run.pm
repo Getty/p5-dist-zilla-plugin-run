@@ -18,7 +18,7 @@ use warnings;
 
 =head1 DESCRIPTION
 
-Please be aware that so far just commands are possible which are inside your distribution (its a TODO to fix this).
+Run arbitrary commands at various L<Dist::Zilla> phases.
 
 =cut
 

@@ -1,6 +1,7 @@
 package Dist::Zilla::Plugin::Run::Role::Runner;
 # ABSTRACT: Role for the packages of Dist::Zilla::Plugin::Run
 use Moose::Role;
+use String::Formatter 0.102082 ();
 use namespace::autoclean;
 
 has run => (
@@ -23,13 +24,12 @@ around BUILDARGS => sub {
 };
 
 sub call_script {
-	my ( $self, @params ) = @_;
+	my ( $self, $params ) = @_;
 
     foreach my $run_cmd (@{$self->run}) {
 
         if ($run_cmd) {
-            
-		my $command = sprintf($run_cmd,@params);
+            my $command = $self->build_formatter($params)->format($run_cmd);
 		$self->log("Executing: ".$command);
 		my $output = `$command`;
 		my $status = $?;
@@ -51,6 +51,25 @@ around mvp_multivalue_args => sub {
     @res; 
 };
 
+sub build_formatter {
+    my ( $self, $params ) = @_;
+
+    # stringify build directory
+    my $dir = $params->{dir} || $self->zilla->built_in;
+    $dir = $dir ? "$dir" : '';
+
+    return String::Formatter->new({
+        codes => {
+            # not always available
+            a => $params->{archive} || '',
+            d => $dir,
+            n => $self->zilla->name,
+            v => $self->zilla->version,
+            # positional replace (backward compatible)
+            s => sub { shift(@{ $params->{pos} }) || '' },
+        },
+    });
+}
 
 =head1 DESCRIPTION
 

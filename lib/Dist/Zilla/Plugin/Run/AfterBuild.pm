@@ -10,8 +10,10 @@ use namespace::autoclean;
 
 sub after_build {
     my ($self, $param) = @_;
-    
-	$self->call_script($param->{ build_root }, $self->zilla->version);
+  $self->call_script({
+    dir =>  $param->{ build_root },
+    pos => [$param->{ build_root }, $self->zilla->version]
+  });
 }
 
 =head1 SYNOPSIS

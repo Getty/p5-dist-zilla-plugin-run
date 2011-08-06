@@ -10,8 +10,9 @@ use namespace::autoclean;
 
 sub before_build {
     my ($self) = @_;
-    
-	$self->call_script($self->zilla->version);
+  $self->call_script({
+    pos => [$self->zilla->version]
+  });
 }
 
 =head1 SYNOPSIS

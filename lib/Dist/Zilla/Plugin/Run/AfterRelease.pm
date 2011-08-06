@@ -9,9 +9,11 @@ with qw(
 use namespace::autoclean;
 
 sub after_release {
-    my $self = shift;
-    
-	$self->call_script(@_, $self->zilla->version);
+  my ( $self, $archive ) = @_;
+  $self->call_script({
+    archive =>  $archive,
+    pos     => [$archive, $self->zilla->version]
+  });
 }
 
 =head1 SYNOPSIS

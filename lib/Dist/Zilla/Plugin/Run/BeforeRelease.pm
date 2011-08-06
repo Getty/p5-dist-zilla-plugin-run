@@ -9,7 +9,11 @@ with qw(
 use namespace::autoclean;
 
 sub before_release {
-	shift->call_script(@_);
+  my ( $self, $archive ) = @_;
+  $self->call_script({
+    archive =>  $archive,
+    pos     => [$archive]
+  });
 }
 
 =head1 SYNOPSIS

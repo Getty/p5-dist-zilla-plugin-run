@@ -9,9 +9,11 @@ with qw(
 use namespace::autoclean;
 
 sub after_release {
-    my $self = shift;
-    
-	$self->call_script(@_, $self->zilla->version);
+  my ( $self, $archive ) = @_;
+  $self->call_script({
+    archive =>  $archive,
+    pos     => [$archive, $self->zilla->version]
+  });
 }
 
 =head1 SYNOPSIS
@@ -26,12 +28,18 @@ or
 
 =head1 DESCRIPTION
 
-This plugin executes after release a command, if its given on config. The 1st %s get replaced by the archive of the release.
-The 2nd - by the version of the distribution.
+This plugin executes the specified command after releasing.
 
-=head2 notexist_fatal
+=head1 POSITIONAL PARAMETERS
 
-If this value is set to false, the plugin will ignore a not existing script. Default is true.
+See L<Dist::Zilla::Plugin::Run/CONVERSIONS>
+for the list of common formatting variables available to all plugins.
+
+For backward compatibility:
+
+=for :list
+* The 1st C<%s> will be replaced by the archive of the release.
+* The 2nd C<%s> will be replaced by the dist version.
 
 =cut
 

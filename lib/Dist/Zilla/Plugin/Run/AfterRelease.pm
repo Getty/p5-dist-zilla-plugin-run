@@ -28,8 +28,18 @@ or
 
 =head1 DESCRIPTION
 
-This plugin executes after release a command, if its given on config. The 1st %s get replaced by the archive of the release.
-The 2nd - by the version of the distribution.
+This plugin executes the specified command after releasing.
+
+=head1 POSITIONAL PARAMETERS
+
+See L<Dist::Zilla::Plugin::Run/CONVERSIONS>
+for the list of common formatting variables available to all plugins.
+
+For backward compatibility:
+
+=for :list
+* The 1st C<%s> will be replaced by the archive of the release.
+* The 2nd C<%s> will be replaced by the dist version.
 
 =cut
 

@@ -28,7 +28,19 @@ or
 
 =head1 DESCRIPTION
 
-This plugin executes on release a command, if its given on config. The %s get replaced by the archive of the release.
+This plugin executes the specified command for the release process.
+
+This way you can specify a custom release command without needing any other C<Releaser> plugin.
+
+=head1 POSITIONAL PARAMETERS
+
+See L<Dist::Zilla::Plugin::Run/CONVERSIONS>
+for the list of common formatting variables available to all plugins.
+
+For backward compatibility:
+
+=for :list
+* The 1st C<%s> will be replaced by the archive of the release.
 
 =cut
 

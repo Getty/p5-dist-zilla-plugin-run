@@ -25,8 +25,18 @@ sub after_build {
 
 =head1 DESCRIPTION
 
-This plugin executes after build a command, if its given on config. The 1st %s get replaced by the directory, containing the distribution just built.
-The 2nd - by the version of the distribution.
+This plugin executes the specified command after building the dist.
+
+=head1 POSITIONAL PARAMETERS
+
+See L<Dist::Zilla::Plugin::Run/CONVERSIONS>
+for the list of common formatting variables available to all plugins.
+
+For backward compatibility:
+
+=for :list
+* The 1st C<%s> will be replaced by the directory in which the dist was built.
+* The 2nd C<%s> will be replaced by the dist version.
 
 =cut
 

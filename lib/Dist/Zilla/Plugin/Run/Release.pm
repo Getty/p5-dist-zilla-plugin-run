@@ -9,7 +9,11 @@ with qw(
 use namespace::autoclean;
 
 sub release {
-	shift->call_script(@_);
+  my ( $self, $archive ) = @_;
+  $self->call_script({
+    archive =>  $archive,
+    pos     => [$archive]
+  });
 }
 
 =head1 SYNOPSIS
@@ -24,11 +28,19 @@ or
 
 =head1 DESCRIPTION
 
-This plugin executes on release a command, if its given on config. The %s get replaced by the archive of the release.
+This plugin executes the specified command for the release process.
 
-=head2 notexist_fatal
+This way you can specify a custom release command without needing any other C<Releaser> plugin.
 
-If this value is set to false, the plugin will ignore a not existing script. Default is true.
+=head1 POSITIONAL PARAMETERS
+
+See L<Dist::Zilla::Plugin::Run/CONVERSIONS>
+for the list of common formatting variables available to all plugins.
+
+For backward compatibility:
+
+=for :list
+* The 1st C<%s> will be replaced by the archive of the release.
 
 =cut
 

@@ -2,6 +2,10 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.007     2011-08-07 20:30:39 America/Phoenix
+  - Define other (constant) string format conversions (%n, %v);
+    Retain positional %s for backward compatibility. (RWSTAUNER)
+
 0.006     2011-05-21 02:58:17 Europe/Berlin
 	- Fixed wrong bangpath
 

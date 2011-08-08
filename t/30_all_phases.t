@@ -27,9 +27,9 @@ use Test::DZil;
     # test constant conversions as well as positional %s for backward compatibility
     my @exp = split /\n/, <<OUTPUT;
 before_build $f{v} $f{n} $f{v}
-after_build $f{n} $f{v} $f{d} $f{d} $f{v}
+after_build $f{n} $f{v} $f{d} $f{d} $f{v} $f{v}
 before_release $f{n} -d $f{d} $f{a} -v $f{v}
-release $f{a} $f{n} $f{v} $f{d}
+release $f{a} $f{n} $f{v} $f{d}/a $f{d}/b
 after_release $f{d} $f{v} $f{a} $f{v} $f{n}
 OUTPUT
 

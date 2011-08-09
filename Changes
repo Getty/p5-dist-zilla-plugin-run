@@ -2,8 +2,10 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
   - Stream command output incrementally instead of waiting
-    until the command is done (RWSTAUNER).
+    until the command is done. (RWSTAUNER)
     Closes gh-4.  Thanks to SamuraiJack for the suggestion.
+
+  - Show correct exit status on command failure.
 
 0.007     2011-08-07 20:30:39 America/Phoenix
   - Define other (constant) string format conversions (%n, %v);

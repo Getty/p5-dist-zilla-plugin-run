@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.008     2011-08-09 09:31:33 America/Phoenix
   - Stream command output incrementally instead of waiting
     until the command is done. (RWSTAUNER)
     Closes gh-4.  Thanks to SamuraiJack for the suggestion.

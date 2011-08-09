@@ -3,6 +3,7 @@ package Dist::Zilla::Plugin::Run::Role::Runner;
 use Moose::Role;
 use String::Formatter 0.102082 ();
 use namespace::autoclean;
+use IPC::Open3 (); # core
 
 has run => (
 	is => 'ro',
@@ -30,13 +31,22 @@ sub call_script {
 
         if ($run_cmd) {
             my $command = $self->build_formatter($params)->format($run_cmd);
-		$self->log("Executing: ".$command);
-		my $output = `$command`;
-		my $status = $?;
-		$self->log($output);
-		$self->log_fatal("Errorlevel ".$status." on command execute") if $status;
-		$self->log("command executed successful");
+            $self->log("Executing: $command");
 
+            # autoflush STDOUT so we can see command output right away
+            $| = 1;
+            # combine stdout and stderr for ease of proxying through the logger
+            my $pid = IPC::Open3::open3(my ($in, $out), undef, $command);
+            while(defined(my $line = <$out>)){
+                chomp($line); # logger appends its own newline
+                $self->log($line);
+            }
+            # zombie repellent
+            waitpid($pid, 0);
+            my $status = $? >> 8;
+
+            $self->log_fatal("Command exited with status $status") if $status;
+            $self->log("Command executed successfully");
         }
     } 
 }

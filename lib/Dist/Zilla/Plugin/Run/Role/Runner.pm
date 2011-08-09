@@ -6,9 +6,9 @@ use namespace::autoclean;
 use IPC::Open3 (); # core
 
 has run => (
-	is => 'ro',
-	isa  => 'ArrayRef',
-	default => sub { [] },
+    is => 'ro',
+    isa  => 'ArrayRef',
+    default => sub { [] },
 );
 
 around BUILDARGS => sub {
@@ -25,7 +25,7 @@ around BUILDARGS => sub {
 };
 
 sub call_script {
-	my ( $self, $params ) = @_;
+    my ( $self, $params ) = @_;
 
     foreach my $run_cmd (@{$self->run}) {
 
@@ -88,3 +88,4 @@ This is the base role for all the plugins L<Dist::Zilla::Plugin::Run> delivers. 
 =cut
 
 1;
+# vim: set ts=4 sts=4 sw=4 expandtab smarttab:

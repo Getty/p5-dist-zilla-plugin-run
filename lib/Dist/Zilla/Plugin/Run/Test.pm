@@ -19,12 +19,19 @@ sub test {
 =head1 SYNOPSIS
 
   [Run::Test]
-  run = script/tester.pl --name %n --version %v %d/some_file.ext
+  run = script/tester.pl --name %n --version %v some_file.ext
 
 
 =head1 DESCRIPTION
 
 This plugin executes the specified command during the test phase.
+
+=head1 CAVEAT
+
+Unlike the other [Run::*] plugins, when running the scripts, the 
+current working directory will be the directory with 
+newly built distribution. This is the way Dist::Zilla works.
+
 
 =head1 POSITIONAL PARAMETERS
 

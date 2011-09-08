@@ -32,11 +32,12 @@ Unlike the other [Run::*] plugins, when running the scripts, the
 current working directory will be the directory with 
 newly built distribution. This is the way Dist::Zilla works.
 
-
 =head1 POSITIONAL PARAMETERS
 
 See L<Dist::Zilla::Plugin::Run/CONVERSIONS>
 for the list of common formatting variables available to all plugins.
+
+There are no positional parameters for this plugin.
 
 =cut
 

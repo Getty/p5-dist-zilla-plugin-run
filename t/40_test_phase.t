@@ -13,16 +13,16 @@ use Dist::Zilla::Tester;
 
     $tzil->build();
 
-    $tzil->run_tests_in($tzil->tempdir->subdir('build'));
+    my $dir = $tzil->tempdir->subdir('build');
+    $tzil->run_tests_in($dir);
     
     my $test_file   = $tzil->tempdir->file(qw(build test.txt));
     
     ok(-f $test_file, 'Test script has been ran');
     
-    
     my $content     = $tzil->slurp_file(file(qw(build test.txt)));
     
-    is($content, "test", 'Correct `test` result');
+    is($content, "test $dir Digest-MD5-0.01", 'Correct `test` result');
 }
 
 done_testing;

@@ -7,7 +7,7 @@ use Path::Class;
 
 my $fh = dir($ARGV[ 0 ])->file('test.txt')->openw();
 
-printf $fh "test";
+printf $fh join(' ', test => @ARGV);
 
 close($fh);
 

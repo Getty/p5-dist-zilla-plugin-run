@@ -22,7 +22,7 @@ use Dist::Zilla::Tester;
     
     my $content     = $tzil->slurp_file(file(qw(build test.txt)));
     
-    ok($content eq 'test', 'Correct `test` result');
+    is($content, "test", 'Correct `test` result');
 }
 
 done_testing;

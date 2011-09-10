@@ -44,9 +44,9 @@ sub call_script {
             }
             # zombie repellent
             waitpid($pid, 0);
-            my $status = $? >> 8;
+            my $status = ($? >> 8);
 
-            $self->log_fatal("Command exited with status $status") if $status;
+            $self->log_fatal("Command exited with status $status ($?)") if $status;
             $self->log("Command executed successfully");
         }
     } 

@@ -30,6 +30,7 @@ for passing as arguments to the specified commands
 * C<%a> the archive of the release (available to all C<*Release> phases)
 * C<%d> the directory in which the dist was built (not in C<BeforeBuild>)
 * C<%n> the dist name
+* C<%p> path separator ('/' on Unix, '\\' on Win32... useful for cross-platform dist.ini files)
 * C<%v> the dist version
 
 Additionally C<%s> is retained for backward compatibility.

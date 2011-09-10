@@ -3,6 +3,7 @@ package Dist::Zilla::Plugin::Run::Role::Runner;
 use Moose::Role;
 use String::Formatter 0.102082 ();
 use namespace::autoclean;
+use File::Spec (); # core
 use IPC::Open3 (); # core
 
 has run => (
@@ -61,6 +62,8 @@ around mvp_multivalue_args => sub {
     @res; 
 };
 
+my $path_separator = (File::Spec->catfile(qw(a b)) =~ m/^a(.+?)b$/)[0];
+
 sub build_formatter {
     my ( $self, $params ) = @_;
 
@@ -74,6 +77,7 @@ sub build_formatter {
             a => $params->{archive} || '',
             d => $dir,
             n => $self->zilla->name,
+            p => $path_separator,
             v => $self->zilla->version,
             # positional replace (backward compatible)
             s => sub { shift(@{ $params->{pos} }) || '' },

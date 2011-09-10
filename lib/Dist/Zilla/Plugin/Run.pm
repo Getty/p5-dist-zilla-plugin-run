@@ -15,6 +15,8 @@ use warnings;
 
   [Run::AfterRelease]
   run = script/myapp_after.pl %s %v
+  ; %p can be used as the path separator if you have contributors on a different OS
+  run = script%pmyapp_after.pl %s %v
 
 =head1 DESCRIPTION
 

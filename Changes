@@ -2,6 +2,14 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.010     2011-09-10 11:06:33 America/Phoenix
+
+  - Define '%p' as the OS path separator in case anybody ever needs
+    cross-platform dist.ini commands
+
+  - Enable the tests for the Run::Test plugin
+  - Make tests cross-platform
+
 0.009     2011-09-07 18:34:14 Europe/Moscow
 
   - added the [Run::Test] plugin

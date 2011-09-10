@@ -35,7 +35,7 @@ sub call_script {
             $self->log("Executing: $command");
 
             # autoflush STDOUT so we can see command output right away
-            $| = 1;
+            local $| = 1;
             # combine stdout and stderr for ease of proxying through the logger
             my $pid = IPC::Open3::open3(my ($in, $out), undef, $command);
             while(defined(my $line = <$out>)){

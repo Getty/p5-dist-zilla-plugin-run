@@ -74,7 +74,8 @@ sub build_formatter {
     return String::Formatter->new({
         codes => {
             # not always available
-            a => $params->{archive} || '',
+            # explicitly pass a string (not an object) [rt-72008]
+            a => defined $params->{archive} ? "$params->{archive}" : '',
             d => $dir,
             n => $self->zilla->name,
             p => $path_separator,

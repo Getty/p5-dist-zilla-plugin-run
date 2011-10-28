@@ -2,6 +2,10 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+  - Explicitly stringify '%a' to keep String::Formatter happy.
+    Make sure it's tested.
+    Closes rt-72008. Thanks to Olivier Mengué (dolmen) for reporting.
+
 0.010     2011-09-10 11:06:33 America/Phoenix
 
   - Define '%p' as the OS path separator in case anybody ever needs

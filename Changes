@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.011     2011-10-28 08:25:04 America/Phoenix
+
   - Explicitly stringify '%a' to keep String::Formatter happy.
     Make sure it's tested.
     Closes rt-72008. Thanks to Olivier Mengué (dolmen) for reporting.

@@ -1,3 +1,6 @@
+use strict;
+use warnings;
+
 package Dist::Zilla::Plugin::Run::Test;
 # ABSTRACT: execute a command of the distribution after build
 use Moose;

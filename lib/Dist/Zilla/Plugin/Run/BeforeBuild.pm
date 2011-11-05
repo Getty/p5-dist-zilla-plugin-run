@@ -1,3 +1,6 @@
+use strict;
+use warnings;
+
 package Dist::Zilla::Plugin::Run::BeforeBuild;
 # ABSTRACT: execute a command of the distribution before build
 use Moose;

@@ -1,7 +1,8 @@
-package Dist::Zilla::Plugin::Run;
-# ABSTRACT: Running external commands on specific hooks of Dist::Zilla
 use strict;
 use warnings;
+
+package Dist::Zilla::Plugin::Run;
+# ABSTRACT: Run external commands at specific phases of Dist::Zilla
 
 =head1 SYNOPSIS
 

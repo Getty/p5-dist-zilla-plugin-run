@@ -1,3 +1,6 @@
+use strict;
+use warnings;
+
 package Dist::Zilla::Plugin::Run::Role::Runner;
 # ABSTRACT: Role for the packages of Dist::Zilla::Plugin::Run
 use Moose::Role;

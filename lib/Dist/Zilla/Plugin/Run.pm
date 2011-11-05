@@ -35,6 +35,7 @@ for passing as arguments to the specified commands
 * C<%n> the dist name
 * C<%p> path separator ('/' on Unix, '\\' on Win32... useful for cross-platform dist.ini files)
 * C<%v> the dist version
+* C<%x> full path to the current perl interpreter (like $^X but from L<Config>)
 
 Additionally C<%s> is retained for backward compatibility.
 Each occurrence is replaced by a different value

@@ -8,6 +8,13 @@ use String::Formatter 0.102082 ();
 use namespace::autoclean;
 use File::Spec (); # core
 use IPC::Open3 (); # core
+use Config     (); # core
+
+has perlpath => (
+    is      => 'ro',
+    isa     => 'Str',
+    builder => 'current_perl_path',
+);
 
 has run => (
     is => 'ro',
@@ -85,8 +92,19 @@ sub build_formatter {
             v => $self->zilla->version,
             # positional replace (backward compatible)
             s => sub { shift(@{ $params->{pos} }) || '' },
+            x => $self->perlpath,
         },
     });
+}
+
+sub current_perl_path {
+    # see perlvar $^X
+    my $perl = $Config::Config{perlpath};
+    if ($^O ne 'VMS') {
+        $perl .= $Config::Config{_exe}
+            unless $perl =~ m/$Config::Config{_exe}$/i;
+    }
+    return $perl;
 }
 
 =head1 DESCRIPTION

@@ -2,11 +2,8 @@ use strict;
 use warnings;
 use Test::More 0.88;
 
-use lib 't/lib';
-
 use Path::Class;
-
-use Test::DZil;
+use Dist::Zilla::Tester;
 
 {
     my $tzil = Dist::Zilla::Tester->from_config(

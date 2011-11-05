@@ -25,11 +25,11 @@ use Dist::Zilla::Tester;
 
     # test constant conversions as well as positional %s for backward compatibility
     my @exp = split /\n/, <<OUTPUT;
-before_build $f{v} $f{n} $f{v} ...
-after_build $f{n} $f{v} $f{d} $f{d} $f{v} $f{v} ..
-before_release $f{n} -d $f{d} $f{a} -v $f{v} .$f{a}.
-release $f{a} $f{n} $f{v} $f{d}/a $f{d}/b $f{a}
-after_release $f{d} $f{v} $f{a} $f{v} $f{n} $f{a}
+before_build $f{v} $f{n} $f{v} ... $PERL
+after_build $f{n} $f{v} $f{d} $f{d} $f{v} $f{v} .. $PERL
+before_release $f{n} -d $f{d} $f{a} -v $f{v} .$f{a}. $PERL
+release $f{a} $f{n} $f{v} $f{d}/a $f{d}/b $f{a} $PERL
+after_release $f{d} $f{v} $f{a} $f{v} $f{n} $f{a} $PERL
 OUTPUT
 
     # provide better test titles

@@ -3,6 +3,7 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
 
   - Add '%x' for perl path (similar to $^X)
+  - Test fixes
 
 0.011     2011-10-28 08:25:04 America/Phoenix
 

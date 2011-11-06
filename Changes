@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.012     2011-11-05 17:30:03 America/Phoenix
+
   - Add '%x' for perl path (similar to $^X)
   - Use strict and warnings in each module
   - Test fixes

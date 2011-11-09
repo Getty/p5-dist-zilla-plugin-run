@@ -109,7 +109,7 @@ sub current_perl_path {
 
 =head1 DESCRIPTION
 
-This is the base role for all the plugins L<Dist::Zilla::Plugin::Run> delivers. You dont need this.
+This is the base role for all the plugins L<Dist::Zilla::Plugin::Run> delivers. You don't need this.
 
 =cut
 

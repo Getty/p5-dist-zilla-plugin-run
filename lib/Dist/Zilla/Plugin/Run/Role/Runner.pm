@@ -81,20 +81,37 @@ sub build_formatter {
     my $dir = $params->{dir} || $self->zilla->built_in;
     $dir = $dir ? "$dir" : '';
 
-    return String::Formatter->new({
-        codes => {
-            # not always available
-            # explicitly pass a string (not an object) [rt-72008]
-            a => defined $params->{archive} ? "$params->{archive}" : '',
-            d => $dir,
-            n => $self->zilla->name,
-            p => $path_separator,
-            v => $self->zilla->version,
-            # positional replace (backward compatible)
-            s => sub { shift(@{ $params->{pos} }) || '' },
-            x => $self->perlpath,
-        },
-    });
+    my $codes = {
+        # not always available
+        # explicitly pass a string (not an object) [rt-72008]
+        a => defined $params->{archive} ? "$params->{archive}" : '',
+
+        # build dir or mint dir
+        d => $dir,
+
+        # dist name
+        n => $self->zilla->name,
+
+        # backward compatibility (don't error)
+        s => '',
+
+        # portability
+        p => $path_separator,
+        x => $self->perlpath,
+    };
+
+    # available during build, not mint
+    unless( $params->{minting} ){
+        $codes->{v} = $self->zilla->version;
+    }
+
+    # positional replace (backward compatible)
+    if( my @pos = @{ $params->{pos} || [] } ){
+        # where are you defined-or // operator?
+        $codes->{s} = sub { my $s = shift(@pos); defined($s) ? $s : '' };
+    }
+
+    return String::Formatter->new({ codes => $codes });
 }
 
 sub current_perl_path {

@@ -6,6 +6,14 @@ package Dist::Zilla::Plugin::Run;
 
 =head1 SYNOPSIS
 
+  [Run::AfterBuild]
+  run = script/do_this.pl --dir %s --version %s
+  run = script/do_that.pl
+
+  [Run::BeforeBuild]
+  run = script/do_this.pl --version %s
+  run = script/do_that.pl
+
   [Run::BeforeRelease]
   run = script/myapp_before1.pl %s
   run = script/myapp_before2.pl %n %v
@@ -15,9 +23,18 @@ package Dist::Zilla::Plugin::Run;
   run = deployer.pl --dir %d --tgz %a --name %n --version %v
 
   [Run::AfterRelease]
-  run = script/myapp_after.pl %s %v
+  run = script/myapp_after.pl --archive %s --version %s
   ; %p can be used as the path separator if you have contributors on a different OS
-  run = script%pmyapp_after.pl %s %v
+  run = script%pmyapp_after.pl --archive %s --version %s
+
+  [Run::AfterRelease / MyAppAfter]
+  run = script/myapp_after.pl --archive %s --version %s
+
+  [Run::Test]
+  run = script/tester.pl --name %n --version %v some_file.ext
+
+  [Run::AfterMint]
+  run = some command %d
 
 =head1 DESCRIPTION
 

@@ -17,10 +17,12 @@ package Dist::Zilla::Plugin::Run;
   [Run::BeforeRelease]
   run = script/myapp_before1.pl %s
   run = script/myapp_before2.pl %n %v
+  ignore_trial = script/no_execution_on_trial.pl %n %v
 
   [Run::Release]
   run = script/myapp_deploy1.pl %s
   run = deployer.pl --dir %d --tgz %a --name %n --version %v
+  ignore_trial = script/no_execution_on_trial.pl --dir %d --tgz %a --name %n --version %v
 
   [Run::AfterRelease]
   run = script/myapp_after.pl --archive %s --version %s

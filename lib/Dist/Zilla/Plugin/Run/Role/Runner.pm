@@ -22,6 +22,12 @@ has run => (
     default => sub { [] },
 );
 
+has ignore_trial => (
+    is => 'ro',
+    isa  => 'ArrayRef',
+    default => sub { [] },
+);
+
 around BUILDARGS => sub {
     my ( $orig, $class, @args ) = @_;
     my $built = $class->$orig(@args);
@@ -39,27 +45,40 @@ sub call_script {
     my ( $self, $params ) = @_;
 
     foreach my $run_cmd (@{$self->run}) {
+        $self->run_cmd($run_cmd, $params);
+    }
 
-        if ($run_cmd) {
-            my $command = $self->build_formatter($params)->format($run_cmd);
-            $self->log("Executing: $command");
-
-            # autoflush STDOUT so we can see command output right away
-            local $| = 1;
-            # combine stdout and stderr for ease of proxying through the logger
-            my $pid = IPC::Open3::open3(my ($in, $out), undef, $command);
-            while(defined(my $line = <$out>)){
-                chomp($line); # logger appends its own newline
-                $self->log($line);
-            }
-            # zombie repellent
-            waitpid($pid, 0);
-            my $status = ($? >> 8);
-
-            $self->log_fatal("Command exited with status $status ($?)") if $status;
-            $self->log("Command executed successfully");
+    foreach my $run_cmd (@{$self->ignore_trial}) {
+        if ($self->is_trial) {
+            $self->log("Not executing, because trial: $run_cmd");
+        } else {
+            $self->run_cmd($run_cmd, $params);
         }
-    } 
+    }
+
+}
+
+sub run_cmd {
+    my ( $self, $run_cmd, $params ) = @_;
+    if ($run_cmd) {
+        my $command = $self->build_formatter($params)->format($run_cmd);
+        $self->log("Executing: $command");
+
+        # autoflush STDOUT so we can see command output right away
+        local $| = 1;
+        # combine stdout and stderr for ease of proxying through the logger
+        my $pid = IPC::Open3::open3(my ($in, $out), undef, $command);
+        while(defined(my $line = <$out>)){
+            chomp($line); # logger appends its own newline
+            $self->log($line);
+        }
+        # zombie repellent
+        waitpid($pid, 0);
+        my $status = ($? >> 8);
+
+        $self->log_fatal("Command exited with status $status ($?)") if $status;
+        $self->log("Command executed successfully");
+    }
 }
 
 around mvp_multivalue_args => sub {
@@ -67,7 +86,7 @@ around mvp_multivalue_args => sub {
     
     my @res = $self->$original();
 
-    push @res, qw( run );
+    push @res, qw( run ignore_trial );
     
     @res; 
 };

@@ -49,7 +49,7 @@ sub call_script {
     }
 
     foreach my $run_cmd (@{$self->run_no_trial}) {
-        if ($self->is_trial) {
+        if ($self->zilla->is_trial) {
             $self->log("Not executing, because trial: $run_cmd");
         } else {
             $self->run_cmd($run_cmd, $params);

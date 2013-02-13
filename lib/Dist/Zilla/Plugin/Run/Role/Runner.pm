@@ -22,7 +22,7 @@ has run => (
     default => sub { [] },
 );
 
-has ignore_trial => (
+has run_no_trial => (
     is => 'ro',
     isa  => 'ArrayRef',
     default => sub { [] },
@@ -48,7 +48,7 @@ sub call_script {
         $self->run_cmd($run_cmd, $params);
     }
 
-    foreach my $run_cmd (@{$self->ignore_trial}) {
+    foreach my $run_cmd (@{$self->run_no_trial}) {
         if ($self->is_trial) {
             $self->log("Not executing, because trial: $run_cmd");
         } else {
@@ -86,7 +86,7 @@ around mvp_multivalue_args => sub {
     
     my @res = $self->$original();
 
-    push @res, qw( run ignore_trial );
+    push @res, qw( run run_no_trial );
     
     @res; 
 };

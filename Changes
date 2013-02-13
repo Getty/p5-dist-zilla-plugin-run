@@ -4,7 +4,12 @@ Revision history for {{$dist->name}}
 
 0.016     2013-02-13 07:49:47 America/Phoenix
 
+  - Add 'run_no_trial' option for running commands
+    only when it is not a trial build/release.
+
 0.015     2013-02-04 01:25:50 Europe/Berlin
+
+  - Copy examples for all runners to Synposis on main page
 
 0.014     2013-01-18 20:21:24 America/Phoenix
 

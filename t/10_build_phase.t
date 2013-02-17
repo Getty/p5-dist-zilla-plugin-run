@@ -36,8 +36,9 @@ sub test_build {
         ok( (  -f $no_trial_file), 'non-trial - file present' );
         is $no_trial_file->slurp, ':-P', 'non-trial content';
 
+        my $script = file(script => 'no_trial.pl');
         like $tzil->log_messages->[-2],
-            qr{\[Run::AfterBuild\] Executing: .+ script/no_trial\.pl .+},
+            qr{\[Run::AfterBuild\] Executing: .+ \Q$script\E .+},
             'logged execution';
 
         like $tzil->log_messages->[-1],

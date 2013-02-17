@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.017     2013-02-16 21:20:54 America/Phoenix
+
   - Fix silly bug in tests for non-unix platforms
 
 0.016     2013-02-13 07:49:47 America/Phoenix

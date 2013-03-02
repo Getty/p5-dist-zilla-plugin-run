@@ -22,6 +22,12 @@ has run => (
     default => sub { [] },
 );
 
+has run_if_trial => (
+    is => 'ro',
+    isa  => 'ArrayRef',
+    default => sub { [] },
+);
+
 has run_no_trial => (
     is => 'ro',
     isa  => 'ArrayRef',
@@ -29,6 +35,12 @@ has run_no_trial => (
 );
 
 has run_if_release => (
+    is => 'ro',
+    isa  => 'ArrayRef',
+    default => sub { [] },
+);
+
+has run_no_release => (
     is => 'ro',
     isa  => 'ArrayRef',
     default => sub { [] },

@@ -34,6 +34,8 @@ package Dist::Zilla::Plugin::Run;
 
   [Run::Test]
   run = script/tester.pl --name %n --version %v some_file.ext
+  run_if_release = ./Build install
+  run_if_release = make install
 
   [Run::AfterMint]
   run = some command %d
@@ -42,8 +44,28 @@ package Dist::Zilla::Plugin::Run;
 
 Run arbitrary commands at various L<Dist::Zilla> phases.
 
-Use 'run_no_trial' instead of 'run' to only run a given command
-if this isn't a I<trial> build/release.
+=head1 PARAMETERS
+
+=head2 run
+
+Run the specific command at the specific Dist::Zilla phase given by the
+plugin, like I<[Run::Release]> runs on release phase.
+
+=head2 run_no_trial
+
+Only run the given command if this isn't a I<trial> build or release.
+
+=head2 run_trial
+
+Only run the given command if this is a I<trial> build or release.
+
+=head2 run_if_release
+
+Only run the given command if this is a release.
+
+=head2 run_no_release
+
+Only run a given command if this isn't a release.
 
 =head1 CONVERSIONS
 

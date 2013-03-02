@@ -28,6 +28,12 @@ has run_no_trial => (
     default => sub { [] },
 );
 
+has run_if_release => (
+    is => 'ro',
+    isa  => 'ArrayRef',
+    default => sub { [] },
+);
+
 around BUILDARGS => sub {
     my ( $orig, $class, @args ) = @_;
     my $built = $class->$orig(@args);
@@ -48,9 +54,37 @@ sub call_script {
         $self->run_cmd($run_cmd, $params);
     }
 
+    my $is_trial = $self->zilla->is_trial ? 1 : 0;
+
+    foreach my $run_cmd (@{$self->run_if_trial}) {
+        if ($is_trial) {
+            $self->run_cmd($run_cmd, $params);
+        } else {
+            $self->log("Not executing, because no trial: $run_cmd");
+        }
+    }
+
     foreach my $run_cmd (@{$self->run_no_trial}) {
-        if ($self->zilla->is_trial) {
+        if ($is_trial) {
             $self->log("Not executing, because trial: $run_cmd");
+        } else {
+            $self->run_cmd($run_cmd, $params);
+        }
+    }
+
+    my $is_release = defined $ENV{'DZIL_RELEASING'} && $ENV{'DZIL_RELEASING'} == 1 ? 1 : 0;
+
+    foreach my $run_cmd (@{$self->run_if_release}) {
+        if ($is_release) {
+            $self->run_cmd($run_cmd, $params);
+        } else {
+            $self->log("Not executing, because no release: $run_cmd");
+        }
+    }
+
+    foreach my $run_cmd (@{$self->run_no_release}) {
+        if ($is_release) {
+            $self->log("Not executing, because release: $run_cmd");
         } else {
             $self->run_cmd($run_cmd, $params);
         }
@@ -86,7 +120,7 @@ around mvp_multivalue_args => sub {
     
     my @res = $self->$original();
 
-    push @res, qw( run run_no_trial );
+    push @res, qw( run run_no_trial run_if_trial run_if_release run_no_release );
     
     @res; 
 };

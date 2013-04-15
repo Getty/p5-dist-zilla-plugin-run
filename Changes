@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+  - Delay evaluation of some vars (like dist version) until needed.
+    Thanks, Tatsuhiko Miyagawa!
+
 0.018     2013-03-02 18:46:39 Europe/Berlin
 
   - Added new options, cleaned up documentation

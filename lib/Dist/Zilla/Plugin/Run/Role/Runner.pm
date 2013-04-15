@@ -155,25 +155,29 @@ sub build_formatter {
         d => $dir,
 
         # dist name
-        n => $self->zilla->name,
+        n => sub { $self->zilla->name },
 
         # backward compatibility (don't error)
         s => '',
 
         # portability
         p => $path_separator,
-        x => $self->perlpath,
+        x => sub { $self->perlpath },
     };
 
     # available during build, not mint
     unless( $params->{minting} ){
-        $codes->{v} = $self->zilla->version;
+        $codes->{v} = sub { $self->zilla->version };
     }
 
     # positional replace (backward compatible)
     if( my @pos = @{ $params->{pos} || [] } ){
         # where are you defined-or // operator?
-        $codes->{s} = sub { my $s = shift(@pos); defined($s) ? $s : '' };
+        $codes->{s} = sub {
+            my $s = shift(@pos);
+            $s = $s->() if ref $s eq 'CODE';
+            defined($s) ? $s : '';
+        };
     }
 
     return String::Formatter->new({ codes => $codes });

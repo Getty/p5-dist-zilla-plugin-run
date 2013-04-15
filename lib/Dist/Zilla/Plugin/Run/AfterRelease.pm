@@ -15,7 +15,7 @@ sub after_release {
   my ( $self, $archive ) = @_;
   $self->call_script({
     archive =>  $archive,
-    pos     => [$archive, $self->zilla->version]
+    pos     => [$archive, sub { $self->zilla->version }]
   });
 }
 

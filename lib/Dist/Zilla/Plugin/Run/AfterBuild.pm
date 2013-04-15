@@ -15,7 +15,7 @@ sub after_build {
     my ($self, $param) = @_;
   $self->call_script({
     dir =>  $param->{ build_root },
-    pos => [$param->{ build_root }, $self->zilla->version]
+    pos => [$param->{ build_root }, sub { $self->zilla->version }]
   });
 }
 

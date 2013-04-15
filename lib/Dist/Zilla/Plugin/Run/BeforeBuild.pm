@@ -14,7 +14,7 @@ use namespace::autoclean;
 sub before_build {
     my ($self) = @_;
   $self->call_script({
-    pos => [$self->zilla->version]
+    pos => [sub { $self->zilla->version }]
   });
 }
 

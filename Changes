@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - Switching to [@Author::GETTY] dzil bundle
+  - Adding .travis.yml for travis-ci
 
 0.019     2013-04-15 07:52:25 America/Phoenix
 

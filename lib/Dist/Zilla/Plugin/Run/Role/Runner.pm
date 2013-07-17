@@ -4,7 +4,6 @@ use warnings;
 package Dist::Zilla::Plugin::Run::Role::Runner;
 # ABSTRACT: Role for the packages of Dist::Zilla::Plugin::Run
 use Moose::Role;
-use String::Formatter 0.102082 ();
 use namespace::autoclean;
 use File::Spec (); # core
 use Config     (); # core
@@ -142,6 +141,9 @@ my $path_separator = (File::Spec->catfile(qw(a b)) =~ m/^a(.+?)b$/)[0];
 
 sub build_formatter {
     my ( $self, $params ) = @_;
+
+    require String::Formatter;
+    String::Formatter->VERSION(0.102082);
 
     # stringify build directory
     my $dir = $params->{dir} || $self->zilla->built_in;

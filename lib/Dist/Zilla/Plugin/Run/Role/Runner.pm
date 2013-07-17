@@ -7,7 +7,6 @@ use Moose::Role;
 use String::Formatter 0.102082 ();
 use namespace::autoclean;
 use File::Spec (); # core
-use IPC::Open3 (); # core
 use Config     (); # core
 
 has perlpath => (
@@ -107,6 +106,8 @@ sub call_script {
 sub run_cmd {
     my ( $self, $run_cmd, $params ) = @_;
     if ($run_cmd) {
+        require IPC::Open3;  # core
+
         my $command = $self->build_formatter($params)->format($run_cmd);
         $self->log("Executing: $command");
 

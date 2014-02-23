@@ -3,6 +3,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::Run::BeforeBuild;
 # ABSTRACT: execute a command of the distribution before build
+
 use Moose;
 with qw(
 	Dist::Zilla::Role::BeforeBuild

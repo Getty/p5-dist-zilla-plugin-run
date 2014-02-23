@@ -3,6 +3,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::Run::Release;
 # ABSTRACT: execute a command of the distribution on release
+
 use Moose;
 with qw(
 	Dist::Zilla::Role::Releaser

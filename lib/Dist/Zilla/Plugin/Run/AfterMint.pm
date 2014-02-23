@@ -3,6 +3,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::Run::AfterMint;
 # ABSTRACT: Execute a command after a new dist is minted
+
 use Moose;
 with qw(
   Dist::Zilla::Role::AfterMint

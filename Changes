@@ -4,6 +4,8 @@ Revision history for {{$dist->name}}
 
 0.021     2014-02-23 15:31:47-08:00 America/Vancouver
   - Lazy load runtime dependencies. Thanks Olivier Mengué!
+  - unroll author pluginbundle, to remove some unneeded and broken
+    prerequisites
 
 0.020     2013-04-21 02:02:21 Europe/Berlin
   - Switching to [@Author::GETTY] dzil bundle

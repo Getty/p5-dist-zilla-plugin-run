@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - more complete metadata
 
 0.021     2014-02-23 15:31:47-08:00 America/Vancouver
   - Lazy load runtime dependencies. Thanks Olivier Mengué!

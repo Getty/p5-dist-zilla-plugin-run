@@ -1,3 +1,6 @@
-Dist-Zilla-Plugin-Run-*
-.build
-.project
+/.ackrc
+/.build/
+!/.gitignore
+/.latest
+/Dist-Zilla-Plugin-Run-*/
+/Dist-Zilla-Plugin-Run-*.tar.gz

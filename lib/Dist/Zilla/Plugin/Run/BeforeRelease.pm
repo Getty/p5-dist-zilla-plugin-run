@@ -6,8 +6,8 @@ package Dist::Zilla::Plugin::Run::BeforeRelease;
 
 use Moose;
 with qw(
-	Dist::Zilla::Role::BeforeRelease
-	Dist::Zilla::Plugin::Run::Role::Runner
+    Dist::Zilla::Role::BeforeRelease
+    Dist::Zilla::Plugin::Run::Role::Runner
 );
 
 use namespace::autoclean;
@@ -26,7 +26,7 @@ sub before_release {
   run = script/myapp_before.pl %s
 
 or
-  
+
   [Run::BeforeRelease / MyAppBefore]
   run = script/myapp_before.pl %s
 

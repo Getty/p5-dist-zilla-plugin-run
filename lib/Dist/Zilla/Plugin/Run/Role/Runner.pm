@@ -130,12 +130,12 @@ sub run_cmd {
 
 around mvp_multivalue_args => sub {
     my ($original, $self) = @_;
-    
+
     my @res = $self->$original();
 
     push @res, qw( run run_no_trial run_if_trial run_if_release run_no_release );
-    
-    @res; 
+
+    @res;
 };
 
 my $path_separator = (File::Spec->catfile(qw(a b)) =~ m/^a(.+?)b$/)[0];

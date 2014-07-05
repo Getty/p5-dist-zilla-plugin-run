@@ -6,15 +6,15 @@ package Dist::Zilla::Plugin::Run::Test;
 
 use Moose;
 with qw(
-	Dist::Zilla::Role::TestRunner
-	Dist::Zilla::Plugin::Run::Role::Runner
+    Dist::Zilla::Role::TestRunner
+    Dist::Zilla::Plugin::Run::Role::Runner
 );
 
 use namespace::autoclean;
 
 sub test {
     my ($self, $dir) = @_;
-    
+
     $self->call_script({
         dir =>  $dir
     });
@@ -32,8 +32,8 @@ This plugin executes the specified command during the test phase.
 
 =head1 CAVEAT
 
-Unlike the other [Run::*] plugins, when running the scripts, the 
-current working directory will be the directory with 
+Unlike the other [Run::*] plugins, when running the scripts, the
+current working directory will be the directory with
 newly built distribution. This is the way Dist::Zilla works.
 
 =head1 POSITIONAL PARAMETERS

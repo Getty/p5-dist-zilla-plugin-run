@@ -1,7 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
-  - more complete metadata
+  - more complete metadata and author tests
 
 0.021     2014-02-23 15:31:47-08:00 America/Vancouver
   - Lazy load runtime dependencies. Thanks Olivier Mengué!
@@ -78,19 +78,19 @@ Revision history for {{$dist->name}}
     Retain positional %s for backward compatibility. (RWSTAUNER)
 
 0.006     2011-05-21 02:58:17 Europe/Berlin
-	- Fixed wrong bangpath
+    - Fixed wrong bangpath
 
 0.005     2011-04-29 22:54:18 Europe/Berlin
 
 0.005     2011-01-21 13:21:08 Europe/Moscow
 
 0.004     2010-12-14 21:19:54 Europe/Berlin
-	- Minimal pod changes
+    - Minimal pod changes
 
 0.003     2010-12-14 03:18:00 Europe/Berlin
-	- Complete Change of API
+    - Complete Change of API
 
 0.002     2010-12-13 18:07:27 Europe/Berlin
 
 0.001     2010-12-12 04:14:54 Europe/Berlin
-	- First release
+    - First release

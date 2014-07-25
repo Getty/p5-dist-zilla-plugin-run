@@ -1,10 +1,6 @@
 use strict;
 use warnings;
 
-use Path::Class;
+use Path::Tiny;
 
-my $fh = dir($ARGV[ 0 ], 'lib')->file('AFTER_BUILD.txt')->openw();
-
-printf $fh "after_build";
-
-close($fh);
+path($ARGV[ 0 ], 'lib', 'AFTER_BUILD.txt')->spew("after_build");

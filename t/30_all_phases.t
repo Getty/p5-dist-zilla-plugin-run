@@ -4,7 +4,7 @@ use Test::More 0.88;
 
 use lib 't/lib';
 
-use Path::Class;
+use Path::Tiny;
 use Dist::Zilla::Tester;
 
 {
@@ -14,7 +14,7 @@ use Dist::Zilla::Tester;
 
     $tzil->release;
     my $dir = $tzil->tempdir->subdir('build');
-    my @txt = split /\n/, $tzil->slurp_file(file(qw(source script phases.txt)));
+    my @txt = split /\n/, $tzil->slurp_file(path(qw(source script phases.txt)));
 
     my %f = (
         a => 'TestDzilPhases-1.01.tar.gz',

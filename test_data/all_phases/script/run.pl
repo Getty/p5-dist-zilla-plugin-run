@@ -1,10 +1,7 @@
 use strict;
 use warnings;
 
-use Path::Class;
+use Path::Tiny;
 
-#my $fh = dir($ARGV[ 0 ], 'lib')->file('AFTER_BUILD.txt')->openw();
-my $fh = file(__FILE__)->parent->file('phases.txt')->open('>>');
-binmode $fh;
-print $fh join(' ', @ARGV) . "\n";
-close $fh;
+#my $fh = path($ARGV[ 0 ], 'lib', 'AFTER_BUILD.txt')->openw();
+path(__FILE__)->parent->child('phases.txt')->append_raw(join(' ', @ARGV) . "\n");

@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - convert uses of Path::Class to Path::Tiny
 
 0.022     2014-07-24 15:36:32Z
   - more complete metadata and author tests

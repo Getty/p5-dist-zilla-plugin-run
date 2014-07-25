@@ -1,8 +1,6 @@
 use strict;
 use warnings;
 
-use Path::Class;
+use Path::Tiny;
 
-my $fh = file("BEFORE_BUILD.txt")->openw();
-
-close($fh);
+path("BEFORE_BUILD.txt")->touch();

@@ -1,11 +1,7 @@
 use strict;
 use warnings;
 
-use Path::Class;
+use Path::Tiny;
 
-my $fh = dir($ARGV[ 0 ])->file('test.txt')->openw();
-
-printf $fh join(' ', test => @ARGV);
-
-close($fh);
+path($ARGV[ 0 ], 'test.txt')->spew(join(' ', test => @ARGV));
 

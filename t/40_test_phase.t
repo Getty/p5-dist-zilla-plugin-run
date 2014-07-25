@@ -2,8 +2,7 @@ use strict;
 use warnings;
 use Test::More 0.88;
 
-use Path::Class;
-
+use Path::Tiny;
 use Dist::Zilla::Tester;
 
 {
@@ -16,11 +15,11 @@ use Dist::Zilla::Tester;
     my $dir = $tzil->tempdir->subdir('build');
     $tzil->run_tests_in($dir);
 
-    my $test_file   = $tzil->tempdir->file(qw(build test.txt));
+    my $test_file   = path($tzil->tempdir, qw(build test.txt));
 
     ok(-f $test_file, 'Test script has been ran');
 
-    my $content     = $tzil->slurp_file(file(qw(build test.txt)));
+    my $content     = $tzil->slurp_file(path(qw(build test.txt)));
 
     is($content, "test $dir Digest-MD5-0.01", 'Correct `test` result');
 }

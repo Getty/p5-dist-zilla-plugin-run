@@ -7,7 +7,7 @@ before_install:
   - git config --global user.email $HOSTNAME":not-for-mail@travis-ci.org"
 install:
   - export AUTOMATED_TESTING=1
-  - export HARNESS_OPTIONS=j10:c
+  - export HARNESS_OPTIONS=j1:c
   - export HARNESS_TIMER=1
   - cpanm --verbose --skip-satisfied Dist::Zilla
   - cpanm --verbose Dist::Zilla::App::Command::stale

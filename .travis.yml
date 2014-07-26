@@ -25,4 +25,4 @@ script:
   - export AUTOMATED_TESTING=1
   - export HARNESS_OPTIONS=j10:c
   - export HARNESS_TIMER=1
-  - dzil smoke --release --author
+  - dzil test --all

@@ -12,8 +12,8 @@ install:
   - cpanm --verbose --skip-satisfied Dist::Zilla
   - cpanm --verbose Dist::Zilla::App::Command::stale
   - "dzil stale --all | cpanm --verbose"
-  - "dzil authordeps | grep -vP '[^\\w:]' | xargs -n 5 -P 10 cpanm --verbose --skip-satisfied"
-  - "dzil listdeps --author | grep -vP '[^\\w:]' | cpanm --verbose"
+  - "dzil authordeps --missing | grep -vP '[^\\w:]' | xargs -n 5 -P 10 cpanm --verbose"
+  - "dzil listdeps --author --missing | grep -vP '[^\\w:]' | cpanm --verbose"
 language: perl
 perl:
   - 5.18

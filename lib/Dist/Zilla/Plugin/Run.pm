@@ -55,7 +55,7 @@ plugin, like I<[Run::Release]> runs on release phase.
 
 Only run the given command if this isn't a I<trial> build or release.
 
-=head2 run_trial
+=head2 run_if_trial
 
 Only run the given command if this is a I<trial> build or release.
 

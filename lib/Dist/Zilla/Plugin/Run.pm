@@ -67,6 +67,15 @@ Only run the given command if this is a release.
 
 Only run a given command if this isn't a release.
 
+=head2 censor_commands
+
+Normally, C<run*> commands are included in distribution metadata when used
+with the L<[MetaConfig]|Dist::Zilla::Plugin::MetaConfig> plugin. To bypass
+this, set C<censor_commands = 1>.  Additionally, this command is set to true
+automatically when a URL with embedded password is present.
+
+Defaults to false.
+
 =head1 CONVERSIONS
 
 The following conversions/format specifiers are defined

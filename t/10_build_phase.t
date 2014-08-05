@@ -4,6 +4,7 @@ use Test::More 0.88;
 
 use Path::Tiny;
 use Dist::Zilla::Tester;
+use Test::Deep;
 
 sub test_build {
     my %test = @_;
@@ -45,6 +46,38 @@ sub test_build {
             qr{\[Run::AfterBuild\] Command executed successfully},
             'logged command status';
     }
+
+    cmp_deeply(
+        $tzil->distmeta,
+        superhashof({
+            x_Dist_Zilla => superhashof({
+                plugins => supersetof(
+                    {
+                        class => 'Dist::Zilla::Plugin::Run::BeforeBuild',
+                        config => {
+                            'Dist::Zilla::Plugin::Run::Role::Runner' => {
+                                run => [ '%x script%pbefore_build.pl' ],
+                            },
+                        },
+                        name => 'Run::BeforeBuild',
+                        version => ignore,
+                    },
+                    {
+                        class => 'Dist::Zilla::Plugin::Run::AfterBuild',
+                        config => {
+                            'Dist::Zilla::Plugin::Run::Role::Runner' => {
+                                run => [ '%x script%pafter_build.pl "%s"' ],
+                                run_no_trial => [ '%x script%pno_trial.pl "%s"' ],
+                            },
+                        },
+                        name => 'Run::AfterBuild',
+                        version => ignore,
+                    },
+                ),
+            }),
+        }),
+        'dumped configs are good',
+    );
 }
 
 test_build();

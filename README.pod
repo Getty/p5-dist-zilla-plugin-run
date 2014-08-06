@@ -8,7 +8,7 @@ Dist::Zilla::Plugin::Run - Run external commands at specific phases of Dist::Zil
 
 =head1 VERSION
 
-version 0.022
+version 0.023
 
 =head1 SYNOPSIS
 
@@ -61,7 +61,7 @@ plugin, like I<[Run::Release]> runs on release phase.
 
 Only run the given command if this isn't a I<trial> build or release.
 
-=head2 run_trial
+=head2 run_if_trial
 
 Only run the given command if this is a I<trial> build or release.
 
@@ -72,6 +72,15 @@ Only run the given command if this is a release.
 =head2 run_no_release
 
 Only run a given command if this isn't a release.
+
+=head2 censor_commands
+
+Normally, C<run*> commands are included in distribution metadata when used
+with the L<[MetaConfig]|Dist::Zilla::Plugin::MetaConfig> plugin. To bypass
+this, set C<censor_commands = 1>.  Additionally, this command is set to true
+automatically when a URL with embedded password is present.
+
+Defaults to false.
 
 =head1 CONVERSIONS
 
@@ -124,6 +133,8 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =head1 CONTRIBUTORS
+
+=for stopwords Al Newkirk Karen Etheridge Nickolay Platonov Olivier Mengué Randy Stauner Tatsuhiko Miyagawa Torsten Raudssus
 
 =over 4
 

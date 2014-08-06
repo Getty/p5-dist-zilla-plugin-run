@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.023     2014-08-06 05:33:20Z
   - convert uses of Path::Class to Path::Tiny
   - dump config into metadata when [MetaConfig] used, but the
     'censor_commands' option can be used to avoid this

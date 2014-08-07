@@ -20,7 +20,6 @@ sub test_build {
 
     ok(-f $before_build_result, 'Before build script has been ran');
 
-
     my $after_build_result  = $tzil->slurp_file(path(qw(build lib AFTER_BUILD.txt)));
 
     ok($after_build_result eq 'after_build', 'Correct `after_build` result');

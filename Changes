@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - fix use of path separator in test to avoid failure on MSWin32
 
 0.023     2014-08-06 05:33:20Z
   - convert uses of Path::Class to Path::Tiny

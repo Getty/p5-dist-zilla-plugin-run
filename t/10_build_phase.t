@@ -77,7 +77,7 @@ sub test_build {
             }),
         }),
         'dumped configs are good',
-    );
+    ) or diag 'got distmeta: ', explain $tzil->distmeta;
 }
 
 test_build();

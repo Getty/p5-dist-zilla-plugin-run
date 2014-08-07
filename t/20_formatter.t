@@ -89,7 +89,7 @@ use Dist::Zilla::Tester;
             }),
         }),
         'dumped configs are good',
-    );
+    ) or diag 'got distmeta: ', explain $tzil->distmeta;
 }
 
 done_testing;

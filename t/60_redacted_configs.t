@@ -43,7 +43,7 @@ use Test::Deep;
             }),
         }),
         'dumped configs omit the command on request',
-    );
+    ) or diag 'got distmeta: ', explain $tzil->distmeta;
 }
 
 {
@@ -84,7 +84,7 @@ use Test::Deep;
             }),
         }),
         'dumped configs do not contain my password',
-    );
+    ) or diag 'got distmeta: ', explain $tzil->distmeta;
 }
 
 done_testing;

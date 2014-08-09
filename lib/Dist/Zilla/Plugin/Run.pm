@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 package Dist::Zilla::Plugin::Run;
-# ABSTRACT: Run external commands at specific phases of Dist::Zilla
+# ABSTRACT: Run external commands and code at specific phases of Dist::Zilla
 
 =head1 SYNOPSIS
 
@@ -39,17 +39,18 @@ package Dist::Zilla::Plugin::Run;
 
   [Run::AfterMint]
   run = some command %d
+  eval = unlink scratch.dat
 
 =head1 DESCRIPTION
 
-Run arbitrary commands at various L<Dist::Zilla> phases.
+Run arbitrary commands and code at various L<Dist::Zilla> phases.
 
 =head1 PARAMETERS
 
 =head2 run
 
-Run the specific command at the specific Dist::Zilla phase given by the
-plugin, like I<[Run::Release]> runs on release phase.
+Run the specific command at the specific L<Dist::Zilla> phase given by the
+plugin. For example, C<[Run::Release]> runs during the release phase.
 
 =head2 run_no_trial
 

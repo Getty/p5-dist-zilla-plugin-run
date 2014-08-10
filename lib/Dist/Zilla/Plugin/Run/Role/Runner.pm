@@ -63,6 +63,12 @@ has run_no_release => (
     default => sub { [] },
 );
 
+has eval => (
+    is => 'ro',
+    isa  => 'ArrayRef[Str]',
+    default => sub { [] },
+);
+
 around dump_config => sub
 {
     my ($orig, $self) = @_;
@@ -74,7 +80,7 @@ around dump_config => sub
             ? ( $_ => ( $self->censor_commands ? 'REDACTED' : $self->$_ ) )
             : ()
         }
-        qw(run run_if_trial run_no_trial run_if_release run_no_release),
+        qw(run run_if_trial run_no_trial run_if_release run_no_release eval),
     };
 
     return $config;
@@ -136,6 +142,14 @@ sub call_script {
         }
     }
 
+    if (my @code = @{ $self->eval }) {
+        my $code = join "\n", @code;
+        $self->log("evaluating: $code");
+
+        my $sub = sub { eval $code };
+        $sub->($self);
+        $self->log('evaluation died: ' . $@) if $@;
+    }
 }
 
 sub run_cmd {
@@ -168,7 +182,7 @@ around mvp_multivalue_args => sub {
 
     my @res = $self->$original();
 
-    push @res, qw( run run_no_trial run_if_trial run_if_release run_no_release );
+    push @res, qw( run run_no_trial run_if_trial run_if_release run_no_release eval );
 
     @res;
 };

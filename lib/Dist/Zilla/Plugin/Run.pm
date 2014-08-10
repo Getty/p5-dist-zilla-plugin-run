@@ -9,10 +9,14 @@ package Dist::Zilla::Plugin::Run;
   [Run::AfterBuild]
   run = script/do_this.pl --dir %s --version %s
   run = script/do_that.pl
+  eval = unlink scratch.dat
 
   [Run::BeforeBuild]
   run = script/do_this.pl --version %s
   run = script/do_that.pl
+  eval = if ($ENV{SOMETHING}) {
+  eval =   shift->log('some message')
+  eval = }
 
   [Run::BeforeRelease]
   run = script/myapp_before1.pl %s
@@ -67,6 +71,15 @@ Only run the given command if this is a release.
 =head2 run_no_release
 
 Only run a given command if this isn't a release.
+
+=head2 eval (EXPERIMENTAL)
+
+Treats the input as a list of lines of Perl code; the code is evaluated at the
+specific L<Dist::Zilla> phase given by the plugin. The code is executed in its
+own C<eval> scope, within a subroutine body; C<@_> contains the instance of the
+plugin executing the code. (Remember that C<shift> in an C<eval> actually
+operates on C<@ARGV>, not C<@_>, so to access the plugin instance, use
+C<$_[0]>.)
 
 =head2 censor_commands
 

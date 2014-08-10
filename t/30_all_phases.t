@@ -35,13 +35,13 @@ SCRIPT
     );
 
     $tzil->release;
-    my $dir = $tzil->tempdir->subdir('build');
+    my $build_dir = path($tzil->tempdir)->child('build');
     my @txt = split /\n/, $tzil->slurp_file(path(qw(source script phases.txt)));
 
     my %f = (
         a => 'DZT-Sample-0.001.tar.gz',
         n => 'DZT-Sample',
-        d => $dir,
+        d => $build_dir,
         v => '0.001',
         x => Dist::Zilla::Plugin::Run::Role::Runner->current_perl_path,
     );

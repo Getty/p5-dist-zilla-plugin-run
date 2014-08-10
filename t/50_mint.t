@@ -3,6 +3,7 @@ use warnings;
 use Test::More 0.88;
 use Test::DZil;
 use Path::Class;    # argh
+use Path::Tiny;
 
 use Test::File::ShareDir -share => {
   -module => { 'Dist::Zilla::MintingProfile::Default' => 'test_data/profiles' },
@@ -17,11 +18,11 @@ use Test::File::ShareDir -share => {
 
   $tzil->mint_dist();
 
-  my $dir = $tzil->tempdir->subdir(qw(mint empty_dir));
+  my $dir = path($tzil->tempdir)->child(qw(mint empty_dir));
 
   ok -d $dir, 'created directory in mint dir';
 
-  is_deeply [$dir->children], [], 'dir is empty but exists';
+  is_deeply [glob($dir->child('*'))], [], 'dir is empty but exists';
 
   like $tzil->slurp_file('mint/lib/DZT/Minty.pm'),
     qr/package DZT::Minty;/,

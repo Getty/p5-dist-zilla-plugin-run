@@ -27,16 +27,16 @@ SCRIPT
 
     $tzil->build();
 
-    my $dir = $tzil->tempdir->subdir('build');
-    $tzil->run_tests_in($dir);
+    my $build_dir = path($tzil->tempdir)->child('build');
+    $tzil->run_tests_in($build_dir);
 
-    my $test_file   = path($tzil->tempdir, qw(build test.txt));
+    my $test_file   = $build_dir->child('test.txt');
 
     ok(-f $test_file, 'Test script has been ran');
 
     my $content     = $tzil->slurp_file(path(qw(build test.txt)));
 
-    is($content, "test $dir DZT-Sample-0.001", 'Correct `test` result');
+    is($content, "test $build_dir DZT-Sample-0.001", 'Correct `test` result');
 }
 
 done_testing;

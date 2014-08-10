@@ -1,21 +1,46 @@
 use strict;
 use warnings;
 use Test::More 0.88;
+use Test::DZil;
 use Test::Deep;
-use Dist::Zilla::Tester;
+use Path::Tiny;
 
 {
-    my $tzil = Dist::Zilla::Tester->from_config(
-        { dist_root => 'test_data/all_phases' },
+    my $tzil = Builder->from_config(
+        { dist_root => 't/does-not-exist' },
+        {
+            add_files => {
+                path(qw(source dist.ini)) => simple_ini(
+                    [ GatherDir => ],
+                    [ MetaConfig => ],
+
+                    [ 'Run::BeforeBuild' => { run => [ '%x script%prun.pl before_build %s %n %v .%d.%a. %x' ] } ],
+                    [ 'Run::AfterBuild' => { run => [ '%x script%prun.pl after_build %n %v %d %s %s %v .%a. %x' ] } ],
+                    [ 'Run::BeforeRelease' => { run => [ '%x script%prun.pl before_release %n -d %d %s -v %v .%a. %x' ] } ],
+                    [ 'Run::Release' => { run => [ '%x script%prun.pl release %s %n %v %d/a %d/b %a %x' ] } ],
+                    [ 'Run::AfterRelease' => { run => [ '%x script%prun.pl after_release %d %v %s %s %n %a %x' ] } ],
+                ),
+                path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
+                path(qw(source script run.pl)) => <<'SCRIPT',
+use strict;
+use warnings;
+
+use Path::Tiny;
+
+#my $fh = path($ARGV[ 0 ], 'lib', 'AFTER_BUILD.txt')->openw();
+path(__FILE__)->parent->child('phases.txt')->append_raw(join(' ', @ARGV) . "\n");
+SCRIPT
+            },
+        },
     );
 
     my $dir = 'fake';
 
     my %f = (
-        a => 'TestDzilPhases-1.01.tar.gz',
-        n => 'TestDzilPhases',
+        a => 'DZT-Sample-0.001.tar.gz',
+        n => 'DZT-Sample',
         d => $dir,
-        v => '1.01',
+        v => '0.001',
     );
 
     my $formatter = $tzil->plugin_named('Run::AfterRelease')->build_formatter({

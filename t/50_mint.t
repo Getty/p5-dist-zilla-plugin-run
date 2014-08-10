@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use Test::More 0.88;
 use Test::DZil;
-use Path::Class;
+use Path::Class;    # argh
 
 use Test::File::ShareDir -share => {
   -module => { 'Dist::Zilla::MintingProfile::Default' => 'test_data/profiles' },

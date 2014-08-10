@@ -2,15 +2,48 @@ use strict;
 use warnings;
 use Test::More 0.88;
 
+use Test::DZil;
 use Path::Tiny;
-use Dist::Zilla::Tester;
 use Test::Deep;
 
 sub test_build {
     my %test = @_;
 
-    my $tzil = Dist::Zilla::Tester->from_config(
-        { dist_root => 'test_data/build_phase' },
+    my $tzil = Builder->from_config(
+        { dist_root => 't/does-not-exist' },
+        {
+            add_files => {
+                path(qw(source dist.ini)) => simple_ini(
+                    [ GatherDir => ],
+                    [ MetaConfig => ],
+                    [ 'Run::BeforeBuild' => { run => [ '%x script%pbefore_build.pl' ] } ],
+                    [ 'Run::AfterBuild' => {
+                        run => [ '%x script%pafter_build.pl "%s"' ],
+                        run_no_trial => [ '%x script%pno_trial.pl "%s"' ],
+                      }
+                    ],
+                ),
+                path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
+                path(qw(source script before_build.pl)) => <<'SCRIPT',
+use strict;
+use warnings;
+use Path::Tiny;
+path("BEFORE_BUILD.txt")->touch();
+SCRIPT
+                path(qw(source script after_build.pl)) => <<'SCRIPT',
+use strict;
+use warnings;
+use Path::Tiny;
+path($ARGV[ 0 ], 'lib', 'AFTER_BUILD.txt')->spew("after_build");
+SCRIPT
+                path(qw(source script no_trial.pl)) => <<'SCRIPT',
+use strict;
+use warnings;
+use Path::Tiny;
+path($ARGV[0], 'lib', 'NO_TRIAL.txt')->spew(":-P");
+SCRIPT
+            },
+        },
     );
 
     $tzil->is_trial(1) if $test{trial};

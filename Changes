@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.024     2014-08-16 00:36:01Z (TRIAL RELEASE)
   - fix use of path separator in test to avoid failure on MSWin32
   - new "eval" option, for executing Perl code
 

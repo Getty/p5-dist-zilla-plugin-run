@@ -13,7 +13,7 @@ my @config = map {
     map {
         $_ || $phase eq 'release'
             ? [ 'Run::' . ucfirst($_) . ucfirst($phase) => { eval => [
-                "Path::Tiny::path('eval_out.txt')->append('" . ($_ ? "${_}_" : "") . "$phase for [' . \$_[0]->plugin_name . ']' . qq{\\n});" ] } ]
+                "Path::Tiny::path('eval_out.txt')->append_raw('" . ($_ ? "${_}_" : "") . "$phase for [' . \$_[0]->plugin_name . ']' . qq{\\n});" ] } ]
             : ()
         } ('before', '', 'after')
     } qw(build release);
@@ -57,11 +57,11 @@ CONTENT
 cmp_deeply(
     $tzil->log_messages,
     superbagof(
-        re(qr/^\Q[Run::BeforeBuild] evaluating: Path::Tiny::path('eval_out.txt')->append('before_build \E/),
-        re(qr/^\Q[Run::AfterBuild] evaluating: Path::Tiny::path('eval_out.txt')->append('after_build \E/),
-        re(qr/^\Q[Run::BeforeRelease] evaluating: Path::Tiny::path('eval_out.txt')->append('before_release \E/),
-        re(qr/^\Q[Run::Release] evaluating: Path::Tiny::path('eval_out.txt')->append('release \E/),
-        re(qr/^\Q[Run::AfterRelease] evaluating: Path::Tiny::path('eval_out.txt')->append('after_release \E/),
+        re(qr/^\Q[Run::BeforeBuild] evaluating: Path::Tiny::path('eval_out.txt')->append_raw('before_build \E/),
+        re(qr/^\Q[Run::AfterBuild] evaluating: Path::Tiny::path('eval_out.txt')->append_raw('after_build \E/),
+        re(qr/^\Q[Run::BeforeRelease] evaluating: Path::Tiny::path('eval_out.txt')->append_raw('before_release \E/),
+        re(qr/^\Q[Run::Release] evaluating: Path::Tiny::path('eval_out.txt')->append_raw('release \E/),
+        re(qr/^\Q[Run::AfterRelease] evaluating: Path::Tiny::path('eval_out.txt')->append_raw('after_release \E/),
     ),
     'got diagnostics when code is evaluated',
 );

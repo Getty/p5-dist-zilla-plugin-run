@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.025     2014-08-18 03:36:32Z (TRIAL RELEASE)
   - fix use of path separator in test to avoid more failures on MSWin32
   - fix use of :crlf mode in test to avoid yet more failures on MSWin32
 

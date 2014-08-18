@@ -4,6 +4,7 @@ use Test::More 0.88;
 use Test::DZil;
 use Test::Deep;
 use Path::Tiny;
+use File::Spec;
 
 {
     my $tzil = Builder->from_config(
@@ -35,13 +36,12 @@ SCRIPT
     );
 
     $tzil->release;
-    my $build_dir = path($tzil->tempdir)->child('build');
     my @txt = split /\n/, $tzil->slurp_file(path(qw(source script phases.txt)));
 
     my %f = (
         a => 'DZT-Sample-0.001.tar.gz',
         n => 'DZT-Sample',
-        d => $build_dir,
+        d => File::Spec->catdir(File::Spec->splitdir($tzil->tempdir), 'build'), # OS-specific path separators
         v => '0.001',
         x => Dist::Zilla::Plugin::Run::Role::Runner->current_perl_path,
     );

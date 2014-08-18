@@ -4,7 +4,6 @@ use Test::More 0.88;
 use Test::DZil;
 use Test::Deep;
 use Path::Tiny;
-use File::Spec;
 
 {
     my $tzil = Builder->from_config(
@@ -41,7 +40,7 @@ SCRIPT
     my %f = (
         a => 'DZT-Sample-0.001.tar.gz',
         n => 'DZT-Sample',
-        d => File::Spec->catdir(File::Spec->splitdir($tzil->tempdir), 'build'), # OS-specific path separators
+        d => path($tzil->tempdir)->child('build')->canonpath, # use OS-specific path separators
         v => '0.001',
         x => Dist::Zilla::Plugin::Run::Role::Runner->current_perl_path,
     );

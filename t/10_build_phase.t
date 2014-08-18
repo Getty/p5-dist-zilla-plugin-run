@@ -69,7 +69,7 @@ SCRIPT
         ok( (  -f $no_trial_file), 'non-trial - file present' );
         is $no_trial_file->slurp, ':-P', 'non-trial content';
 
-        my $script = File::Spec->catfile(script => 'no_trial.pl');
+        my $script = path('script','no_trial.pl')->canonpath;   # use OS-specific path separators
         like $tzil->log_messages->[-2],
             qr{\[Run::AfterBuild\] Executing: .+ \Q$script\E .+},
             'logged execution';

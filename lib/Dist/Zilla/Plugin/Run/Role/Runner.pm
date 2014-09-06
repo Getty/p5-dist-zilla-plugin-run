@@ -237,7 +237,7 @@ sub build_formatter {
 }
 
 sub current_perl_path {
-    # see perlvar $^X
+    # see perlvar $^X for why we don't just use that here
     my $perl = $Config::Config{perlpath};
     if ($^O ne 'VMS') {
         $perl .= $Config::Config{_exe}

@@ -221,6 +221,7 @@ sub build_formatter {
     # available during build, not mint
     unless( $params->{minting} ){
         $codes->{v} = sub { $self->zilla->version };
+        $codes->{t} = sub { $self->zilla->is_trial ? '-TRIAL' : '' };
     }
 
     # positional replace (backward compatible)

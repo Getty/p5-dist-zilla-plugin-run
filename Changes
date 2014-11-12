@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.027     2014-11-12 01:41:50Z
   - new formatter code added: "%t", for indicating a trial release (PR#9,
     Thomas Sibley)
 

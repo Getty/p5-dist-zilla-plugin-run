@@ -4,11 +4,12 @@ CONTRIBUTING
 Thank you for considering contributing to this distribution.  This file
 contains instructions that will help you work with the source code.
 
-PLEASE NOTE that if you have any questions or difficulties, you can reach me
-through the bug queue described later in this document (preferred), or by
-emailing me directly. You are not required to follow any of the steps in this
-document to submit a patch or bug report; these are just recommendations,
-intended to help you (and help me help you faster).
+PLEASE NOTE that if you have any questions or difficulties, you can reach the
+maintainer(s) through the bug queue described later in this document
+(preferred), or by emailing the releaser directly. You are not required to
+follow any of the steps in this document to submit a patch or bug report;
+these are just recommendations, intended to help you (and help us help you
+faster).
 
 The distribution is managed with Dist::Zilla (https://metacpan.org/release/Dist-Zilla).
 This means than many of the usual files you might expect are not in the
@@ -97,4 +98,4 @@ the .mailmap file to contain the correct mapping.
 
 
 This file was generated via Dist::Zilla::Plugin::GenerateFile::ShareDir 0.005 from a
-template file originating in Dist-Zilla-PluginBundle-Author-ETHER-0.073.
+template file originating in Dist-Zilla-PluginBundle-Author-ETHER-0.078.

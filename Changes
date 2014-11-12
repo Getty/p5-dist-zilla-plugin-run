@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - new formatter code added: "%t", for indicating a trial release (PR#9,
+    Thomas Sibley)
 
 0.026     2014-09-06 06:42:06Z
   - all test reports are green! release the hounds!

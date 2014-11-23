@@ -27,8 +27,7 @@ use warnings;
 
 use Path::Tiny;
 
-#my $fh = path($ARGV[ 0 ], 'lib', 'AFTER_BUILD.txt')->openw();
-path(__FILE__)->parent->child('phases.txt')->append_raw(join(' ', @ARGV) . "\n");
+path('.')->child('phases.txt')->append_raw(join(' ', @ARGV) . "\n");
 SCRIPT
             },
         },
@@ -36,7 +35,7 @@ SCRIPT
 
     $tzil->chrome->logger->set_debug(1);
     $tzil->release;
-    my @txt = split /\n/, path($tzil->tempdir)->child(qw(source script phases.txt))->slurp_raw;
+    my @txt = split /\n/, path($tzil->tempdir)->child(qw(source phases.txt))->slurp_raw;
 
     my %f = (
         a => 'DZT-Sample-0.001.tar.gz',

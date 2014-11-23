@@ -34,6 +34,7 @@ SCRIPT
         },
     );
 
+    $tzil->chrome->logger->set_debug(1);
     $tzil->release;
     my @txt = split /\n/, path($tzil->tempdir)->child(qw(source script phases.txt))->slurp_raw;
 
@@ -60,6 +61,9 @@ OUTPUT
     foreach my $i ( 0 .. $#exp ) {
       is($txt[$i], $exp[$i], "expected output from $phases[$i] phase");
     }
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
 }
 
 done_testing;

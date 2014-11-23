@@ -22,6 +22,8 @@ use Test::Deep;
             },
         },
     );
+
+    $tzil->chrome->logger->set_debug(1);
     $tzil->build;
 
     cmp_deeply(
@@ -44,6 +46,9 @@ use Test::Deep;
         }),
         'dumped configs omit the command on request',
     ) or diag 'got distmeta: ', explain $tzil->distmeta;
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
 }
 
 {
@@ -63,6 +68,8 @@ use Test::Deep;
             },
         },
     );
+
+    $tzil->chrome->logger->set_debug(1);
     $tzil->build;
 
     cmp_deeply(
@@ -85,6 +92,9 @@ use Test::Deep;
         }),
         'dumped configs do not contain my password',
     ) or diag 'got distmeta: ', explain $tzil->distmeta;
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
 }
 
 done_testing;

@@ -46,6 +46,7 @@ SCRIPT
         },
     );
 
+    $tzil->chrome->logger->set_debug(1);
     $tzil->is_trial(1) if $test{trial};
     $tzil->build;
 
@@ -110,6 +111,9 @@ SCRIPT
         }),
         'dumped configs are good',
     ) or diag 'got distmeta: ', explain $tzil->distmeta;
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
 }
 
 test_build();

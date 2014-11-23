@@ -57,6 +57,9 @@ SCRIPT
 
     is $formatter->format('%v%t%s%n'), "$f{v}$f{t}$f{n}", 'ran out of %s (but not the constants)';
 
+    $tzil->chrome->logger->set_debug(1);
+    $tzil->release;
+
     cmp_deeply(
         $tzil->distmeta,
         superhashof({
@@ -117,6 +120,9 @@ SCRIPT
         }),
         'dumped configs are good',
     ) or diag 'got distmeta: ', explain $tzil->distmeta;
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
 }
 
 done_testing;

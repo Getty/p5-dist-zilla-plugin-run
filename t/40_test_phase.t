@@ -25,6 +25,7 @@ SCRIPT
         },
     );
 
+    $tzil->chrome->logger->set_debug(1);
     $tzil->build();
 
     my $build_dir = path($tzil->tempdir)->child('build');
@@ -37,6 +38,9 @@ SCRIPT
     my $content     = path($tzil->tempdir)->child(qw(build test.txt))->slurp_raw;
 
     is($content, "test $build_dir DZT-Sample-0.001", 'Correct `test` result');
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
 }
 
 done_testing;

@@ -24,11 +24,11 @@ use Test::File::ShareDir -share => {
 
   is_deeply [glob($dir->child('*'))], [], 'dir is empty but exists';
 
-  like $tzil->slurp_file('mint/lib/DZT/Minty.pm'),
+  like path($tzil->tempdir)->child(qw(mint lib DZT Minty.pm))->slurp_utf8,
     qr/package DZT::Minty;/,
     'minted regular file';
 
-  like $tzil->slurp_file('mint/minted_at.txt'),
+  like path($tzil->tempdir)->child('mint/minted_at.txt')->slurp_utf8,
     qr/DZT-Minty minted at \d+/,
     'created file the hard way';
 }

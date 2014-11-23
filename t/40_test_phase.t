@@ -19,7 +19,7 @@ use Test::DZil;
 use strict;
 use warnings;
 use Path::Tiny;
-path($ARGV[ 0 ], 'test.txt')->spew(join(' ', test => @ARGV));
+path($ARGV[ 0 ], 'test.txt')->spew_raw(join(' ', test => @ARGV));
 SCRIPT
             },
         },
@@ -34,7 +34,7 @@ SCRIPT
 
     ok(-f $test_file, 'Test script has been ran');
 
-    my $content     = $tzil->slurp_file(path(qw(build test.txt)));
+    my $content     = path($tzil->tempdir)->child(qw(build test.txt))->slurp_raw;
 
     is($content, "test $build_dir DZT-Sample-0.001", 'Correct `test` result');
 }

@@ -35,7 +35,7 @@ SCRIPT
     );
 
     $tzil->release;
-    my @txt = split /\n/, $tzil->slurp_file(path(qw(source script phases.txt)));
+    my @txt = split /\n/, path($tzil->tempdir)->child(qw(source script phases.txt))->slurp_raw;
 
     my %f = (
         a => 'DZT-Sample-0.001.tar.gz',

@@ -34,13 +34,13 @@ SCRIPT
 use strict;
 use warnings;
 use Path::Tiny;
-path($ARGV[ 0 ], 'lib', 'AFTER_BUILD.txt')->spew("after_build");
+path($ARGV[ 0 ], 'lib', 'AFTER_BUILD.txt')->spew_raw("after_build");
 SCRIPT
                 path(qw(source script no_trial.pl)) => <<'SCRIPT',
 use strict;
 use warnings;
 use Path::Tiny;
-path($ARGV[0], 'lib', 'NO_TRIAL.txt')->spew(":-P");
+path($ARGV[0], 'lib', 'NO_TRIAL.txt')->spew_raw(":-P");
 SCRIPT
             },
         },
@@ -53,7 +53,7 @@ SCRIPT
 
     ok(-f $before_build_result, 'Before build script has been ran');
 
-    my $after_build_result  = $tzil->slurp_file(path(qw(build lib AFTER_BUILD.txt)));
+    my $after_build_result  = path($tzil->tempdir)->child(qw(build lib AFTER_BUILD.txt))->slurp_raw;
 
     ok($after_build_result eq 'after_build', 'Correct `after_build` result');
 
@@ -67,7 +67,7 @@ SCRIPT
     }
     else {
         ok( (  -f $no_trial_file), 'non-trial - file present' );
-        is $no_trial_file->slurp, ':-P', 'non-trial content';
+        is $no_trial_file->slurp_raw, ':-P', 'non-trial content';
 
         my $script = path('script','no_trial.pl')->canonpath;   # use OS-specific path separators
         like $tzil->log_messages->[-2],

@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.028     2014-11-24 02:35:12Z
   - now properly evaluating formatting codes inside 'eval' lines
 
 0.027     2014-11-12 01:41:50Z

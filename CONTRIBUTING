@@ -77,7 +77,6 @@ You can submit code changes by forking the repository, pushing your code
 changes to your clone, and then submitting a pull request. Detailed
 instructions for doing that is available here:
 
-https://help.github.com/
 https://help.github.com/articles/creating-a-pull-request
 
 If you have found a bug, but do not have an accompanying patch to fix it, you
@@ -93,9 +92,9 @@ irc://irc.perl.org/#distzilla.
 If you send me a patch or pull request, your name and email address will be
 included in the documentation as a contributor (using the attribution on the
 commit or patch), unless you specifically request for it not to be.  If you
-wish to be listed under a different name, you should submit a pull request to
-the .mailmap file to contain the correct mapping.
+wish to be listed under a different name or address, you should submit a pull
+request to the .mailmap file to contain the correct mapping.
 
 
 This file was generated via Dist::Zilla::Plugin::GenerateFile::ShareDir 0.005 from a
-template file originating in Dist-Zilla-PluginBundle-Author-ETHER-0.078.
+template file originating in Dist-Zilla-PluginBundle-Author-ETHER-0.080.

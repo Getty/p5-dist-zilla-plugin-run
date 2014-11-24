@@ -8,7 +8,7 @@ Dist::Zilla::Plugin::Run - Run external commands and code at specific phases of 
 
 =head1 VERSION
 
-version 0.027
+version 0.028
 
 =head1 SYNOPSIS
 
@@ -21,7 +21,7 @@ version 0.027
   run = script/do_this.pl --version %s
   run = script/do_that.pl
   eval = if ($ENV{SOMETHING}) {
-  eval =   shift->log('some message')
+  eval =   $_[0]->log('some message')
   eval = }
 
   [Run::BeforeRelease]
@@ -50,6 +50,7 @@ version 0.027
   [Run::AfterMint]
   run = some command %d
   eval = unlink scratch.dat
+  eval = print "I just minted %n for you. Have a nice day!\n";
 
 =head1 DESCRIPTION
 
@@ -99,7 +100,7 @@ Defaults to false.
 =head1 CONVERSIONS
 
 The following conversions/format specifiers are defined
-for passing as arguments to the specified commands
+for passing as arguments to the specified commands and eval strings
 (though not all values are available at all phases).
 
 =over 4
@@ -187,10 +188,6 @@ Tatsuhiko Miyagawa <miyagawa@cpan.org>
 =item *
 
 Thomas Sibley <tsibley@cpan.org>
-
-=item *
-
-Karen Etheridge <github@froods.org>
 
 =back
 

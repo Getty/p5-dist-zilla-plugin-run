@@ -35,7 +35,6 @@ SCRIPT
 
     $tzil->chrome->logger->set_debug(1);
     $tzil->release;
-    my @txt = split /\n/, path($tzil->tempdir)->child(qw(source phases.txt))->slurp_raw;
 
     my %f = (
         a => 'DZT-Sample-0.001.tar.gz',
@@ -46,7 +45,7 @@ SCRIPT
     );
 
     # test constant conversions as well as positional %s for backward compatibility
-    my @exp = split /\n/, <<OUTPUT;
+    my $expected = <<OUTPUT;
 before_build $f{v} $f{n} $f{v} ... $f{x}
 after_build $f{n} $f{v} $f{d} $f{d} $f{v} $f{v} .. $f{x}
 before_release $f{n} -d $f{d} $f{a} -v $f{v} .$f{a}. $f{x}
@@ -54,12 +53,11 @@ release $f{a} $f{n} $f{v} $f{d}/a $f{d}/b $f{a} $f{x}
 after_release $f{d} $f{v} $f{a} $f{v} $f{n} $f{a} $f{x}
 OUTPUT
 
-    # provide better test titles
-    my @phases = map { /^(\w+) / && $1 } @exp;
-
-    foreach my $i ( 0 .. $#exp ) {
-      is($txt[$i], $exp[$i], "expected output from $phases[$i] phase");
-    }
+    is(
+        path($tzil->tempdir)->child(qw(source phases.txt))->slurp_raw,
+        $expected,
+        'got expected output for all five phases',
+    );
 
     diag 'got log messages: ', explain $tzil->log_messages
         if not Test::Builder->new->is_passing;

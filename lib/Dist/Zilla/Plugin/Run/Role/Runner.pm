@@ -144,11 +144,8 @@ sub call_script {
 
     if (my @code = @{ $self->eval }) {
         my $code = join "\n", @code;
-        $self->log("evaluating: $code");
 
-        my $sub = sub { eval $code };
-        $sub->($self);
-        $self->log('evaluation died: ' . $@) if $@;
+        $self->eval_cmd($code, $params);
     }
 }
 
@@ -175,6 +172,17 @@ sub run_cmd {
         $self->log_fatal("Command exited with status $status ($?)") if $status;
         $self->log("Command executed successfully");
     }
+}
+
+sub eval_cmd {
+    my ( $self, $code, $params ) = @_;
+
+    $code = $self->build_formatter($params)->format($code);
+    $self->log("evaluating: $code");
+
+    my $sub = sub { eval $code };
+    $sub->($self);
+    $self->log('evaluation died: ' . $@) if $@;
 }
 
 around mvp_multivalue_args => sub {

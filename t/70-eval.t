@@ -8,24 +8,25 @@ use Test::Fatal;
 use Test::Deep;
 use Path::Tiny;
 
-my @config = map {
-    my $phase = $_;
-    map {
-        $_ || $phase eq 'release'
-            ? [ 'Run::' . ucfirst($_) . ucfirst($phase) => { eval => [
-                "Path::Tiny::path('eval_out.txt')->append_raw('" . ($_ ? "${_}_" : "") . "$phase for [' . \$_[0]->plugin_name . ']' . qq{\\n});" ] } ]
-            : ()
-        } ('before', '', 'after')
-    } qw(build release);
-
+my $command = 'Path::Tiny::path(\'eval_out.txt\')->append_raw(';
 my $tzil = Builder->from_config(
     { dist_root => 't/does-not-exist' },
     {
         add_files => {
             path(qw(source dist.ini)) => simple_ini(
                 [ GatherDir => ],
+                [ MetaConfig => ],
                 [ FakeRelease => ],
-                @config,
+                [ 'Run::BeforeBuild' => {
+                    eval => [ $command . '\'before_build for [\' . $_[0]->plugin_name . \'], %s %n %v .%d.%a. %x\' . qq{\\n});' ] } ],
+                [ 'Run::AfterBuild' => {
+                    eval => [ $command . '\'after_build for [\' . $_[0]->plugin_name . \'], %n %v %d %s %s %v .%a. %x\' . qq{\\n});' ] } ],
+                [ 'Run::BeforeRelease' => {
+                    eval => [ $command . '\'before_release for [\' . $_[0]->plugin_name . \'], %n -d %d %s -v %v .%a. %x\' . qq{\\n});' ] } ],
+                [ 'Run::Release' => {
+                    eval => [ $command . '\'release for [\' . $_[0]->plugin_name . \'], %s %n %v %d/a %d/b %a %x\' . qq{\\n});' ] } ],
+                [ 'Run::AfterRelease' => {
+                    eval => [ $command . '\'after_release for [\' . $_[0]->plugin_name . \'], %d %v %s %s %n %a %x\' . qq{\\n});' ] } ],
             ),
             path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
         },
@@ -42,17 +43,89 @@ is(
 my $build_dir = path($tzil->tempdir)->child('build');
 my $source_dir = path($tzil->tempdir)->child('source');
 
+my %f = (
+    a => 'DZT-Sample-0.001.tar.gz',
+    n => 'DZT-Sample',
+    d => path($tzil->tempdir)->child('build')->canonpath, # use OS-specific path separators
+    v => '0.001',
+    x => Dist::Zilla::Plugin::Run::Role::Runner->current_perl_path,
+);
+
+# test constant conversions as well as positional %s for backward compatibility
+my $expected = <<OUTPUT;
+before_build for [Run::BeforeBuild], $f{v} $f{n} $f{v} ... $f{x}
+after_build for [Run::AfterBuild], $f{n} $f{v} $f{d} $f{d} $f{v} $f{v} .. $f{x}
+before_release for [Run::BeforeRelease], $f{n} -d $f{d} $f{a} -v $f{v} .$f{a}. $f{x}
+release for [Run::Release], $f{a} $f{n} $f{v} $f{d}/a $f{d}/b $f{a} $f{x}
+after_release for [Run::AfterRelease], $f{d} $f{v} $f{a} $f{v} $f{n} $f{a} $f{x}
+OUTPUT
+
 is(
     $source_dir->child('eval_out.txt')->slurp_raw,
-    <<'CONTENT',
-before_build for [Run::BeforeBuild]
-after_build for [Run::AfterBuild]
-before_release for [Run::BeforeRelease]
-release for [Run::Release]
-after_release for [Run::AfterRelease]
-CONTENT
+    $expected,
     'all phases evaluate their code directly',
 );
+
+cmp_deeply(
+    $tzil->distmeta,
+    superhashof({
+        x_Dist_Zilla => superhashof({
+            plugins => supersetof(
+                {
+                    class => 'Dist::Zilla::Plugin::Run::BeforeBuild',
+                    config => {
+                        'Dist::Zilla::Plugin::Run::Role::Runner' => {
+                            eval => [ $command . '\'before_build for [\' . $_[0]->plugin_name . \'], %s %n %v .%d.%a. %x\' . qq{\\n});' ],
+                        },
+                    },
+                    name => 'Run::BeforeBuild',
+                    version => ignore,
+                },
+                {
+                    class => 'Dist::Zilla::Plugin::Run::AfterBuild',
+                    config => {
+                        'Dist::Zilla::Plugin::Run::Role::Runner' => {
+                            eval => [ $command . '\'after_build for [\' . $_[0]->plugin_name . \'], %n %v %d %s %s %v .%a. %x\' . qq{\\n});' ],
+                        },
+                    },
+                    name => 'Run::AfterBuild',
+                    version => ignore,
+                },
+                {
+                    class => 'Dist::Zilla::Plugin::Run::BeforeRelease',
+                    config => {
+                        'Dist::Zilla::Plugin::Run::Role::Runner' => {
+                            eval => [ $command . '\'before_release for [\' . $_[0]->plugin_name . \'], %n -d %d %s -v %v .%a. %x\' . qq{\\n});' ],
+                        },
+                    },
+                    name => 'Run::BeforeRelease',
+                    version => ignore,
+                },
+                {
+                    class => 'Dist::Zilla::Plugin::Run::Release',
+                    config => {
+                        'Dist::Zilla::Plugin::Run::Role::Runner' => {
+                            eval => [ $command . '\'release for [\' . $_[0]->plugin_name . \'], %s %n %v %d/a %d/b %a %x\' . qq{\\n});' ],
+                        },
+                    },
+                    name => 'Run::Release',
+                    version => ignore,
+                },
+                {
+                    class => 'Dist::Zilla::Plugin::Run::AfterRelease',
+                    config => {
+                        'Dist::Zilla::Plugin::Run::Role::Runner' => {
+                            eval => [ $command . '\'after_release for [\' . $_[0]->plugin_name . \'], %d %v %s %s %n %a %x\' . qq{\\n});' ],
+                        },
+                    },
+                    name => 'Run::AfterRelease',
+                    version => ignore,
+                },
+            ),
+        }),
+    }),
+    'dumped configs are good',
+) or diag 'got distmeta: ', explain $tzil->distmeta;
 
 cmp_deeply(
     $tzil->log_messages,

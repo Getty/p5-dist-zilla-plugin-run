@@ -44,6 +44,7 @@ package Dist::Zilla::Plugin::Run;
   [Run::AfterMint]
   run = some command %d
   eval = unlink scratch.dat
+  eval = print "I just minted %n for you. Have a nice day!\n";
 
 =head1 DESCRIPTION
 
@@ -93,7 +94,7 @@ Defaults to false.
 =head1 CONVERSIONS
 
 The following conversions/format specifiers are defined
-for passing as arguments to the specified commands
+for passing as arguments to the specified commands and eval strings
 (though not all values are available at all phases).
 
 =for :list

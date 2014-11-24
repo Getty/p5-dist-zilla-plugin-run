@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - now properly evaluating formatting codes inside 'eval' lines
 
 0.027     2014-11-12 01:41:50Z
   - new formatter code added: "%t", for indicating a trial release (PR#9,

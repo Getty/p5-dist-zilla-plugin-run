@@ -15,7 +15,7 @@ package Dist::Zilla::Plugin::Run;
   run = script/do_this.pl --version %s
   run = script/do_that.pl
   eval = if ($ENV{SOMETHING}) {
-  eval =   shift->log('some message')
+  eval =   $_[0]->log('some message')
   eval = }
 
   [Run::BeforeRelease]

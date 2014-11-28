@@ -28,82 +28,82 @@ Revision history for {{$dist->name}}
 0.022     2014-07-24 15:36:32Z
   - more complete metadata and author tests
 
-0.021     2014-02-23 15:31:47-08:00 America/Vancouver
+0.021     2014-02-23 23:31:47Z
   - Lazy load runtime dependencies. Thanks Olivier Mengué!
   - unroll author pluginbundle, to remove some unneeded and broken
     prerequisites
 
-0.020     2013-04-21 02:02:21 Europe/Berlin
+0.020     2013-04-21 00:02:21Z
   - Switching to [@Author::GETTY] dzil bundle
   - Adding .travis.yml for travis-ci
 
-0.019     2013-04-15 07:52:25 America/Phoenix
+0.019     2013-04-15 14:52:25Z
   - Delay evaluation of some vars (like dist version) until needed.
     Thanks, Tatsuhiko Miyagawa!
 
-0.018     2013-03-02 18:46:39 Europe/Berlin
+0.018     2013-03-02 17:46:39Z
   - Added new options, cleaned up documentation
 
-0.017     2013-02-16 21:20:54 America/Phoenix
+0.017     2013-02-17 04:20:54Z
   - Fix silly bug in tests for non-unix platforms
 
-0.016     2013-02-13 07:49:47 America/Phoenix
+0.016     2013-02-13 14:49:47Z
   - Add 'run_no_trial' option for running commands
     only when it is not a trial build/release.
 
-0.015     2013-02-04 01:25:50 Europe/Berlin
+0.015     2013-02-04 00:25:50Z
   - Copy examples for all runners to Synposis on main page
 
-0.014     2013-01-18 20:21:24 America/Phoenix
+0.014     2013-01-19 03:21:24Z
   - Add Run::AfterMint plugin for running commands after making a new dist.
 
-0.013     2011-11-09 06:23:08 America/Phoenix
+0.013     2011-11-09 13:23:08Z
   - Fix Pod spelling error pointed out by Debian Perl Group (rt-72278).
 
-0.012     2011-11-05 17:30:03 America/Phoenix
+0.012     2011-11-06 00:30:03Z
   - Add '%x' for perl path (similar to $^X)
   - Use strict and warnings in each module
   - Test fixes
 
-0.011     2011-10-28 08:25:04 America/Phoenix
+0.011     2011-10-28 15:25:04Z
   - Explicitly stringify '%a' to keep String::Formatter happy.
     Make sure it's tested.
     Closes rt-72008. Thanks to Olivier Mengué (dolmen) for reporting.
 
-0.010     2011-09-10 11:06:33 America/Phoenix
+0.010     2011-09-10 18:06:33Z
   - Define '%p' as the OS path separator in case anybody ever needs
     cross-platform dist.ini commands
   - Enable the tests for the Run::Test plugin
   - Make tests cross-platform
 
-0.009     2011-09-07 18:34:14 Europe/Moscow
+0.009     2011-09-07 14:34:14Z
   - added the [Run::Test] plugin
 
-0.008     2011-08-09 09:31:33 America/Phoenix
+0.008     2011-08-09 16:31:33Z
   - Stream command output incrementally instead of waiting
     until the command is done. (RWSTAUNER)
     Closes gh-4.  Thanks to SamuraiJack for the suggestion.
 
   - Show correct exit status on command failure.
 
-0.007     2011-08-07 20:30:39 America/Phoenix
+0.007     2011-08-08 03:30:39Z
   - Define other (constant) string format conversions (%n, %v);
     Retain positional %s for backward compatibility. (RWSTAUNER)
 
-0.006     2011-05-21 02:58:17 Europe/Berlin
+0.006     2011-05-21 00:58:17Z
     - Fixed wrong bangpath
 
-0.005     2011-04-29 22:54:18 Europe/Berlin
+0.005     2011-04-29 20:54:18Z
 
-0.005     2011-01-21 13:21:08 Europe/Moscow
+0.005     2011-01-21 10:21:08Z
 
-0.004     2010-12-14 21:19:54 Europe/Berlin
+0.004     2010-12-14 20:19:54Z
     - Minimal pod changes
 
-0.003     2010-12-14 03:18:00 Europe/Berlin
+0.003     2010-12-14 02:18:00Z
     - Complete Change of API
 
-0.002     2010-12-13 18:07:27 Europe/Berlin
+0.002     2010-12-13 17:07:27Z
 
-0.001     2010-12-12 04:14:54 Europe/Berlin
+0.001     2010-12-12 03:14:54Z
     - First release

@@ -6,8 +6,8 @@ package Dist::Zilla::Plugin::Run::BeforeRelease;
 
 use Moose;
 with qw(
-    Dist::Zilla::Role::BeforeRelease
-    Dist::Zilla::Plugin::Run::Role::Runner
+  Dist::Zilla::Role::BeforeRelease
+  Dist::Zilla::Plugin::Run::Role::Runner
 );
 
 use namespace::autoclean;

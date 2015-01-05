@@ -6,14 +6,14 @@ package Dist::Zilla::Plugin::Run::BeforeBuild;
 
 use Moose;
 with qw(
-    Dist::Zilla::Role::BeforeBuild
-    Dist::Zilla::Plugin::Run::Role::Runner
+  Dist::Zilla::Role::BeforeBuild
+  Dist::Zilla::Plugin::Run::Role::Runner
 );
 
 use namespace::autoclean;
 
 sub before_build {
-    my ($self) = @_;
+  my ($self) = @_;
   $self->call_script({
     pos => [sub { $self->zilla->version }]
   });
@@ -24,7 +24,6 @@ sub before_build {
   [Run::BeforeBuild]
   run = script/do_this.pl --version %s
   run = script/do_that.pl
-
 
 =head1 DESCRIPTION
 

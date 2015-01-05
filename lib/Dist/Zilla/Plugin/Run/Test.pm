@@ -25,7 +25,6 @@ sub test {
   [Run::Test]
   run = script/tester.pl --name %n --version %v some_file.ext
 
-
 =head1 DESCRIPTION
 
 This plugin executes the specified command during the test phase.

@@ -6,14 +6,14 @@ package Dist::Zilla::Plugin::Run::AfterBuild;
 
 use Moose;
 with qw(
-    Dist::Zilla::Role::AfterBuild
-    Dist::Zilla::Plugin::Run::Role::Runner
+  Dist::Zilla::Role::AfterBuild
+  Dist::Zilla::Plugin::Run::Role::Runner
 );
 
 use namespace::autoclean;
 
 sub after_build {
-    my ($self, $param) = @_;
+  my ($self, $param) = @_;
   $self->call_script({
     dir =>  $param->{ build_root },
     pos => [$param->{ build_root }, sub { $self->zilla->version }]
@@ -25,7 +25,6 @@ sub after_build {
   [Run::AfterBuild]
   run = script/do_this.pl --dir %s --version %s
   run = script/do_that.pl
-
 
 =head1 DESCRIPTION
 

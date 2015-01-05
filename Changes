@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.029     2015-01-05 01:59:05Z
   - added new "fatal_errors" option (defaults to true, as always)
 
 0.028     2014-11-24 02:35:12Z

@@ -8,7 +8,7 @@ Dist::Zilla::Plugin::Run - Run external commands and code at specific phases of 
 
 =head1 VERSION
 
-version 0.028
+version 0.029
 
 =head1 SYNOPSIS
 
@@ -18,8 +18,9 @@ version 0.028
   eval = unlink scratch.dat
 
   [Run::BeforeBuild]
+  fatal_errors = 0
   run = script/do_this.pl --version %s
-  run = script/do_that.pl
+  run = script/do_that_crashy_thing.pl
   eval = if ($ENV{SOMETHING}) {
   eval =   $_[0]->log('some message')
   eval = }
@@ -97,6 +98,11 @@ automatically when a URL with embedded password is present.
 
 Defaults to false.
 
+=head2 fatal_errors
+
+When true, if the C<run> command returns a non-zero exit status or the C<eval>
+command dies, the build will fail. Defaults to true.
+
 =head1 CONVERSIONS
 
 The following conversions/format specifiers are defined
@@ -153,17 +159,17 @@ the same terms as the Perl 5 programming language system itself.
 
 =head1 CONTRIBUTORS
 
-=for stopwords Randy Stauner Karen Etheridge Torsten Raudssus Nickolay Platonov Olivier Mengué Al Newkirk Tatsuhiko Miyagawa Thomas Sibley
+=for stopwords Karen Etheridge Randy Stauner Torsten Raudssus Nickolay Platonov Olivier Mengué Al Newkirk Tatsuhiko Miyagawa Thomas Sibley
 
 =over 4
 
 =item *
 
-Randy Stauner <rwstauner@cpan.org>
+Karen Etheridge <ether@cpan.org>
 
 =item *
 
-Karen Etheridge <ether@cpan.org>
+Randy Stauner <rwstauner@cpan.org>
 
 =item *
 

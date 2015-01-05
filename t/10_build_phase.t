@@ -63,7 +63,7 @@ SCRIPT
         ok( (! -e $no_trial_file), 'is trial - file not written' );
 
         like $tzil->log_messages->[-1],
-            qr{\[Run::AfterBuild\] Not executing, because trial: %x script%pno_trial.pl "%s"},
+            qr{\[Run::AfterBuild\] not executing, because trial: %x script%pno_trial.pl "%s"},
             'logged skipping of non-trial command';
     }
     else {
@@ -72,11 +72,11 @@ SCRIPT
 
         my $script = path('script','no_trial.pl')->canonpath;   # use OS-specific path separators
         like $tzil->log_messages->[-2],
-            qr{\[Run::AfterBuild\] Executing: .+ \Q$script\E .+},
+            qr{\[Run::AfterBuild\] executing: .+ \Q$script\E .+},
             'logged execution';
 
         like $tzil->log_messages->[-1],
-            qr{\[Run::AfterBuild\] Command executed successfully},
+            qr{\[Run::AfterBuild\] command executed successfully},
             'logged command status';
     }
 

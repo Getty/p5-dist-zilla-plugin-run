@@ -12,8 +12,9 @@ package Dist::Zilla::Plugin::Run;
   eval = unlink scratch.dat
 
   [Run::BeforeBuild]
+  fatal_errors = 0
   run = script/do_this.pl --version %s
-  run = script/do_that.pl
+  run = script/do_that_crashy_thing.pl
   eval = if ($ENV{SOMETHING}) {
   eval =   $_[0]->log('some message')
   eval = }
@@ -90,6 +91,11 @@ this, set C<censor_commands = 1>.  Additionally, this command is set to true
 automatically when a URL with embedded password is present.
 
 Defaults to false.
+
+=head2 fatal_errors
+
+When true, if the C<run> command returns a non-zero exit status or the C<eval>
+command dies, the build will fail. Defaults to true.
 
 =head1 CONVERSIONS
 

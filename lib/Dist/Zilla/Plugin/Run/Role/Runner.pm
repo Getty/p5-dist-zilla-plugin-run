@@ -69,6 +69,12 @@ has eval => (
     default => sub { [] },
 );
 
+has fatal_errors => (
+    is => 'ro',
+    isa => 'Bool',
+    default => 1,
+);
+
 around dump_config => sub
 {
     my ($orig, $self) = @_;
@@ -167,10 +173,14 @@ sub run_cmd {
         }
         # zombie repellent
         waitpid($pid, 0);
-        my $status = ($? >> 8);
 
-        $self->log_fatal("command exited with status $status ($?)") if $status;
-        $self->log_debug('command executed successfully');
+        if (my $status = ($? >> 8)) {
+            my $method = $self->fatal_errors ? 'log_fatal' : 'log';
+            $self->$method("command exited with status $status ($?)");
+        }
+        else {
+            $self->log_debug('command executed successfully');
+        }
     }
 }
 
@@ -182,7 +192,11 @@ sub eval_cmd {
 
     my $sub = sub { eval $code };
     $sub->($self);
-    $self->log_fatal('evaluation died: ' . $@) if $@;
+
+    if ($@) {
+        my $method = $self->fatal_errors ? 'log_fatal' : 'log';
+        $self->$method('evaluation died: ' . $@);
+    }
 }
 
 around mvp_multivalue_args => sub {

@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - added new "fatal_errors" option (defaults to true, as always)
 
 0.028     2014-11-24 02:35:12Z
   - now properly evaluating formatting codes inside 'eval' lines

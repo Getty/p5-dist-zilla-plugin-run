@@ -34,7 +34,7 @@ use Test::Deep;
                         class => 'Dist::Zilla::Plugin::Run::AfterRelease',
                         config => {
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
-                                run => 'REDACTED',
+                                run => [ 'REDACTED' ],
                                 fatal_errors => 1,
                             },
                         },
@@ -44,7 +44,7 @@ use Test::Deep;
                 ),
             }),
         }),
-        'dumped configs omit the command on request',
+        'dumped configs censor all commands on request',
     ) or diag 'got distmeta: ', explain $tzil->distmeta;
 
     diag 'got log messages: ', explain $tzil->log_messages
@@ -62,7 +62,12 @@ use Test::Deep;
                 path(qw(source dist.ini)) => simple_ini(
                     [ GatherDir => ],
                     [ MetaConfig => ],
-                    [ 'Run::AfterRelease' => 'install release' => { run => 'cpanm http://' . $username . ':' . $password . '@pause.perl.org/pub/PAUSE/authors/id/E/ET/ETHER/%a' } ],
+                    [ 'Run::AfterRelease' => 'install release' => {
+                            run => [
+                                'cpanm http://' . $username . ':' . $password . '@pause.perl.org/pub/PAUSE/authors/id/E/ET/ETHER/%a',
+                                'echo hello world',
+                            ],
+                      } ],
                 ),
                 path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
             },
@@ -81,7 +86,10 @@ use Test::Deep;
                         class => 'Dist::Zilla::Plugin::Run::AfterRelease',
                         config => {
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
-                                run => 'REDACTED',
+                                run => [
+                                    'REDACTED',
+                                    'echo hello world',
+                                ],
                                 fatal_errors => 1,
                             },
                         },
@@ -91,7 +99,7 @@ use Test::Deep;
                 ),
             }),
         }),
-        'dumped configs do not contain my password',
+        'censored the config that contains my password; other commands shown as normal',
     ) or diag 'got distmeta: ', explain $tzil->distmeta;
 
     diag 'got log messages: ', explain $tzil->log_messages

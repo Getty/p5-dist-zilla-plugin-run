@@ -8,7 +8,6 @@ use Moose::Role;
 use namespace::autoclean;
 use File::Spec (); # core
 use Config     (); # core
-use List::Util 1.33 'any';
 
 has perlpath => (
     is      => 'ro',
@@ -20,18 +19,7 @@ has perlpath => (
 has censor_commands => (
     is => 'ro',
     isa => 'Bool',
-    lazy => 1,
-    default => sub {
-        my $self = shift;
-
-        # look for user:password URIs
-        my ($command) = grep {
-            any { /\b\w+:[^@]+@\b/ } @{ $self->$_ }
-        } qw(run run_if_trial run_no_trial run_if_release run_no_release);
-
-        $self->log("found a $command command that looks like it contains a password: redacting this from dumped configs!") if $command;
-        $command ? 1 : 0;
-    },
+    default => 0,
 );
 
 has run => (
@@ -84,9 +72,10 @@ around dump_config => sub
     $config->{+__PACKAGE__} = {
         (map { $_ => $self->$_ } qw(fatal_errors)),
         map {
-            @{$self->$_}
-            ? ( $_ => ( $self->censor_commands ? 'REDACTED' : $self->$_ ) )
-            : ()
+            @{ $self->$_ }
+                # look for user:password URIs
+                ? ( $_ => [ map { $self->censor_commands || /\b\w+:[^@]+@\b/ ? 'REDACTED' : $_ } @{ $self->$_ } ] )
+                : ()
         }
         qw(run run_if_trial run_no_trial run_if_release run_no_release eval),
     };

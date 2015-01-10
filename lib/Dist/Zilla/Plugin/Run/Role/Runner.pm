@@ -13,6 +13,7 @@ use List::Util 1.33 'any';
 has perlpath => (
     is      => 'ro',
     isa     => 'Str',
+    lazy    => 1,
     builder => 'current_perl_path',
 );
 

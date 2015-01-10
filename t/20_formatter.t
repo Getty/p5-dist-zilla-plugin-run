@@ -67,6 +67,7 @@ SCRIPT
                         config => {
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
                                 run => [ '%x script%prun.pl before_build %s %n %v%t .%d.%a. %x' ],
+                                fatal_errors => 1,
                             },
                         },
                         name => 'Run::BeforeBuild',
@@ -77,6 +78,7 @@ SCRIPT
                         config => {
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
                                 run => [ '%x script%prun.pl after_build %n %v%t %d %s %s %v%t .%a. %x' ],
+                                fatal_errors => 1,
                             },
                         },
                         name => 'Run::AfterBuild',
@@ -87,6 +89,7 @@ SCRIPT
                         config => {
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
                                 run => [ '%x script%prun.pl before_release %n -d %d %s -v %v%t .%a. %x' ],
+                                fatal_errors => 1,
                             },
                         },
                         name => 'Run::BeforeRelease',
@@ -97,6 +100,7 @@ SCRIPT
                         config => {
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
                                 run => [ '%x script%prun.pl release %s %n %v%t %d/a %d/b %a %x' ],
+                                fatal_errors => 1,
                             },
                         },
                         name => 'Run::Release',
@@ -107,6 +111,7 @@ SCRIPT
                         config => {
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
                                 run => [ '%x script%prun.pl after_release %d %v%t %s %s %n %a %x' ],
+                                fatal_errors => 1,
                             },
                         },
                         name => 'Run::AfterRelease',

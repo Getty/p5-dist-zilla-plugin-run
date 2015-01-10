@@ -35,6 +35,7 @@ use Test::Deep;
                         config => {
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
                                 run => 'REDACTED',
+                                fatal_errors => 1,
                             },
                         },
                         name => 'Run::AfterRelease',
@@ -81,6 +82,7 @@ use Test::Deep;
                         config => {
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
                                 run => 'REDACTED',
+                                fatal_errors => 1,
                             },
                         },
                         name => 'install release',

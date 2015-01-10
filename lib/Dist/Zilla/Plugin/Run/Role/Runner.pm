@@ -82,6 +82,7 @@ around dump_config => sub
     my $config = $self->$orig;
 
     $config->{+__PACKAGE__} = {
+        (map { $_ => $self->$_ } qw(fatal_errors)),
         map {
             @{$self->$_}
             ? ( $_ => ( $self->censor_commands ? 'REDACTED' : $self->$_ ) )

@@ -38,6 +38,28 @@ use Test::Fatal;
         'log messages list what happened',
     );
 
+    cmp_deeply(
+        $tzil->distmeta,
+        superhashof({
+            x_Dist_Zilla => superhashof({
+                plugins => supersetof(
+                    {
+                        class => 'Dist::Zilla::Plugin::Run::BeforeBuild',
+                        config => {
+                            'Dist::Zilla::Plugin::Run::Role::Runner' => {
+                                run => [ qq{$^X "exit 2"} ],
+                                fatal_errors => 1,
+                            },
+                        },
+                        name => 'Run::BeforeBuild',
+                        version => ignore,
+                    },
+                ),
+            }),
+        }),
+        'dumped configs include fatal_errors default',
+    ) or diag 'got distmeta: ', explain $tzil->distmeta;
+
     diag 'got log messages: ', explain $tzil->log_messages
         if not Test::Builder->new->is_passing;
 }
@@ -74,6 +96,28 @@ use Test::Fatal;
         'log messages list what happened',
     );
 
+    cmp_deeply(
+        $tzil->distmeta,
+        superhashof({
+            x_Dist_Zilla => superhashof({
+                plugins => supersetof(
+                    {
+                        class => 'Dist::Zilla::Plugin::Run::BeforeBuild',
+                        config => {
+                            'Dist::Zilla::Plugin::Run::Role::Runner' => {
+                                eval => [ 'die "oh noes"' ],
+                                fatal_errors => 1,
+                            },
+                        },
+                        name => 'Run::BeforeBuild',
+                        version => ignore,
+                    },
+                ),
+            }),
+        }),
+        'dumped configs include fatal_errors default',
+    ) or diag 'got distmeta: ', explain $tzil->distmeta;
+
     diag 'got log messages: ', explain $tzil->log_messages
         if not Test::Builder->new->is_passing;
 }
@@ -108,6 +152,28 @@ use Test::Fatal;
         ),
         'log messages list what happened',
     );
+
+    cmp_deeply(
+        $tzil->distmeta,
+        superhashof({
+            x_Dist_Zilla => superhashof({
+                plugins => supersetof(
+                    {
+                        class => 'Dist::Zilla::Plugin::Run::BeforeBuild',
+                        config => {
+                            'Dist::Zilla::Plugin::Run::Role::Runner' => {
+                                run => [ qq{$^X "exit 2"} ],
+                                fatal_errors => 0,
+                            },
+                        },
+                        name => 'Run::BeforeBuild',
+                        version => ignore,
+                    },
+                ),
+            }),
+        }),
+        'dumped configs include fatal_errors override',
+    ) or diag 'got distmeta: ', explain $tzil->distmeta;
 
     diag 'got log messages: ', explain $tzil->log_messages
         if not Test::Builder->new->is_passing;
@@ -144,6 +210,28 @@ use Test::Fatal;
         ),
         'log messages list what happened',
     );
+
+    cmp_deeply(
+        $tzil->distmeta,
+        superhashof({
+            x_Dist_Zilla => superhashof({
+                plugins => supersetof(
+                    {
+                        class => 'Dist::Zilla::Plugin::Run::BeforeBuild',
+                        config => {
+                            'Dist::Zilla::Plugin::Run::Role::Runner' => {
+                                eval => [ 'die "oh noes"' ],
+                                fatal_errors => 0,
+                            },
+                        },
+                        name => 'Run::BeforeBuild',
+                        version => ignore,
+                    },
+                ),
+            }),
+        }),
+        'dumped configs include fatal_errors override',
+    ) or diag 'got distmeta: ', explain $tzil->distmeta;
 
     diag 'got log messages: ', explain $tzil->log_messages
         if not Test::Builder->new->is_passing;

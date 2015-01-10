@@ -76,6 +76,7 @@ cmp_deeply(
                     config => {
                         'Dist::Zilla::Plugin::Run::Role::Runner' => {
                             eval => [ $command . '\'before_build for [\' . $_[0]->plugin_name . \'], %s %n %v .%d.%a. %x\' . qq{\\n});' ],
+                            fatal_errors => 1,
                         },
                     },
                     name => 'Run::BeforeBuild',
@@ -86,6 +87,7 @@ cmp_deeply(
                     config => {
                         'Dist::Zilla::Plugin::Run::Role::Runner' => {
                             eval => [ $command . '\'after_build for [\' . $_[0]->plugin_name . \'], %n %v %d %s %s %v .%a. %x\' . qq{\\n});' ],
+                            fatal_errors => 1,
                         },
                     },
                     name => 'Run::AfterBuild',
@@ -96,6 +98,7 @@ cmp_deeply(
                     config => {
                         'Dist::Zilla::Plugin::Run::Role::Runner' => {
                             eval => [ $command . '\'before_release for [\' . $_[0]->plugin_name . \'], %n -d %d %s -v %v .%a. %x\' . qq{\\n});' ],
+                            fatal_errors => 1,
                         },
                     },
                     name => 'Run::BeforeRelease',
@@ -106,6 +109,7 @@ cmp_deeply(
                     config => {
                         'Dist::Zilla::Plugin::Run::Role::Runner' => {
                             eval => [ $command . '\'release for [\' . $_[0]->plugin_name . \'], %s %n %v %d/a %d/b %a %x\' . qq{\\n});' ],
+                            fatal_errors => 1,
                         },
                     },
                     name => 'Run::Release',
@@ -116,6 +120,7 @@ cmp_deeply(
                     config => {
                         'Dist::Zilla::Plugin::Run::Role::Runner' => {
                             eval => [ $command . '\'after_release for [\' . $_[0]->plugin_name . \'], %d %v %s %s %n %a %x\' . qq{\\n});' ],
+                            fatal_errors => 1,
                         },
                     },
                     name => 'Run::AfterRelease',

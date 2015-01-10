@@ -90,6 +90,7 @@ SCRIPT
                         config => {
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
                                 run => [ '%x script%pbefore_build.pl' ],
+                                fatal_errors => 1,
                             },
                         },
                         name => 'Run::BeforeBuild',
@@ -101,6 +102,7 @@ SCRIPT
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
                                 run => [ '%x script%pafter_build.pl "%s"' ],
                                 run_no_trial => [ '%x script%pno_trial.pl "%s"' ],
+                                fatal_errors => 1,
                             },
                         },
                         name => 'Run::AfterBuild',

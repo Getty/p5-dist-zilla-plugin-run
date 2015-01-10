@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - fix failures in new fatal_errors test on MSWin32 by avoiding executing
+    bash
 
 0.029     2015-01-05 01:59:05Z
   - added new "fatal_errors" option (defaults to true, as always)

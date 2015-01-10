@@ -15,7 +15,7 @@ use Test::Fatal;
                 path(qw(source dist.ini)) => simple_ini(
                     [ GatherDir => ],
                     [ MetaConfig => ],
-                    [ 'Run::BeforeBuild' => { run => [ 'sh -c "exit 2"' ] } ],
+                    [ 'Run::BeforeBuild' => { run => [ qq{$^X "exit 2"} ] } ],
                 ),
                 path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
             },
@@ -32,7 +32,7 @@ use Test::Fatal;
     cmp_deeply(
         $tzil->log_messages,
         superbagof(
-            '[Run::BeforeBuild] executing: sh -c "exit 2"',
+            re(qr/\Q[Run::BeforeBuild] executing: $^X "exit 2"\E/),
             '[Run::BeforeBuild] command exited with status 2 (512)',
         ),
         'log messages list what happened',
@@ -86,7 +86,7 @@ use Test::Fatal;
                 path(qw(source dist.ini)) => simple_ini(
                     [ GatherDir => ],
                     [ MetaConfig => ],
-                    [ 'Run::BeforeBuild' => { run => [ 'sh -c "exit 2"' ], fatal_errors => 0, } ],
+                    [ 'Run::BeforeBuild' => { run => [ qq{$^X "exit 2"} ], fatal_errors => 0, } ],
                 ),
                 path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
             },
@@ -103,7 +103,7 @@ use Test::Fatal;
     cmp_deeply(
         $tzil->log_messages,
         superbagof(
-            '[Run::BeforeBuild] executing: sh -c "exit 2"',
+            re(qr/\Q[Run::BeforeBuild] executing: $^X "exit 2"\E/),
             '[Run::BeforeBuild] command exited with status 2 (512)',
         ),
         'log messages list what happened',

@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.032     2015-01-13 21:42:01Z
   - work around test failures with OSX system perl (RT#101483; see also
     perldoc perlmacosx)
 

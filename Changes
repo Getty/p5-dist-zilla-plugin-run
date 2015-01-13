@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - work around test failures with OSX system perl (RT#101483; see also
+    perldoc perlmacosx)
 
 0.031     2015-01-13 02:18:53Z
   - switch to using $^X for %x, rather than $Config{perlpath}, to avoid

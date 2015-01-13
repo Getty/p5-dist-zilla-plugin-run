@@ -250,15 +250,7 @@ sub build_formatter {
     return String::Formatter->new({ codes => $codes });
 }
 
-sub current_perl_path {
-    # see perlvar $^X for why we don't just use that here
-    my $perl = $Config::Config{perlpath};
-    if ($^O ne 'VMS') {
-        $perl .= $Config::Config{_exe}
-            unless $perl =~ m/$Config::Config{_exe}$/i;
-    }
-    return $perl;
-}
+sub current_perl_path { $^X }
 
 =head1 DESCRIPTION
 

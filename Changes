@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - switch to using $^X for %x, rather than $Config{perlpath}, to avoid
+    mismatches for OSX system perl (RT#101483)
 
 0.030     2015-01-10 21:04:59Z
   - fix failures in new fatal_errors test on MSWin32 by avoiding executing

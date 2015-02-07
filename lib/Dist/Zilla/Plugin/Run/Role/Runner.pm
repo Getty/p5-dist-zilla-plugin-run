@@ -146,7 +146,12 @@ sub _call_script {
 }
 
 sub _run_cmd {
-    my ( $self, $run_cmd, $params ) = @_;
+    my ( $self, $run_cmd, $params, $dry_run ) = @_;
+
+    if ($dry_run) {
+        $self->log_debug([ 'dry run, would run: %s', $run_cmd ]);
+        return;
+    }
 
     return if not $run_cmd;
 
@@ -176,7 +181,12 @@ sub _run_cmd {
 }
 
 sub _eval_cmd {
-    my ( $self, $code, $params ) = @_;
+    my ( $self, $code, $params, $dry_run ) = @_;
+
+    if ($dry_run) {
+        $self->log_debug([ 'dry run, would evaluate: %s', $code ]);
+        return;
+    }
 
     $code = $self->build_formatter($params)->format($code);
     $self->log("evaluating: $code");

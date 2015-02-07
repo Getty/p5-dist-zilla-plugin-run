@@ -3,7 +3,9 @@ use warnings;
 
 package Dist::Zilla::Plugin::Run::AfterBuild;
 # ABSTRACT: execute a command of the distribution after build
+
 our $VERSION = '0.034';
+
 use Moose;
 with qw(
   Dist::Zilla::Role::AfterBuild

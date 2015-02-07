@@ -148,30 +148,31 @@ sub _call_script {
 
 sub _run_cmd {
     my ( $self, $run_cmd, $params ) = @_;
-    if ($run_cmd) {
-        require IPC::Open3;  # core
 
-        my $command = $self->build_formatter($params)->format($run_cmd);
-        $self->log("executing: $command");
+    return if not $run_cmd;
 
-        # autoflush STDOUT so we can see command output right away
-        local $| = 1;
-        # combine stdout and stderr for ease of proxying through the logger
-        my $pid = IPC::Open3::open3(my ($in, $out), undef, $command);
-        while(defined(my $line = <$out>)){
-            chomp($line); # logger appends its own newline
-            $self->log($line);
-        }
-        # zombie repellent
-        waitpid($pid, 0);
+    require IPC::Open3;  # core
 
-        if (my $status = ($? >> 8)) {
-            my $method = $self->fatal_errors ? 'log_fatal' : 'log';
-            $self->$method("command exited with status $status ($?)");
-        }
-        else {
-            $self->log_debug('command executed successfully');
-        }
+    my $command = $self->build_formatter($params)->format($run_cmd);
+    $self->log("executing: $command");
+
+    # autoflush STDOUT so we can see command output right away
+    local $| = 1;
+    # combine stdout and stderr for ease of proxying through the logger
+    my $pid = IPC::Open3::open3(my ($in, $out), undef, $command);
+    while(defined(my $line = <$out>)){
+        chomp($line); # logger appends its own newline
+        $self->log($line);
+    }
+    # zombie repellent
+    waitpid($pid, 0);
+
+    if (my $status = ($? >> 8)) {
+        my $method = $self->fatal_errors ? 'log_fatal' : 'log';
+        $self->$method("command exited with status $status ($?)");
+    }
+    else {
+        $self->log_debug('command executed successfully');
     }
 }
 

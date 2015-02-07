@@ -2,7 +2,6 @@ use strict;
 use warnings;
 
 package Dist::Zilla::Plugin::Run::Role::Runner;
-# ABSTRACT: Role for the packages of Dist::Zilla::Plugin::Run
 
 use Moose::Role;
 use namespace::autoclean;
@@ -252,12 +251,6 @@ sub build_formatter {
 }
 
 sub current_perl_path { $^X }
-
-=head1 DESCRIPTION
-
-This is the base role for all the plugins L<Dist::Zilla::Plugin::Run> delivers. You don't need this.
-
-=cut
 
 1;
 # vim: set ts=4 sts=4 sw=4 expandtab smarttab:

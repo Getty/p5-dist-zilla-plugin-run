@@ -208,17 +208,17 @@ sub build_formatter {
     require String::Formatter;
     String::Formatter->VERSION(0.102082);
 
-    # stringify build directory
-    my $dir = $params->{dir} || $self->zilla->built_in;
-    $dir = $dir ? "$dir" : '';
-
     my $codes = {
         # not always available
         # explicitly pass a string (not an object) [rt-72008]
         a => defined $params->{archive} ? "$params->{archive}" : '',
 
         # build dir or mint dir
-        d => $dir,
+        d => sub {
+            # stringify build directory
+            my $dir = $params->{dir} || $self->zilla->built_in;
+            $dir ? "$dir" : '';
+        },
 
         # dist name
         n => sub { $self->zilla->name },

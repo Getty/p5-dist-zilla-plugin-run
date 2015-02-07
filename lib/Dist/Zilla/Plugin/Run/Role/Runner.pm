@@ -96,18 +96,18 @@ around BUILDARGS => sub {
     return $built;
 };
 
-sub call_script {
+sub _call_script {
     my ( $self, $params ) = @_;
 
     foreach my $run_cmd (@{$self->run}) {
-        $self->run_cmd($run_cmd, $params);
+        $self->_run_cmd($run_cmd, $params);
     }
 
     my $is_trial = $self->zilla->is_trial ? 1 : 0;
 
     foreach my $run_cmd (@{$self->run_if_trial}) {
         if ($is_trial) {
-            $self->run_cmd($run_cmd, $params);
+            $self->_run_cmd($run_cmd, $params);
         } else {
             $self->log_debug([ 'not executing, because no trial: %s', $run_cmd ]);
         }
@@ -117,7 +117,7 @@ sub call_script {
         if ($is_trial) {
             $self->log_debug([ 'not executing, because trial: %s', $run_cmd ]);
         } else {
-            $self->run_cmd($run_cmd, $params);
+            $self->_run_cmd($run_cmd, $params);
         }
     }
 
@@ -125,7 +125,7 @@ sub call_script {
 
     foreach my $run_cmd (@{$self->run_if_release}) {
         if ($is_release) {
-            $self->run_cmd($run_cmd, $params);
+            $self->_run_cmd($run_cmd, $params);
         } else {
             $self->log_debug([ 'not executing, because no release: %s', $run_cmd ]);
         }
@@ -135,18 +135,18 @@ sub call_script {
         if ($is_release) {
             $self->log_debug([ 'not executing, because release: %s', $run_cmd ]);
         } else {
-            $self->run_cmd($run_cmd, $params);
+            $self->_run_cmd($run_cmd, $params);
         }
     }
 
     if (my @code = @{ $self->eval }) {
         my $code = join "\n", @code;
 
-        $self->eval_cmd($code, $params);
+        $self->_eval_cmd($code, $params);
     }
 }
 
-sub run_cmd {
+sub _run_cmd {
     my ( $self, $run_cmd, $params ) = @_;
     if ($run_cmd) {
         require IPC::Open3;  # core
@@ -175,7 +175,7 @@ sub run_cmd {
     }
 }
 
-sub eval_cmd {
+sub _eval_cmd {
     my ( $self, $code, $params ) = @_;
 
     $code = $self->build_formatter($params)->format($code);

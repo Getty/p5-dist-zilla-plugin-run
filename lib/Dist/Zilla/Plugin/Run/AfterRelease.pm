@@ -14,7 +14,7 @@ use namespace::autoclean;
 
 sub after_release {
   my ( $self, $archive ) = @_;
-  $self->call_script({
+  $self->_call_script({
     archive =>  $archive,
     pos     => [$archive, sub { $self->zilla->version }]
   });

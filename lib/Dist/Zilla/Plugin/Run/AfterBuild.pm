@@ -14,7 +14,7 @@ use namespace::autoclean;
 
 sub after_build {
   my ($self, $param) = @_;
-  $self->call_script({
+  $self->_call_script({
     dir =>  $param->{ build_root },
     pos => [$param->{ build_root }, sub { $self->zilla->version }]
   });

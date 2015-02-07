@@ -15,7 +15,7 @@ use namespace::autoclean;
 sub test {
     my ($self, $dir) = @_;
 
-    $self->call_script({
+    $self->_call_script({
         dir =>  $dir
     });
 }

@@ -14,7 +14,7 @@ use namespace::autoclean;
 
 sub after_mint {
   my ($self, $param) = @_;
-  $self->call_script({
+  $self->_call_script({
     dir     => $param->{mint_root},
     minting => 1,
   });

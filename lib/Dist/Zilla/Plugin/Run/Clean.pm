@@ -12,26 +12,26 @@ with
     'Dist::Zilla::Plugin::Run::Role::Runner';
 
 use Moose::Util ();
-use Scalar::Util 'weaken';
 use namespace::autoclean;
 
-sub BUILD {
-    my $plugin = shift;
-
-    # when the zilla is demolished, allow the ourselves to be destroyed too
-    weaken $plugin;
-
-    # Dist::Zilla really ought to have a -CleanerProvider hook...
-    Moose::Util::add_method_modifier($plugin->zilla->meta, 'after',
+{
+    use Dist::Zilla::Dist::Builder;
+    my $meta = Dist::Zilla::Dist::Builder->meta;
+    $meta->make_mutable;
+    Moose::Util::add_method_modifier($meta, 'after',
         [
             clean => sub {
                 my ($zilla, $dry_run) = @_;
-                return if not $plugin;
-                $plugin->clean($dry_run);
+                foreach my $plugin (grep { $_->isa(__PACKAGE__) } @{ $zilla->plugins })
+                {
+                    # Dist::Zilla really ought to have a -CleanerProvider hook...
+                    $plugin->clean($dry_run);
+                }
             },
         ],
     );
-};
+    $meta->make_immutable;
+}
 
 sub clean
 {

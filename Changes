@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - better [Run::Clean] implementation that does not run afoul of MSWin32's
+    poor garbage collection habits
 
 0.033     2015-02-07 23:18:03Z
   - new [Run::Clean] plugin

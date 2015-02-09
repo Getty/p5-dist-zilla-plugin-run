@@ -4,7 +4,7 @@ use warnings;
 package Dist::Zilla::Plugin::Run;
 # ABSTRACT: Run external commands and code at specific phases of Dist::Zilla
 
-our $VERSION = '0.034';
+our $VERSION = '0.035';
 
 =head1 SYNOPSIS
 

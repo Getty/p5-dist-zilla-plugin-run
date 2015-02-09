@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.034     2015-02-09 04:56:26Z
   - better [Run::Clean] implementation that does not run afoul of MSWin32's
     poor garbage collection habits
 

@@ -6,6 +6,9 @@ use Test::DZil;
 use Path::Tiny;
 use Test::Deep;
 
+# protect from external environment
+local $ENV{TRIAL};
+
 sub test_build {
     my %test = @_;
 
@@ -47,7 +50,7 @@ SCRIPT
     );
 
     $tzil->chrome->logger->set_debug(1);
-    $tzil->is_trial(1) if $test{trial};
+    local $ENV{TRIAL} = 1 if $test{trial};
     $tzil->build;
 
     my $before_build_result = path($tzil->tempdir, qw(source BEFORE_BUILD.txt));

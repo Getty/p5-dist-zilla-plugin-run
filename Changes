@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - fix tests to avoid setting a newly-immutable config variable directly
+    (David Golden, PR#11)
 
 0.034     2015-02-09 04:56:26Z
   - better [Run::Clean] implementation that does not run afoul of MSWin32's

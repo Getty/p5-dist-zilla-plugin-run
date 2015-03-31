@@ -12,6 +12,8 @@ local $ENV{TRIAL};
 sub test_build {
     my %test = @_;
 
+    local $ENV{TRIAL} = 1 if $test{trial};
+
     my $tzil = Builder->from_config(
         { dist_root => 't/does-not-exist' },
         {
@@ -50,7 +52,6 @@ SCRIPT
     );
 
     $tzil->chrome->logger->set_debug(1);
-    local $ENV{TRIAL} = 1 if $test{trial};
     $tzil->build;
 
     my $before_build_result = path($tzil->tempdir, qw(source BEFORE_BUILD.txt));

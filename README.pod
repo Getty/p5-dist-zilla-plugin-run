@@ -8,7 +8,7 @@ Dist::Zilla::Plugin::Run - Run external commands and code at specific phases of 
 
 =head1 VERSION
 
-version 0.034
+version 0.035
 
 =head1 SYNOPSIS
 
@@ -159,7 +159,7 @@ the same terms as the Perl 5 programming language system itself.
 
 =head1 CONTRIBUTORS
 
-=for stopwords Karen Etheridge Randy Stauner Torsten Raudssus Nickolay Platonov Olivier Mengué Al Newkirk Tatsuhiko Miyagawa Thomas Sibley
+=for stopwords Karen Etheridge Randy Stauner Nickolay Platonov Olivier Mengué Al Newkirk Tatsuhiko Miyagawa Thomas Sibley David Golden
 
 =over 4
 
@@ -170,10 +170,6 @@ Karen Etheridge <ether@cpan.org>
 =item *
 
 Randy Stauner <rwstauner@cpan.org>
-
-=item *
-
-Torsten Raudssus <getty@cpan.org>
 
 =item *
 
@@ -194,6 +190,10 @@ Tatsuhiko Miyagawa <miyagawa@cpan.org>
 =item *
 
 Thomas Sibley <tsibley@cpan.org>
+
+=item *
+
+David Golden <dagolden@cpan.org>
 
 =back
 

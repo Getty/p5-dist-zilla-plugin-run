@@ -1,6 +1,6 @@
-Revision history for {{$dist->name}}
+Revision history for Dist-Zilla-Plugin-Run
 
-{{$NEXT}}
+0.035     2015-03-31 03:09:04Z
   - fix tests to avoid setting a newly-immutable config variable directly
     (David Golden, PR#11)
 

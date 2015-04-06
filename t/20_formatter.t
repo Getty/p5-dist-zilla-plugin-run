@@ -71,7 +71,7 @@ SCRIPT
                             },
                         },
                         name => 'Run::BeforeBuild',
-                        version => ignore,
+                        version => Dist::Zilla::Plugin::Run::BeforeBuild->VERSION,
                     },
                     {
                         class => 'Dist::Zilla::Plugin::Run::AfterBuild',
@@ -82,7 +82,7 @@ SCRIPT
                             },
                         },
                         name => 'Run::AfterBuild',
-                        version => ignore,
+                        version => Dist::Zilla::Plugin::Run::AfterBuild->VERSION,
                     },
                     {
                         class => 'Dist::Zilla::Plugin::Run::BeforeRelease',
@@ -93,7 +93,7 @@ SCRIPT
                             },
                         },
                         name => 'Run::BeforeRelease',
-                        version => ignore,
+                        version => Dist::Zilla::Plugin::Run::BeforeRelease->VERSION,
                     },
                     {
                         class => 'Dist::Zilla::Plugin::Run::Release',
@@ -104,7 +104,7 @@ SCRIPT
                             },
                         },
                         name => 'Run::Release',
-                        version => ignore,
+                        version => Dist::Zilla::Plugin::Run::Release->VERSION,
                     },
                     {
                         class => 'Dist::Zilla::Plugin::Run::AfterRelease',
@@ -115,7 +115,7 @@ SCRIPT
                             },
                         },
                         name => 'Run::AfterRelease',
-                        version => ignore,
+                        version => Dist::Zilla::Plugin::Run::AfterRelease->VERSION,
                     },
                 ),
             }),

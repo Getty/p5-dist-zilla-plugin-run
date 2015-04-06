@@ -98,7 +98,7 @@ SCRIPT
                             },
                         },
                         name => 'Run::BeforeBuild',
-                        version => ignore,
+                        version => Dist::Zilla::Plugin::Run::BeforeBuild->VERSION,
                     },
                     {
                         class => 'Dist::Zilla::Plugin::Run::AfterBuild',
@@ -110,7 +110,7 @@ SCRIPT
                             },
                         },
                         name => 'Run::AfterBuild',
-                        version => ignore,
+                        version => Dist::Zilla::Plugin::Run::AfterBuild->VERSION,
                     },
                 ),
             }),

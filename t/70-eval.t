@@ -80,7 +80,7 @@ cmp_deeply(
                         },
                     },
                     name => 'Run::BeforeBuild',
-                    version => ignore,
+                    version => Dist::Zilla::Plugin::Run::BeforeBuild->VERSION,
                 },
                 {
                     class => 'Dist::Zilla::Plugin::Run::AfterBuild',
@@ -91,7 +91,7 @@ cmp_deeply(
                         },
                     },
                     name => 'Run::AfterBuild',
-                    version => ignore,
+                    version => Dist::Zilla::Plugin::Run::AfterBuild->VERSION,
                 },
                 {
                     class => 'Dist::Zilla::Plugin::Run::BeforeRelease',
@@ -102,7 +102,7 @@ cmp_deeply(
                         },
                     },
                     name => 'Run::BeforeRelease',
-                    version => ignore,
+                    version => Dist::Zilla::Plugin::Run::BeforeRelease->VERSION,
                 },
                 {
                     class => 'Dist::Zilla::Plugin::Run::Release',
@@ -113,7 +113,7 @@ cmp_deeply(
                         },
                     },
                     name => 'Run::Release',
-                    version => ignore,
+                    version => Dist::Zilla::Plugin::Run::Release->VERSION,
                 },
                 {
                     class => 'Dist::Zilla::Plugin::Run::AfterRelease',
@@ -124,7 +124,7 @@ cmp_deeply(
                         },
                     },
                     name => 'Run::AfterRelease',
-                    version => ignore,
+                    version => Dist::Zilla::Plugin::Run::AfterRelease->VERSION,
                 },
             ),
         }),

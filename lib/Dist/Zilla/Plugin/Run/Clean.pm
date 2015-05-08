@@ -16,7 +16,7 @@ use namespace::autoclean;
 
 {
     use Dist::Zilla::Dist::Builder;
-    my $meta = Dist::Zilla::Dist::Builder->meta;
+    my $meta = Moose::Util::find_meta('Dist::Zilla::Dist::Builder');
     $meta->make_mutable;
     Moose::Util::add_method_modifier($meta, 'after',
         [

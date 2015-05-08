@@ -8,6 +8,7 @@ use Test::Deep;
 
 # protect from external environment
 local $ENV{TRIAL};
+local $ENV{RELEASE_STATUS};
 
 sub test_build {
     my %test = @_;

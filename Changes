@@ -4,6 +4,8 @@ Revision history for Dist-Zilla-Plugin-Run
   - fix unintended consequence of changes in Dist::Zilla 5.035 where asking
     for the distribution's trial status might cause other plugins to run
     prematurely
+  - prevent tests from failing when TRIAL or RELEASE_STATUS is set in the
+    environment
 
 0.035     2015-03-31 03:09:04Z
   - fix tests to avoid setting a newly-immutable config variable directly

@@ -8,6 +8,10 @@ use Test::Fatal;
 use Test::Deep;
 use Path::Tiny;
 
+# protect from external environment
+local $ENV{TRIAL};
+local $ENV{RELEASE_STATUS};
+
 my $command = 'Path::Tiny::path(\'eval_out.txt\')->append_raw(';
 my $tzil = Builder->from_config(
     { dist_root => 't/does-not-exist' },

@@ -4,6 +4,10 @@ use Test::More 0.88;
 use Test::DZil;
 use Path::Tiny;
 
+# protect from external environment
+local $ENV{TRIAL};
+local $ENV{RELEASE_STATUS};
+
 {
     my $tzil = Builder->from_config(
         { dist_root => 't/does-not-exist' },

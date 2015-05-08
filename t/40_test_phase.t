@@ -33,7 +33,7 @@ SCRIPT
 
     my $test_file   = $build_dir->child('test.txt');
 
-    ok(-f $test_file, 'Test script has been ran');
+    ok(-f $test_file, 'Test script has been run');
 
     my $content     = path($tzil->tempdir)->child(qw(build test.txt))->slurp_raw;
 

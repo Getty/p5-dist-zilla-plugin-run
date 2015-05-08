@@ -57,7 +57,7 @@ SCRIPT
 
     my $before_build_result = path($tzil->tempdir, qw(source BEFORE_BUILD.txt));
 
-    ok(-f $before_build_result, 'Before build script has been ran');
+    ok(-f $before_build_result, 'before-build script has been run');
 
     my $after_build_result  = path($tzil->tempdir)->child(qw(build lib AFTER_BUILD.txt))->slurp_raw;
 

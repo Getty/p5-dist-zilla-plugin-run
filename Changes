@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-Plugin-Run
 
+{{$NEXT}}
+
 0.036     2015-05-08 21:48:32Z
   - fix unintended consequence of changes in Dist::Zilla 5.035 where asking
     for the distribution's trial status might cause other plugins to run

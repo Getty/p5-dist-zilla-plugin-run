@@ -9,6 +9,7 @@ use Moose::Role;
 use namespace::autoclean;
 use File::Spec (); # core
 use Config     (); # core
+use Moose::Util 'find_meta';
 
 has perlpath => (
     is      => 'ro',
@@ -97,6 +98,23 @@ around BUILDARGS => sub {
     return $built;
 };
 
+sub _is_trial {
+    my $self = shift;
+
+    # we want to avoid provoking other plugins prematurely, but also be as
+    # accurate as we can with this status
+
+    my $release_status_attr = find_meta($self->zilla)->find_attribute_by_name('release_status');
+
+    return ( $self->zilla->is_trial ? 1 : 0 ) if
+        not $release_status_attr     # legacy (before Dist::Zilla 5.035)
+        or $release_status_attr->has_value($self->zilla);
+
+    # otherwise, only use the logic that does not require zilla->version
+    # before Dist::Zilla 5.035, this is what $zilla->is_trial returned
+    return $self->zilla->_release_status_from_env =~ /\A(?:testing|unstable)\z/ ? 1 : 0;
+}
+
 sub _call_script {
     my ( $self, $params ) = @_;
 
@@ -104,10 +122,8 @@ sub _call_script {
         $self->_run_cmd($run_cmd, $params);
     }
 
-    my $is_trial = $self->zilla->is_trial ? 1 : 0;
-
     foreach my $run_cmd (@{$self->run_if_trial}) {
-        if ($is_trial) {
+        if ($self->_is_trial) {
             $self->_run_cmd($run_cmd, $params);
         } else {
             $self->log_debug([ 'not executing, because no trial: %s', $run_cmd ]);
@@ -115,7 +131,7 @@ sub _call_script {
     }
 
     foreach my $run_cmd (@{$self->run_no_trial}) {
-        if ($is_trial) {
+        if ($self->_is_trial) {
             $self->log_debug([ 'not executing, because trial: %s', $run_cmd ]);
         } else {
             $self->_run_cmd($run_cmd, $params);
@@ -246,7 +262,7 @@ sub build_formatter {
     # available during build, not mint
     unless( $params->{minting} ){
         $codes->{v} = sub { $self->zilla->version };
-        $codes->{t} = sub { $self->zilla->is_trial ? '-TRIAL' : '' };
+        $codes->{t} = sub { $self->_is_trial ? '-TRIAL' : '' };
     }
 
     # positional replace (backward compatible)

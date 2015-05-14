@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-Plugin-Run
 
+{{$NEXT}}
+
 0.037     2015-05-14 07:04:34Z
   - resolve failures on Dist::Zilla 5.035 caused by the release_status code
     still being in flux at that time

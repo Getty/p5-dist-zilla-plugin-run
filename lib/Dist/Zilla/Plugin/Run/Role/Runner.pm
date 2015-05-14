@@ -3,7 +3,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::Run::Role::Runner;
 
-our $VERSION = '0.037';
+our $VERSION = '0.038';
 
 use Moose::Role;
 use namespace::autoclean;

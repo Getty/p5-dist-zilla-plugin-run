@@ -25,7 +25,7 @@ local $ENV{RELEASE_STATUS};
 foreach my $trial (undef, 1)
 {
     foreach my $release_status (undef, 'stable', 'unstable')
-    {
+    { SKIP: {
         # When no environment variables are set, this test would fail with
         # Dist::Zilla >= 5.035, without our own adjustments to how we
         # calculate is_trial, because release_status is determined (by
@@ -38,14 +38,14 @@ foreach my $trial (undef, 1)
         local $ENV{TRIAL} = $trial if $trial;
         local $ENV{RELEASE_STATUS} = $release_status if $release_status;
 
-        # inconsistent; don't try to predict dzil's behaviour
-        next if $ENV{RELEASE_STATUS} and $trial;
+        skip('inconsistent state; avoid trying to predict behaviour', 2)
+            if $ENV{RELEASE_STATUS} and $ENV{TRIAL};
 
-        # Dist::Zilla < 5.035 did not support this environment variable
-        next if $ENV{RELEASE_STATUS} and not eval { Dist::Zilla->VERSION('5.035') };
+        skip('Dist::Zilla < 5.035 did not support this environment variable', 2)
+            if $ENV{RELEASE_STATUS} and not eval { Dist::Zilla->VERSION('5.035') };
 
-        # Dist::Zilla = 5.035 did not implement _release_status_from_env either
-        next if ($ENV{RELEASE_STATUS} or $ENV{TRIAL}) and Dist::Zilla->VERSION eq '5.035';
+        skip('Dist::Zilla = 5.035 did not implement _release_status_from_env either', 2)
+            if ($ENV{RELEASE_STATUS} or $ENV{TRIAL}) and Dist::Zilla->VERSION eq '5.035';
 
         my $tzil = Builder->from_config(
             { dist_root => 't/does-not-exist' },
@@ -100,7 +100,7 @@ SCRIPT
 
         diag 'got log messages: ', explain $tzil->log_messages
             if not Test::Builder->new->is_passing;
-    }
+    } }
 }
 
 done_testing;

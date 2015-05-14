@@ -6,6 +6,7 @@ use Test::DZil;
 use Path::Tiny;
 use Test::Deep;
 use Test::Fatal;
+use Dist::Zilla;
 
 # protect from external environment
 local $ENV{TRIAL};
@@ -40,8 +41,11 @@ foreach my $trial (undef, 1)
         # inconsistent; don't try to predict dzil's behaviour
         next if $ENV{RELEASE_STATUS} and $trial;
 
-        # older Dist::Zilla did not support this environment variable
+        # Dist::Zilla < 5.035 did not support this environment variable
         next if $ENV{RELEASE_STATUS} and not eval { Dist::Zilla->VERSION('5.035') };
+
+        # Dist::Zilla = 5.035 did not implement _release_status_from_env either
+        next if ($ENV{RELEASE_STATUS} or $ENV{TRIAL}) and Dist::Zilla->VERSION eq '5.035';
 
         my $tzil = Builder->from_config(
             { dist_root => 't/does-not-exist' },

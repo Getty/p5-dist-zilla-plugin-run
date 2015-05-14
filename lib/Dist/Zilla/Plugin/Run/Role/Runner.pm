@@ -112,7 +112,7 @@ sub _is_trial {
 
     # otherwise, only use the logic that does not require zilla->version
     # before Dist::Zilla 5.035, this is what $zilla->is_trial returned
-    return $self->zilla->_release_status_from_env =~ /\A(?:testing|unstable)\z/ ? 1 : 0;
+    return eval { $self->zilla->_release_status_from_env =~ /\A(?:testing|unstable)\z/ } ? 1 : 0;
 }
 
 sub _call_script {

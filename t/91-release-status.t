@@ -38,6 +38,9 @@ foreach my $trial (undef, 1)
         local $ENV{TRIAL} = $trial if $trial;
         local $ENV{RELEASE_STATUS} = $release_status if $release_status;
 
+        note 'TRIAL=' . ($ENV{TRIAL} || '')
+            . '; RELEASE_STATUS=' . ($ENV{RELEASE_STATUS} || '');
+
         skip('inconsistent state; avoid trying to predict behaviour', 2)
             if $ENV{RELEASE_STATUS} and $ENV{TRIAL};
 

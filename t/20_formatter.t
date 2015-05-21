@@ -68,6 +68,7 @@ SCRIPT
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
                                 run => [ '%x script%prun.pl before_build %s %n %v%t .%d.%a. %x' ],
                                 fatal_errors => 1,
+                                quiet => 0,
                             },
                         },
                         name => 'Run::BeforeBuild',
@@ -79,6 +80,7 @@ SCRIPT
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
                                 run => [ '%x script%prun.pl after_build %n %v%t %d %s %s %v%t .%a. %x' ],
                                 fatal_errors => 1,
+                                quiet => 0,
                             },
                         },
                         name => 'Run::AfterBuild',
@@ -90,6 +92,7 @@ SCRIPT
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
                                 run => [ '%x script%prun.pl before_release %n -d %d %s -v %v%t .%a. %x' ],
                                 fatal_errors => 1,
+                                quiet => 0,
                             },
                         },
                         name => 'Run::BeforeRelease',
@@ -101,6 +104,7 @@ SCRIPT
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
                                 run => [ '%x script%prun.pl release %s %n %v%t %d/a %d/b %a %x' ],
                                 fatal_errors => 1,
+                                quiet => 0,
                             },
                         },
                         name => 'Run::Release',
@@ -112,6 +116,7 @@ SCRIPT
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
                                 run => [ '%x script%prun.pl after_release %d %v%t %s %s %n %a %x' ],
                                 fatal_errors => 1,
+                                quiet => 0,
                             },
                         },
                         name => 'Run::AfterRelease',

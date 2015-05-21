@@ -66,13 +66,19 @@ has fatal_errors => (
     default => 1,
 );
 
+has quiet => (
+    is => 'ro',
+    isa => 'Bool',
+    default => 0,
+);
+
 around dump_config => sub
 {
     my ($orig, $self) = @_;
     my $config = $self->$orig;
 
     $config->{+__PACKAGE__} = {
-        (map { $_ => $self->$_ } qw(fatal_errors)),
+        (map { $_ => $self->$_ } qw(fatal_errors quiet)),
         map {
             @{ $self->$_ }
                 # look for user:password URIs
@@ -176,7 +182,7 @@ sub _run_cmd {
     require IPC::Open3;  # core
 
     my $command = $self->build_formatter($params)->format($run_cmd);
-    $self->log("executing: $command");
+    $self->${ $self->quiet ? \'log_debug' : \'log' }("executing: $command");
 
     # autoflush STDOUT so we can see command output right away
     local $| = 1;
@@ -184,13 +190,14 @@ sub _run_cmd {
     my $pid = IPC::Open3::open3(my ($in, $out), undef, $command);
     while(defined(my $line = <$out>)){
         chomp($line); # logger appends its own newline
-        $self->log($line);
+        $self->${ $self->quiet ? \'log_debug' : \'log' }($line);
     }
     # zombie repellent
     waitpid($pid, 0);
 
     if (my $status = ($? >> 8)) {
-        $self->${ $self->fatal_errors ? \'log_fatal' : \'log'}("command exited with status $status ($?)");
+        $self->${ $self->fatal_errors ? \'log_fatal' : $self->quiet ? \'log_debug' : \'log'}
+            ("command exited with status $status ($?)");
     }
     else {
         $self->log_debug('command executed successfully');
@@ -206,13 +213,14 @@ sub _eval_cmd {
     }
 
     $code = $self->build_formatter($params)->format($code);
-    $self->log("evaluating: $code");
+    $self->${ $self->quiet ? \'log_debug' : \'log' }("evaluating: $code");
 
     my $sub = sub { eval $code };
     $sub->($self);
 
     if ($@) {
-        $self->${ $self->fatal_errors ? \'log_fatal' : \'log' }('evaluation died: ' . $@);
+        $self->${ $self->fatal_errors ? \'log_fatal' : $self->quiet ? \'log_debug' : \'log'}
+            ('evaluation died: ' . $@);
     }
 }
 

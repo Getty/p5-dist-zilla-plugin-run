@@ -100,6 +100,12 @@ Defaults to false.
 When true, if the C<run> command returns a non-zero exit status or the C<eval>
 command dies, the build will fail. Defaults to true.
 
+=head2 quiet
+
+When true, diagnostic messages are not printed (except in C<--verbose> mode).
+
+Defaults to false.
+
 =head1 CONVERSIONS
 
 The following conversions/format specifiers are defined

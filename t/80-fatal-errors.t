@@ -49,6 +49,7 @@ use Test::Fatal;
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
                                 run => [ qq{$^X "exit 2"} ],
                                 fatal_errors => 1,
+                                quiet => 0,
                             },
                         },
                         name => 'Run::BeforeBuild',
@@ -107,6 +108,7 @@ use Test::Fatal;
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
                                 eval => [ 'die "oh noes"' ],
                                 fatal_errors => 1,
+                                quiet => 0,
                             },
                         },
                         name => 'Run::BeforeBuild',
@@ -164,6 +166,7 @@ use Test::Fatal;
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
                                 run => [ qq{$^X "exit 2"} ],
                                 fatal_errors => 0,
+                                quiet => 0,
                             },
                         },
                         name => 'Run::BeforeBuild',
@@ -222,6 +225,7 @@ use Test::Fatal;
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
                                 eval => [ 'die "oh noes"' ],
                                 fatal_errors => 0,
+                                quiet => 0,
                             },
                         },
                         name => 'Run::BeforeBuild',

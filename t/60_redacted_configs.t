@@ -36,6 +36,7 @@ use Test::Deep;
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
                                 run => [ 'REDACTED' ],
                                 fatal_errors => 1,
+                                quiet => 0,
                             },
                         },
                         name => 'Run::AfterRelease',
@@ -91,6 +92,7 @@ use Test::Deep;
                                     'echo hello world',
                                 ],
                                 fatal_errors => 1,
+                                quiet => 0,
                             },
                         },
                         name => 'install release',

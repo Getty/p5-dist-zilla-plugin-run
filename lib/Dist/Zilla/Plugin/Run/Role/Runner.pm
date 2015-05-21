@@ -190,8 +190,7 @@ sub _run_cmd {
     waitpid($pid, 0);
 
     if (my $status = ($? >> 8)) {
-        my $method = $self->fatal_errors ? 'log_fatal' : 'log';
-        $self->$method("command exited with status $status ($?)");
+        $self->${ $self->fatal_errors ? \'log_fatal' : \'log'}("command exited with status $status ($?)");
     }
     else {
         $self->log_debug('command executed successfully');
@@ -213,8 +212,7 @@ sub _eval_cmd {
     $sub->($self);
 
     if ($@) {
-        my $method = $self->fatal_errors ? 'log_fatal' : 'log';
-        $self->$method('evaluation died: ' . $@);
+        $self->${ $self->fatal_errors ? \'log_fatal' : \'log' }('evaluation died: ' . $@);
     }
 }
 

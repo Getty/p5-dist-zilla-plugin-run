@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-Plugin-Run
 
-{{$NEXT}}
+0.038     2015-05-22 04:01:27Z
   - new 'quiet' configuration option
 
 0.037     2015-05-14 07:04:34Z

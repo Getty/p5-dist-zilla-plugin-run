@@ -9,6 +9,7 @@ install:
   - export AUTOMATED_TESTING=1
   - export HARNESS_OPTIONS=j1:c
   - export HARNESS_TIMER=1
+  - cpanm JSON::PP
   - cpanm --verbose --skip-satisfied Dist::Zilla
   - cpanm --verbose Dist::Zilla::App::Command::stale
   - "dzil stale --all | cpanm"

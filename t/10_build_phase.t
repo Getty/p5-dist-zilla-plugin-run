@@ -22,10 +22,10 @@ sub test_build {
                 path(qw(source dist.ini)) => simple_ini(
                     [ GatherDir => ],
                     [ MetaConfig => ],
-                    [ 'Run::BeforeBuild' => { run => [ '%x script%pbefore_build.pl' ] } ],
+                    [ 'Run::BeforeBuild' => { run => [ '"%x" script%pbefore_build.pl' ] } ],
                     [ 'Run::AfterBuild' => {
-                        run => [ '%x script%pafter_build.pl "%s"' ],
-                        run_no_trial => [ '%x script%pno_trial.pl "%s"' ],
+                        run => [ '"%x" script%pafter_build.pl "%s"' ],
+                        run_no_trial => [ '"%x" script%pno_trial.pl "%s"' ],
                       }
                     ],
                 ),
@@ -68,7 +68,7 @@ SCRIPT
         ok( (! -e $no_trial_file), 'is trial - file not written' );
 
         like $tzil->log_messages->[-1],
-            qr{\[Run::AfterBuild\] not executing, because trial: %x script%pno_trial.pl "%s"},
+            qr{\[Run::AfterBuild\] not executing, because trial: "%x" script%pno_trial.pl "%s"},
             'logged skipping of non-trial command';
     }
     else {
@@ -94,7 +94,7 @@ SCRIPT
                         class => 'Dist::Zilla::Plugin::Run::BeforeBuild',
                         config => {
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
-                                run => [ '%x script%pbefore_build.pl' ],
+                                run => [ '"%x" script%pbefore_build.pl' ],
                                 fatal_errors => 1,
                                 quiet => 0,
                             },
@@ -106,8 +106,8 @@ SCRIPT
                         class => 'Dist::Zilla::Plugin::Run::AfterBuild',
                         config => {
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
-                                run => [ '%x script%pafter_build.pl "%s"' ],
-                                run_no_trial => [ '%x script%pno_trial.pl "%s"' ],
+                                run => [ '"%x" script%pafter_build.pl "%s"' ],
+                                run_no_trial => [ '"%x" script%pno_trial.pl "%s"' ],
                                 fatal_errors => 1,
                                 quiet => 0,
                             },

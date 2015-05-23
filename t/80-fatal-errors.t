@@ -15,7 +15,7 @@ use Test::Fatal;
                 path(qw(source dist.ini)) => simple_ini(
                     [ GatherDir => ],
                     [ MetaConfig => ],
-                    [ 'Run::BeforeBuild' => { run => [ qq{$^X -le"exit 2"} ] } ],
+                    [ 'Run::BeforeBuild' => { run => [ qq{"$^X" -le"exit 2"} ] } ],
                 ),
                 path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
             },
@@ -32,7 +32,7 @@ use Test::Fatal;
     cmp_deeply(
         $tzil->log_messages,
         superbagof(
-            re(qr/\Q[Run::BeforeBuild] executing: $^X -le"exit 2"\E/),
+            re(qr/\Q[Run::BeforeBuild] executing: "$^X" -le"exit 2"\E/),
             '[Run::BeforeBuild] command exited with status 2 (512)',
         ),
         'log messages list what happened',
@@ -47,7 +47,7 @@ use Test::Fatal;
                         class => 'Dist::Zilla::Plugin::Run::BeforeBuild',
                         config => {
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
-                                run => [ qq{$^X -le"exit 2"} ],
+                                run => [ qq{"$^X" -le"exit 2"} ],
                                 fatal_errors => 1,
                                 quiet => 0,
                             },
@@ -132,7 +132,7 @@ use Test::Fatal;
                 path(qw(source dist.ini)) => simple_ini(
                     [ GatherDir => ],
                     [ MetaConfig => ],
-                    [ 'Run::BeforeBuild' => { run => [ qq{$^X "exit 2"} ], fatal_errors => 0, } ],
+                    [ 'Run::BeforeBuild' => { run => [ qq{"$^X" "exit 2"} ], fatal_errors => 0, } ],
                 ),
                 path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
             },
@@ -149,7 +149,7 @@ use Test::Fatal;
     cmp_deeply(
         $tzil->log_messages,
         superbagof(
-            re(qr/\Q[Run::BeforeBuild] executing: $^X "exit 2"\E/),
+            re(qr/\Q[Run::BeforeBuild] executing: "$^X" "exit 2"\E/),
             '[Run::BeforeBuild] command exited with status 2 (512)',
         ),
         'log messages list what happened',
@@ -164,7 +164,7 @@ use Test::Fatal;
                         class => 'Dist::Zilla::Plugin::Run::BeforeBuild',
                         config => {
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
-                                run => [ qq{$^X "exit 2"} ],
+                                run => [ qq{"$^X" "exit 2"} ],
                                 fatal_errors => 0,
                                 quiet => 0,
                             },

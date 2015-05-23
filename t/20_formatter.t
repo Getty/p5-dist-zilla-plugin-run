@@ -15,11 +15,11 @@ for my $trial (0, 1) {
                     [ GatherDir => ],
                     [ MetaConfig => ],
 
-                    [ 'Run::BeforeBuild' => { run => [ '%x script%prun.pl before_build %s %n %v%t .%d.%a. %x' ] } ],
-                    [ 'Run::AfterBuild' => { run => [ '%x script%prun.pl after_build %n %v%t %d %s %s %v%t .%a. %x' ] } ],
-                    [ 'Run::BeforeRelease' => { run => [ '%x script%prun.pl before_release %n -d %d %s -v %v%t .%a. %x' ] } ],
-                    [ 'Run::Release' => { run => [ '%x script%prun.pl release %s %n %v%t %d/a %d/b %a %x' ] } ],
-                    [ 'Run::AfterRelease' => { run => [ '%x script%prun.pl after_release %d %v%t %s %s %n %a %x' ] } ],
+                    [ 'Run::BeforeBuild' => { run => [ '"%x" script%prun.pl before_build %s %n %v%t .%d.%a. %x' ] } ],
+                    [ 'Run::AfterBuild' => { run => [ '"%x" script%prun.pl after_build %n %v%t %d %s %s %v%t .%a. %x' ] } ],
+                    [ 'Run::BeforeRelease' => { run => [ '"%x" script%prun.pl before_release %n -d %d %s -v %v%t .%a. %x' ] } ],
+                    [ 'Run::Release' => { run => [ '"%x" script%prun.pl release %s %n %v%t %d/a %d/b %a %x' ] } ],
+                    [ 'Run::AfterRelease' => { run => [ '"%x" script%prun.pl after_release %d %v%t %s %s %n %a %x' ] } ],
                 ),
                 path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
                 path(qw(source script run.pl)) => <<'SCRIPT',
@@ -66,7 +66,7 @@ SCRIPT
                         class => 'Dist::Zilla::Plugin::Run::BeforeBuild',
                         config => {
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
-                                run => [ '%x script%prun.pl before_build %s %n %v%t .%d.%a. %x' ],
+                                run => [ '"%x" script%prun.pl before_build %s %n %v%t .%d.%a. %x' ],
                                 fatal_errors => 1,
                                 quiet => 0,
                             },
@@ -78,7 +78,7 @@ SCRIPT
                         class => 'Dist::Zilla::Plugin::Run::AfterBuild',
                         config => {
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
-                                run => [ '%x script%prun.pl after_build %n %v%t %d %s %s %v%t .%a. %x' ],
+                                run => [ '"%x" script%prun.pl after_build %n %v%t %d %s %s %v%t .%a. %x' ],
                                 fatal_errors => 1,
                                 quiet => 0,
                             },
@@ -90,7 +90,7 @@ SCRIPT
                         class => 'Dist::Zilla::Plugin::Run::BeforeRelease',
                         config => {
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
-                                run => [ '%x script%prun.pl before_release %n -d %d %s -v %v%t .%a. %x' ],
+                                run => [ '"%x" script%prun.pl before_release %n -d %d %s -v %v%t .%a. %x' ],
                                 fatal_errors => 1,
                                 quiet => 0,
                             },
@@ -102,7 +102,7 @@ SCRIPT
                         class => 'Dist::Zilla::Plugin::Run::Release',
                         config => {
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
-                                run => [ '%x script%prun.pl release %s %n %v%t %d/a %d/b %a %x' ],
+                                run => [ '"%x" script%prun.pl release %s %n %v%t %d/a %d/b %a %x' ],
                                 fatal_errors => 1,
                                 quiet => 0,
                             },
@@ -114,7 +114,7 @@ SCRIPT
                         class => 'Dist::Zilla::Plugin::Run::AfterRelease',
                         config => {
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
-                                run => [ '%x script%prun.pl after_release %d %v%t %s %s %n %a %x' ],
+                                run => [ '"%x" script%prun.pl after_release %d %v%t %s %s %n %a %x' ],
                                 fatal_errors => 1,
                                 quiet => 0,
                             },

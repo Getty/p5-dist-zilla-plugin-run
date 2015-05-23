@@ -11,7 +11,7 @@ use Test::DZil;
             add_files => {
                 path(qw(source dist.ini)) => simple_ini(
                     [ GatherDir => ],
-                    [ 'Run::Test' => { run => [ '%x script%ptest.pl "%d" %n-%v' ] } ],
+                    [ 'Run::Test' => { run => [ '"%x" script%ptest.pl "%d" %n-%v' ] } ],
                     [ FakeRelease => ],
                 ),
                 path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",

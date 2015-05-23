@@ -18,7 +18,7 @@ sub tzil {
                     [ GatherDir => ],
                     [ MetaConfig => ],
                     [ 'Run::Clean' => {
-                        run => [ '%x script%pclean.pl' ],
+                        run => [ '"%x" script%pclean.pl' ],
                         eval => [ 'use Path::Tiny; path(\'CLEAN.txt\')->append_utf8("eval command\n");' ],
                       }
                     ],
@@ -65,7 +65,7 @@ SCRIPT
     cmp_deeply(
         $tzil->log_messages,
         superbagof(
-            '[Run::Clean] dry run, would run: %x script%pclean.pl',
+            '[Run::Clean] dry run, would run: "%x" script%pclean.pl',
             '[Run::Clean] dry run, would evaluate: use Path::Tiny; path(\'CLEAN.txt\')->append_utf8("eval command\n");',
         ),
         'we logged the command we would run',

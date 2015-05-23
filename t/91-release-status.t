@@ -66,9 +66,9 @@ foreach my $trial (undef, 1)
                         [ '=MyVersionProvider' ],
                         [ MetaConfig => ],
                         [ 'Run::BeforeBuild' => {
-                            run => [ '%x script%pbefore_build.pl both' ],
-                            run_if_trial => [ '%x script%pbefore_build.pl trial' ],
-                            run_no_trial => [ '%x script%pbefore_build.pl notrial' ],
+                            run => [ '"%x" script%pbefore_build.pl both' ],
+                            run_if_trial => [ '"%x" script%pbefore_build.pl trial' ],
+                            run_no_trial => [ '"%x" script%pbefore_build.pl notrial' ],
                           } ],
                     ),
                     path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",

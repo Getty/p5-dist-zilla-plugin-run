@@ -14,7 +14,7 @@ local $ENV{RELEASE_STATUS};
 
 my $command = 'Path::Tiny::path(\'eval_out.txt\')->append_raw(';
 my $tzil = Builder->from_config(
-    { dist_root => 't/does-not-exist' },
+    { dist_root => 'does-not-exist' },
     {
         add_files => {
             path(qw(source dist.ini)) => simple_ini(

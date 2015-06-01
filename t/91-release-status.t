@@ -51,7 +51,7 @@ foreach my $trial (undef, 1)
             if ($ENV{RELEASE_STATUS} or $ENV{TRIAL}) and Dist::Zilla->VERSION eq '5.035';
 
         my $tzil = Builder->from_config(
-            { dist_root => 't/does-not-exist' },
+            { dist_root => 'does-not-exist' },
             {
                 add_files => {
                     path(qw(source dist.ini)) => dist_ini(

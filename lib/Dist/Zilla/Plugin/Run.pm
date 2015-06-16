@@ -126,9 +126,9 @@ Each occurrence is replaced by a different value
 (like the regular C<sprintf> function).
 Individual plugins define their own values for the positional replacement of C<%s>.
 
-B<NOTE>: when using C<%x>, be mindful that this path could contain special
-characters or whitespace, so if it is to be used in a shell command, escape it
-accordingly!
+B<NOTE>: when using filenames (e.g. C<%d>, C<%n> and C<%x>), be mindful that
+these paths could contain special characters or whitespace, so if they are to
+be used in a shell command, take care to use quotes or escapes!
 
 =cut
 

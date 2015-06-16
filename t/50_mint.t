@@ -23,7 +23,9 @@ use Test::File::ShareDir -share => {
 
   ok -d $dir, 'created directory in mint dir';
 
-  is_deeply [glob($dir->child('*'))], [], 'dir is empty but exists';
+  # extra protection for spaces - see perldoc -f glob
+  my $children = $dir->child('*');
+  is_deeply [glob(qq{"$children"})], [], 'dir is empty but exists';
 
   like path($tzil->tempdir)->child(qw(mint lib DZT Minty.pm))->slurp_utf8,
     qr/package DZT::Minty;/,

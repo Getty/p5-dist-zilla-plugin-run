@@ -8,7 +8,7 @@ Dist::Zilla::Plugin::Run - Run external commands and code at specific phases of 
 
 =head1 VERSION
 
-version 0.038
+version 0.039
 
 =head1 SYNOPSIS
 
@@ -64,13 +64,13 @@ Run arbitrary commands and code at various L<Dist::Zilla> phases.
 Run the specific command at the specific L<Dist::Zilla> phase given by the
 plugin. For example, C<[Run::Release]> runs during the release phase.
 
-=head2 run_no_trial
-
-Only run the given command if this isn't a I<trial> build or release.
-
 =head2 run_if_trial
 
 Only run the given command if this is a I<trial> build or release.
+
+=head2 run_no_trial
+
+Only run the given command if this isn't a I<trial> build or release.
 
 =head2 run_if_release
 
@@ -108,6 +108,12 @@ command dies, the build will fail. Defaults to true.
 When true, diagnostic messages are not printed (except in C<--verbose> mode).
 
 Defaults to false.
+
+=head1 EXECUTION ORDER
+
+All commands for a given option name are executed together, in the order in
+which they are documented above.  Within commands of the same option name,
+order is preserved (from the order provided in F<dist.ini>).
 
 =head1 CONVERSIONS
 
@@ -152,16 +158,18 @@ Each occurrence is replaced by a different value
 (like the regular C<sprintf> function).
 Individual plugins define their own values for the positional replacement of C<%s>.
 
+B<NOTE>: when using filenames (e.g. C<%d>, C<%n> and C<%x>), be mindful that
+these paths could contain special characters or whitespace, so if they are to
+be used in a shell command, take care to use quotes or escapes!
+
+=head1 DANGER! SECURITY RISK!
+
+The very nature of these plugins is to execute code. Be mindful that your code
+may run on someone else's machine and don't be a jerk!
+
 =head1 AUTHOR
 
 Torsten Raudssus <torsten@raudss.us> L<https://raudss.us/>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2010 by L<Raudssus Social Software|https://raudss.us/>.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
 
 =head1 CONTRIBUTORS
 
@@ -202,5 +210,12 @@ Thomas Sibley <tsibley@cpan.org>
 David Golden <dagolden@cpan.org>
 
 =back
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2010 by L<Raudssus Social Software|https://raudss.us/>.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut

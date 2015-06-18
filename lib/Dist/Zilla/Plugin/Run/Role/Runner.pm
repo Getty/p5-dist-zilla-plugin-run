@@ -293,4 +293,4 @@ sub build_formatter {
 sub current_perl_path { $^X }
 
 1;
-# vim: set ts=4 sts=4 sw=4 expandtab smarttab:
+# vim: set ts=8 sts=4 sw=4 tw=78 et :

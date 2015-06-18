@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-Plugin-Run
 
+{{$NEXT}}
+
 0.039     2015-06-18 05:59:06Z
   - fix test failures when using a perl with whitespace in its path
   - document the execution order of the various command options

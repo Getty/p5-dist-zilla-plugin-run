@@ -4,7 +4,7 @@ use warnings;
 package Dist::Zilla::Plugin::Run::AfterMint;
 # ABSTRACT: Execute a command after a new dist is minted
 
-our $VERSION = '0.039';
+our $VERSION = '0.040';
 
 use Moose;
 with qw(

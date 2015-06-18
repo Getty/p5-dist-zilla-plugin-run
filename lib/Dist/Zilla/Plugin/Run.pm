@@ -61,13 +61,13 @@ Run arbitrary commands and code at various L<Dist::Zilla> phases.
 Run the specific command at the specific L<Dist::Zilla> phase given by the
 plugin. For example, C<[Run::Release]> runs during the release phase.
 
-=head2 run_no_trial
-
-Only run the given command if this isn't a I<trial> build or release.
-
 =head2 run_if_trial
 
 Only run the given command if this is a I<trial> build or release.
+
+=head2 run_no_trial
+
+Only run the given command if this isn't a I<trial> build or release.
 
 =head2 run_if_release
 
@@ -105,6 +105,12 @@ command dies, the build will fail. Defaults to true.
 When true, diagnostic messages are not printed (except in C<--verbose> mode).
 
 Defaults to false.
+
+=head1 EXECUTION ORDER
+
+All commands for a given option name are executed together, in the order in
+which they are documented above.  Within commands of the same option name,
+order is preserved (from the order provided in F<dist.ini>).
 
 =head1 CONVERSIONS
 

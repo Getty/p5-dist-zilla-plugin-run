@@ -2,6 +2,7 @@ Revision history for Dist-Zilla-Plugin-Run
 
 {{$NEXT}}
   - fix test failures when using a perl with whitespace in its path
+  - document the execution order of the various command options
 
 0.038     2015-05-22 04:01:27Z
   - new 'quiet' configuration option

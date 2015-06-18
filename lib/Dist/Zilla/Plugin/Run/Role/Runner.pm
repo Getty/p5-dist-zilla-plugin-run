@@ -215,13 +215,19 @@ sub _eval_cmd {
     $code = $self->build_formatter($params)->format($code);
     $self->${ $self->quiet ? \'log_debug' : \'log' }("evaluating: $code");
 
-    my $sub = sub { eval $code };
+    my $sub = __eval_wrapper($code);
     $sub->($self);
+    my $error = $@;
 
-    if ($@) {
+    if (defined $error and $error ne '') {
         $self->${ $self->fatal_errors ? \'log_fatal' : $self->quiet ? \'log_debug' : \'log'}
-            ('evaluation died: ' . $@);
+            ('evaluation died: ' . $error);
     }
+}
+
+sub __eval_wrapper {
+    my $code = shift;
+    sub { eval $code };
 }
 
 around mvp_multivalue_args => sub {

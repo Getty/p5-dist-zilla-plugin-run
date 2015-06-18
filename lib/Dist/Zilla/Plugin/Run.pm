@@ -7,6 +7,11 @@ package Dist::Zilla::Plugin::Run;
 
 our $VERSION = '0.039';
 
+1;
+__END__
+
+=pod
+
 =head1 SYNOPSIS
 
   [Run::AfterBuild]
@@ -137,5 +142,3 @@ these paths could contain special characters or whitespace, so if they are to
 be used in a shell command, take care to use quotes or escapes!
 
 =cut
-
-1;

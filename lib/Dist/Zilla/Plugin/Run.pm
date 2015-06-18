@@ -141,4 +141,9 @@ B<NOTE>: when using filenames (e.g. C<%d>, C<%n> and C<%x>), be mindful that
 these paths could contain special characters or whitespace, so if they are to
 be used in a shell command, take care to use quotes or escapes!
 
+=head1 DANGER! SECURITY RISK!
+
+The very nature of these plugins is to execute code. Be mindful that your code
+may run on someone else's machine and don't be a jerk!
+
 =cut

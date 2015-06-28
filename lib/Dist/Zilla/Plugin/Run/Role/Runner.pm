@@ -24,31 +24,7 @@ has censor_commands => (
     default => 0,
 );
 
-has run => (
-    is => 'ro',
-    isa  => 'ArrayRef',
-    default => sub { [] },
-);
-
-has run_if_trial => (
-    is => 'ro',
-    isa  => 'ArrayRef',
-    default => sub { [] },
-);
-
-has run_no_trial => (
-    is => 'ro',
-    isa  => 'ArrayRef',
-    default => sub { [] },
-);
-
-has run_if_release => (
-    is => 'ro',
-    isa  => 'ArrayRef',
-    default => sub { [] },
-);
-
-has run_no_release => (
+has [ qw(run run_if_trial run_no_trial run_if_release run_no_release) ] => (
     is => 'ro',
     isa  => 'ArrayRef',
     default => sub { [] },

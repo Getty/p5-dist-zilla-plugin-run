@@ -26,7 +26,7 @@ has censor_commands => (
 
 has [ qw(run run_if_trial run_no_trial run_if_release run_no_release) ] => (
     is => 'ro',
-    isa  => 'ArrayRef',
+    isa  => 'ArrayRef[Str]',
     default => sub { [] },
 );
 

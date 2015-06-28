@@ -1,4 +1,9 @@
 ---
+sudo: false
+addons:
+  apt:
+    packages:
+      - aspell
 before_install:
   - export AUTOMATED_TESTING=1
   - export HARNESS_OPTIONS=j10:c

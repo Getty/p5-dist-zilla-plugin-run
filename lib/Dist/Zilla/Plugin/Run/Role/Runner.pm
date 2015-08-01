@@ -162,7 +162,7 @@ sub _run_cmd {
 
     # autoflush STDOUT so we can see command output right away
     local $| = 1;
-    # combine stdout and stderr for ease of proxying through the logger
+    # combine STDOUT and STDERR for ease of proxying through the logger
     my $pid = IPC::Open3::open3(my ($in, $out), undef, $command);
     while(defined(my $line = <$out>)){
         chomp($line); # logger appends its own newline

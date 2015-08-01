@@ -2,7 +2,6 @@ use strict;
 use warnings;
 use Test::More 0.88;
 use Test::DZil;
-use Path::Class;    # argh
 use Path::Tiny;
 
 use Test::File::ShareDir -share => {
@@ -13,7 +12,12 @@ use Test::File::ShareDir -share => {
   my $tzil = Minter->_new_from_profile(
     [ Default => 'default' ],
     { name    => 'DZT-Minty' ,},
-    { global_config_root => dir('test_data/global')->absolute },    # sadly, this must quack like a Path::Class for now
+    { global_config_root =>
+        eval 'require Dist::Zilla::Dist::Minter; Dist::Zilla::Dist::Minter->VERSION("5.038"); 1'
+            ? 'test_data/global'
+            # older DZ requires this to quack like a Path::Class
+            : do { require Path::Class; Path::Class::dir('test_data/global')->absolute },
+    },
   );
 
   $tzil->chrome->logger->set_debug(1);

@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-Plugin-Run
 
 {{$NEXT}}
+  - drop use of Path::Class, when Dist::Zilla is new enough
 
 0.039     2015-06-18 05:59:06Z
   - fix test failures when using a perl with whitespace in its path

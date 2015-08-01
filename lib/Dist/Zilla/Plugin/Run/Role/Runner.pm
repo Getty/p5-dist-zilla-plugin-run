@@ -158,7 +158,7 @@ sub _run_cmd {
     require IPC::Open3;  # core
 
     my $command = $self->build_formatter($params)->format($run_cmd);
-    $self->${ $self->quiet ? \'log_debug' : \'log' }("executing: $command");
+    $self->${ $self->quiet ? \'log_debug' : \'log' }([ 'executing: %s', $command ]);
 
     # autoflush STDOUT so we can see command output right away
     local $| = 1;
@@ -173,7 +173,7 @@ sub _run_cmd {
 
     if (my $status = ($? >> 8)) {
         $self->${ $self->fatal_errors ? \'log_fatal' : $self->quiet ? \'log_debug' : \'log'}
-            ("command exited with status $status ($?)");
+            ([ 'command exited with status %s (%s)', $status, $? ]);
     }
     else {
         $self->log_debug('command executed successfully');
@@ -189,7 +189,7 @@ sub _eval_cmd {
     }
 
     $code = $self->build_formatter($params)->format($code);
-    $self->${ $self->quiet ? \'log_debug' : \'log' }("evaluating: $code");
+    $self->${ $self->quiet ? \'log_debug' : \'log' }([ 'evaluating: %s', $code ]);
 
     my $sub = __eval_wrapper($code);
     $sub->($self);
@@ -197,7 +197,7 @@ sub _eval_cmd {
 
     if (defined $error and $error ne '') {
         $self->${ $self->fatal_errors ? \'log_fatal' : $self->quiet ? \'log_debug' : \'log'}
-            ('evaluation died: ' . $error);
+            ([ 'evaluation died: %s', $error ]);
     }
 }
 

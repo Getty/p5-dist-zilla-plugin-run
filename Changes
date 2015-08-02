@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-Plugin-Run
 
-{{$NEXT}}
+0.040     2015-08-02 02:20:25Z
   - drop use of Path::Class, when Dist::Zilla is new enough
   - if a dying command causes the build to fail and the command diagnostics
     were not shown, show them before dying, to aid debugging

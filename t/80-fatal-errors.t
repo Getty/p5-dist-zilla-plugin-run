@@ -32,7 +32,7 @@ use Test::Fatal;
     cmp_deeply(
         $tzil->log_messages,
         superbagof(
-            re(qr/\Q[Run::BeforeBuild] executing: "$^X" -le"exit 2"\E/),
+            qq{[Run::BeforeBuild] executing: "$^X" -le"exit 2"},
             '[Run::BeforeBuild] command exited with status 2 (512)',
         ),
         'log messages list what happened',
@@ -149,7 +149,7 @@ use Test::Fatal;
     cmp_deeply(
         $tzil->log_messages,
         superbagof(
-            re(qr/\Q[Run::BeforeBuild] executing: "$^X" "exit 2"\E/),
+            qq{[Run::BeforeBuild] executing: "$^X" "exit 2"},
             '[Run::BeforeBuild] command exited with status 2 (512)',
         ),
         'log messages list what happened',

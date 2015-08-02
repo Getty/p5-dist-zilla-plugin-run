@@ -4,7 +4,7 @@ use warnings;
 package Dist::Zilla::Plugin::Run::Test;
 # ABSTRACT: execute a command of the distribution after build
 
-our $VERSION = '0.040';
+our $VERSION = '0.041';
 
 use Moose;
 with qw(

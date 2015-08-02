@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-Plugin-Run
 
 {{$NEXT}}
+  - fix logic used for extra diagnostics during quiet fatal errors (0.040)
 
 0.040     2015-08-02 02:20:25Z
   - drop use of Path::Class, when Dist::Zilla is new enough

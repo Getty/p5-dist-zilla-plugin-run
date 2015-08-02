@@ -171,8 +171,8 @@ sub _run_cmd {
     waitpid($pid, 0);
 
     if (my $status = ($? >> 8)) {
-        if ($self->fatal_errors and $self->quiet and  $self->zilla->logger->get_debug) {
-            $self->log([ 'executed: %s', $command ]) ;
+        if ($self->fatal_errors and $self->quiet and $self->zilla->logger->get_debug) {
+            $self->log([ 'executed: %s', $command ]);
             $self->log($_) for @lines;
         }
 

@@ -200,6 +200,10 @@ sub _eval_cmd {
     my $error = $@;
 
     if (defined $error and $error ne '') {
+        if ($self->fatal_errors and $self->quiet and not $self->zilla->logger->get_debug) {
+            $self->log([ 'evaluated: %s', $code]);
+        }
+
         $self->${ $self->fatal_errors ? \'log_fatal' : $self->quiet ? \'log_debug' : \'log'}
             ([ 'evaluation died: %s', $error ]);
     }

@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-Plugin-Run
 
-{{$NEXT}}
+0.041     2015-08-03 02:18:18Z
   - fix logic used for extra diagnostics during quiet fatal errors (0.040)
 
 0.040     2015-08-02 02:20:25Z

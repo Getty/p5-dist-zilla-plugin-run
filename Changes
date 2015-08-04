@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-Plugin-Run
 
 {{$NEXT}}
+  - properly chomp carriage returns from output on MSWin32
 
 0.041     2015-08-03 02:18:18Z
   - fix logic used for extra diagnostics during quiet fatal errors (0.040)

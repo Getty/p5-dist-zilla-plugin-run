@@ -164,6 +164,7 @@ sub _run_cmd {
     local $| = 1;
     # combine STDOUT and STDERR for ease of proxying through the logger
     my $pid = IPC::Open3::open3(my ($in, $out), undef, $command);
+    binmode $out, ':crlf' if $^O eq 'MSWin32';
     chomp(my @lines = <$out>); # logger appends its own newline
     $self->${ $self->quiet ? \'log_debug' : \'log' }($_) for @lines;
 

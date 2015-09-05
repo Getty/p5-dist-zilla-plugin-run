@@ -1,7 +1,7 @@
 use strict;
 use warnings;
-
 package Dist::Zilla::Plugin::Run::Role::Runner;
+# vim: set ts=8 sts=4 sw=4 tw=115 et :
 
 our $VERSION = '0.043';
 
@@ -278,4 +278,3 @@ sub build_formatter {
 sub current_perl_path { $^X }
 
 1;
-# vim: set ts=8 sts=4 sw=4 tw=78 et :

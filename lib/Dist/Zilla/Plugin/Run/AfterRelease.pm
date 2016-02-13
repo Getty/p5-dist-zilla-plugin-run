@@ -45,7 +45,7 @@ For backward compatibility:
 
 =for :list
 * The 1st C<%s> will be replaced by the archive of the release.
-* The 2nd C<%s> will be replaced by the dist version.
+* The 2nd C<%s> will be replaced by the distribution version.
 
 =cut
 

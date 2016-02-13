@@ -125,10 +125,10 @@ for passing as arguments to the specified commands and eval strings
 
 =for :list
 * C<%a> the archive of the release (available to all C<*Release> phases)
-* C<%d> the directory in which the dist was built (or minted) (not in C<BeforeBuild>)
-* C<%n> the dist name
+* C<%d> the directory in which the distribution was built (or minted) (not in C<BeforeBuild>)
+* C<%n> the distribution name
 * C<%p> path separator ('/' on Unix, '\\' on Win32... useful for cross-platform dist.ini files)
-* C<%v> the dist version
+* C<%v> the distribution version
 * C<%t> C<-TRIAL> if the release is a trial release, otherwise the empty string
 * C<%x> full path to the current perl interpreter (like $^X but from L<Config>)
 

@@ -245,7 +245,7 @@ sub build_formatter {
             $dir ? "$dir" : '';
         },
 
-        # dist name
+        # distribution name
         n => sub { $self->zilla->name },
 
         # backward compatibility (don't error)

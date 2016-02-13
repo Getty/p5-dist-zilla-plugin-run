@@ -30,7 +30,7 @@ sub after_build {
 
 =head1 DESCRIPTION
 
-This plugin executes the specified command after building the dist.
+This plugin executes the specified command after building the distribution.
 
 =head1 POSITIONAL PARAMETERS
 
@@ -40,8 +40,8 @@ for the list of common formatting variables available to all plugins.
 For backward compatibility:
 
 =for :list
-* The 1st C<%s> will be replaced by the directory in which the dist was built.
-* The 2nd C<%s> will be replaced by the dist version.
+* The 1st C<%s> will be replaced by the directory in which the distribution was built.
+* The 2nd C<%s> will be replaced by the distribution version.
 
 =cut
 

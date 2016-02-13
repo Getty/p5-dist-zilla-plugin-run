@@ -65,13 +65,13 @@ In your F<dist.ini>:
 
 =head1 DESCRIPTION
 
-This plugin executes the specified command(s) when cleaning the dist.
+This plugin executes the specified command(s) when cleaning the distribution.
 
 =head1 POSITIONAL PARAMETERS
 
 See L<Dist::Zilla::Plugin::Run/CONVERSIONS>
 for the list of common formatting variables available to all plugins.
-(Some of them may not work properly, because the dist is not built
+(Some of them may not work properly, because the distribution is not built
 when running the clean command. These are not tested yet - patches welcome!)
 
 =cut

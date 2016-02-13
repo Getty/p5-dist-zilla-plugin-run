@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 package Dist::Zilla::Plugin::Run::AfterMint;
-# ABSTRACT: Execute a command after a new dist is minted
+# ABSTRACT: Execute a command after a new distribution is minted
 
 our $VERSION = '0.043';
 
@@ -29,7 +29,7 @@ sub after_mint {
 
 =head1 DESCRIPTION
 
-This plugin executes the specified command after minting a new dist.
+This plugin executes the specified command after minting a new distribution.
 
 =head1 CONVERSIONS
 

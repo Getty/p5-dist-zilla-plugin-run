@@ -15,40 +15,40 @@ __END__
 =head1 SYNOPSIS
 
   [Run::AfterBuild]
-  run = script/do_this.pl --dir %s --version %s
+  run = script/do_this.pl --dir %d --version %v
   run = script/do_that.pl
   eval = unlink scratch.dat
 
   [Run::BeforeBuild]
   fatal_errors = 0
-  run = script/do_this.pl --version %s
+  run = script/do_this.pl --version %v
   run = script/do_that_crashy_thing.pl
   eval = if ($ENV{SOMETHING}) {
   eval =   $_[0]->log('some message')
   eval = }
 
   [Run::BeforeArchive]
-  run = script/myapp_before1.pl %s
+  run = script/myapp_before1.pl %d %v
   run = script/myapp_before2.pl %n %v
   run_no_trial = script/no_execution_on_trial.pl %n %v
 
   [Run::BeforeRelease]
-  run = script/myapp_before1.pl %s
+  run = script/myapp_before1.pl %a
   run = script/myapp_before2.pl %n %v
   run_no_trial = script/no_execution_on_trial.pl %n %v
 
   [Run::Release]
-  run = script/myapp_deploy1.pl %s
+  run = script/myapp_deploy1.pl %a
   run = deployer.pl --dir %d --tgz %a --name %n --version %v
   run_no_trial = script/no_execution_on_trial.pl --dir %d --tgz %a --name %n --version %v
 
   [Run::AfterRelease]
-  run = script/myapp_after.pl --archive %s --version %s
+  run = script/myapp_after.pl --archive %a --dir %d --version %v
   ; %p can be used as the path separator if you have contributors on a different OS
-  run = script%pmyapp_after.pl --archive %s --version %s
+  run = script%pmyapp_after.pl --archive %a --dir %d --version %v
 
   [Run::AfterRelease / MyAppAfter]
-  run = script/myapp_after.pl --archive %s --version %s
+  run = script/myapp_after.pl --archive %a --dir %d --version %v
 
   [Run::Test]
   run = script/tester.pl --name %n --version %v some_file.ext
@@ -137,8 +137,8 @@ for passing as arguments to the specified commands and eval strings
 * C<%t> C<-TRIAL> if the release is a trial release, otherwise the empty string
 * C<%x> full path to the current perl interpreter (like C<$^X> but from L<Config>)
 
-Additionally C<%s> is retained for backward compatibility.
-Each occurrence is replaced by a different value
+Additionally C<%s> is retained for backward compatibility (for those plugins that existed
+when it was documented).  Each occurrence is replaced by a different value
 (like the regular C<sprintf> function).
 Individual plugins define their own values for the positional replacement of C<%s>.
 

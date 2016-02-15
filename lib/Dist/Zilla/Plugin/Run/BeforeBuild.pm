@@ -24,7 +24,7 @@ sub before_build {
 =head1 SYNOPSIS
 
   [Run::BeforeBuild]
-  run = script/do_this.pl --version %s
+  run = script/do_this.pl --version %v
   run = script/do_that.pl
 
 =head1 DESCRIPTION

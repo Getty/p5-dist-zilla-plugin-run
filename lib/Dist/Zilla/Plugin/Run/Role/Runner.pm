@@ -262,7 +262,7 @@ sub build_formatter {
         $codes->{t} = sub { $self->_is_trial ? '-TRIAL' : '' };
     }
 
-    # positional replace (backward compatible)
+    # positional replacement of %s (backward compatible)
     if( my @pos = @{ $params->{pos} || [] } ){
         # where are you defined-or // operator?
         $codes->{s} = sub {

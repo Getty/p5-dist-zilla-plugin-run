@@ -25,12 +25,12 @@ sub before_release {
 =head1 SYNOPSIS
 
   [Run::BeforeRelease]
-  run = script/myapp_before.pl %s
+  run = script/myapp_before.pl %v %d
 
 or
 
   [Run::BeforeRelease / MyAppBefore]
-  run = script/myapp_before.pl %s
+  run = script/myapp_before.pl %v %d
 
 =head1 DESCRIPTION
 

@@ -25,7 +25,7 @@ sub after_build {
 =head1 SYNOPSIS
 
   [Run::AfterBuild]
-  run = script/do_this.pl --dir %s --version %s
+  run = script/do_this.pl --dir %d --version %v
   run = script/do_that.pl
 
 =head1 DESCRIPTION

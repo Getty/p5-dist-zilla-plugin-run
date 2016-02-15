@@ -25,12 +25,12 @@ sub after_release {
 =head1 SYNOPSIS
 
   [Run::AfterRelease]
-  run = script/myapp_after.pl --archive %s --version %s
+  run = script/myapp_after.pl --archive %a --dir %d --version %v
 
 or
 
   [Run::AfterRelease / MyAppAfter]
-  run = script/myapp_after.pl %s %s
+  run = script/myapp_after.pl %a %d %v
 
 =head1 DESCRIPTION
 

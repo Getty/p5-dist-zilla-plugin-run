@@ -25,12 +25,12 @@ sub release {
 =head1 SYNOPSIS
 
   [Run::Release]
-  run = script/myapp_deploy.pl %s
+  run = script/myapp_deploy.pl %d %v
 
 or
 
   [Run::Release / MyAppDeploy]
-  run = script/myapp_deploy.pl %s
+  run = script/myapp_deploy.pl %d %v
 
 =head1 DESCRIPTION
 

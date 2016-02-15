@@ -27,6 +27,11 @@ __END__
   eval =   $_[0]->log('some message')
   eval = }
 
+  [Run::BeforeArchive]
+  run = script/myapp_before1.pl %s
+  run = script/myapp_before2.pl %n %v
+  run_no_trial = script/no_execution_on_trial.pl %n %v
+
   [Run::BeforeRelease]
   run = script/myapp_before1.pl %s
   run = script/myapp_before2.pl %n %v

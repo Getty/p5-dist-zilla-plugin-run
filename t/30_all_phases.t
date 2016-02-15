@@ -23,6 +23,7 @@ local $ENV{RELEASE_STATUS};
 
                     [ 'Run::BeforeBuild' => { run => [ '"%x" script%prun.pl before_build %s %n %v .%d.%a. x:%x' ] } ],
                     [ 'Run::AfterBuild' => { run => [ '"%x" script%prun.pl after_build %n %v %d %s %s %v .%a. x:%x' ] } ],
+                    [ 'Run::BeforeArchive' => { run => [ '"%x" script%prun.pl before_archive %n %v %d .%a. x:%x' ] } ],
                     [ 'Run::BeforeRelease' => { run => [ '"%x" script%prun.pl before_release %n -d %d %s -v %v .%a. x:%x' ] } ],
                     [ 'Run::Release' => { run => [ '"%x" script%prun.pl release %s %n %v %d/a %d/b %a x:%x' ] } ],
                     [ 'Run::AfterRelease' => { run => [ '"%x" script%prun.pl after_release %d %v %s %s %n %a x:%x' ] } ],
@@ -55,6 +56,7 @@ SCRIPT
     my $expected = <<OUTPUT;
 before_build $f{v} $f{n} $f{v} ... x:$f{x}
 after_build $f{n} $f{v} $f{d} $f{d} $f{v} $f{v} .. x:$f{x}
+before_archive $f{n} $f{v} $f{d} .. x:$f{x}
 before_release $f{n} -d $f{d} $f{a} -v $f{v} .$f{a}. x:$f{x}
 release $f{a} $f{n} $f{v} $f{d}/a $f{d}/b $f{a} x:$f{x}
 after_release $f{d} $f{v} $f{a} $f{v} $f{n} $f{a} x:$f{x}

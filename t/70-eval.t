@@ -25,6 +25,8 @@ my $tzil = Builder->from_config(
                     eval => [ $command . '\'before_build for [\' . $_[0]->plugin_name . \'], %s %n %v .%d.%a. %x\' . qq{\\n});' ] } ],
                 [ 'Run::AfterBuild' => {
                     eval => [ $command . '\'after_build for [\' . $_[0]->plugin_name . \'], %n %v %d %s %s %v .%a. %x\' . qq{\\n});' ] } ],
+                [ 'Run::BeforeArchive' => {
+                    eval => [ $command . '\'before_archive for [\' . $_[0]->plugin_name . \'], %n %v %d .%a. %x\' . qq{\\n});' ] } ],
                 [ 'Run::BeforeRelease' => {
                     eval => [ $command . '\'before_release for [\' . $_[0]->plugin_name . \'], %n -d %d %s -v %v .%a. %x\' . qq{\\n});' ] } ],
                 [ 'Run::Release' => {
@@ -59,6 +61,7 @@ my %f = (
 my $expected = <<OUTPUT;
 before_build for [Run::BeforeBuild], $f{v} $f{n} $f{v} ... $f{x}
 after_build for [Run::AfterBuild], $f{n} $f{v} $f{d} $f{d} $f{v} $f{v} .. $f{x}
+before_archive for [Run::BeforeArchive], $f{n} $f{v} $f{d} .. $f{x}
 before_release for [Run::BeforeRelease], $f{n} -d $f{d} $f{a} -v $f{v} .$f{a}. $f{x}
 release for [Run::Release], $f{a} $f{n} $f{v} $f{d}/a $f{d}/b $f{a} $f{x}
 after_release for [Run::AfterRelease], $f{d} $f{v} $f{a} $f{v} $f{n} $f{a} $f{x}
@@ -98,6 +101,18 @@ cmp_deeply(
                     },
                     name => 'Run::AfterBuild',
                     version => Dist::Zilla::Plugin::Run::AfterBuild->VERSION,
+                },
+                {
+                    class => 'Dist::Zilla::Plugin::Run::BeforeArchive',
+                    config => {
+                        'Dist::Zilla::Plugin::Run::Role::Runner' => {
+                            eval => [ $command . '\'before_archive for [\' . $_[0]->plugin_name . \'], %n %v %d .%a. %x\' . qq{\\n});' ],
+                            fatal_errors => 1,
+                            quiet => 0,
+                        },
+                    },
+                    name => 'Run::BeforeArchive',
+                    version => Dist::Zilla::Plugin::Run::BeforeArchive->VERSION,
                 },
                 {
                     class => 'Dist::Zilla::Plugin::Run::BeforeRelease',
@@ -149,6 +164,7 @@ cmp_deeply(
         re(qr/^\Q[Run::BeforeRelease] evaluating: Path::Tiny::path('eval_out.txt')->append_raw('before_release \E/),
         re(qr/^\Q[Run::Release] evaluating: Path::Tiny::path('eval_out.txt')->append_raw('release \E/),
         re(qr/^\Q[Run::AfterRelease] evaluating: Path::Tiny::path('eval_out.txt')->append_raw('after_release \E/),
+        re(qr/^\Q[Run::BeforeArchive] evaluating: Path::Tiny::path('eval_out.txt')->append_raw('before_archive \E/),
     ),
     'got diagnostics when code is evaluated',
 );

@@ -17,6 +17,7 @@ for my $trial (0, 1) {
 
                     [ 'Run::BeforeBuild' => { run => [ '"%x" script%prun.pl before_build %s %n %v%t .%d.%a. %x' ] } ],
                     [ 'Run::AfterBuild' => { run => [ '"%x" script%prun.pl after_build %n %v%t %d %s %s %v%t .%a. %x' ] } ],
+                    [ 'Run::BeforeArchive' => { run => [ '"%x" script%prun.pl before_archive %d %v%t %n %a %x' ] } ],
                     [ 'Run::BeforeRelease' => { run => [ '"%x" script%prun.pl before_release %n -d %d %s -v %v%t .%a. %x' ] } ],
                     [ 'Run::Release' => { run => [ '"%x" script%prun.pl release %s %n %v%t %d/a %d/b %a %x' ] } ],
                     [ 'Run::AfterRelease' => { run => [ '"%x" script%prun.pl after_release %d %v%t %s %s %n %a %x' ] } ],
@@ -85,6 +86,18 @@ SCRIPT
                         },
                         name => 'Run::AfterBuild',
                         version => Dist::Zilla::Plugin::Run::AfterBuild->VERSION,
+                    },
+                    {
+                        class => 'Dist::Zilla::Plugin::Run::BeforeArchive',
+                        config => {
+                            'Dist::Zilla::Plugin::Run::Role::Runner' => {
+                                run => [ '"%x" script%prun.pl before_archive %d %v%t %n %a %x' ],
+                                fatal_errors => 1,
+                                quiet => 0,
+                            },
+                        },
+                        name => 'Run::BeforeArchive',
+                        version => Dist::Zilla::Plugin::Run::BeforeArchive->VERSION,
                     },
                     {
                         class => 'Dist::Zilla::Plugin::Run::BeforeRelease',

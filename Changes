@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-Plugin-Run
 
 {{$NEXT}}
+  - new [Run::BeforeArchive] plugin
 
 0.042     2015-08-04 03:44:33Z
   - properly chomp carriage returns from output on MSWin32

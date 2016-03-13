@@ -54,6 +54,7 @@ around dump_config => sub
     my $config = $self->$orig;
 
     $config->{+__PACKAGE__} = {
+        version => $VERSION,
         (map { $_ => $self->$_ ? 1 : 0 } qw(fatal_errors quiet)),
         map {
             @{ $self->$_ }

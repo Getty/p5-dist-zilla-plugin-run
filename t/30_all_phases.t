@@ -47,7 +47,7 @@ SCRIPT
     my %f = (
         a => 'DZT-Sample-0.001.tar.gz',
         n => 'DZT-Sample',
-        d => path($tzil->tempdir)->child('build')->canonpath, # use OS-specific path separators
+        d => path($tzil->tempdir)->child('build'),
         v => '0.001',
         x => Dist::Zilla::Plugin::Run::Role::Runner->current_perl_path,
     );

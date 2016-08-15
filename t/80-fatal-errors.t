@@ -15,7 +15,7 @@ use Test::Fatal;
                 path(qw(source dist.ini)) => simple_ini(
                     [ GatherDir => ],
                     [ MetaConfig => ],
-                    [ 'Run::BeforeBuild' => { run => [ qq{"$^X" -le"exit 2"} ] } ],
+                    [ 'Run::BeforeBuild' => { run => [ qq{"$^X" -le"exit 42"} ] } ],
                 ),
                 path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
             },
@@ -25,15 +25,15 @@ use Test::Fatal;
     $tzil->chrome->logger->set_debug(1);
     like(
         exception { $tzil->build },
-        qr/command exited with status 2 \(512\)/,
+        qr/command exited with status 42 \(10752\)/,
         'build failed, reporting the error from the run command',
     );
 
     cmp_deeply(
         $tzil->log_messages,
         superbagof(
-            qq{[Run::BeforeBuild] executing: "$^X" -le"exit 2"},
-            '[Run::BeforeBuild] command exited with status 2 (512)',
+            qq{[Run::BeforeBuild] executing: "$^X" -le"exit 42"},
+            '[Run::BeforeBuild] command exited with status 42 (10752)',
         ),
         'log messages list what happened',
     );
@@ -47,7 +47,7 @@ use Test::Fatal;
                         class => 'Dist::Zilla::Plugin::Run::BeforeBuild',
                         config => {
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
-                                run => [ qq{"$^X" -le"exit 2"} ],
+                                run => [ qq{"$^X" -le"exit 42"} ],
                                 fatal_errors => 1,
                                 quiet => 0,
                                 version => Dist::Zilla::Plugin::Run::Role::Runner->VERSION,
@@ -134,7 +134,7 @@ use Test::Fatal;
                 path(qw(source dist.ini)) => simple_ini(
                     [ GatherDir => ],
                     [ MetaConfig => ],
-                    [ 'Run::BeforeBuild' => { run => [ qq{"$^X" "exit 2"} ], fatal_errors => 0, } ],
+                    [ 'Run::BeforeBuild' => { run => [ qq{"$^X" -le"exit 42"} ], fatal_errors => 0, } ],
                 ),
                 path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
             },
@@ -151,8 +151,8 @@ use Test::Fatal;
     cmp_deeply(
         $tzil->log_messages,
         superbagof(
-            qq{[Run::BeforeBuild] executing: "$^X" "exit 2"},
-            '[Run::BeforeBuild] command exited with status 2 (512)',
+            qq{[Run::BeforeBuild] executing: "$^X" -le"exit 42"},
+            '[Run::BeforeBuild] command exited with status 42 (10752)',
         ),
         'log messages list what happened',
     );
@@ -166,7 +166,7 @@ use Test::Fatal;
                         class => 'Dist::Zilla::Plugin::Run::BeforeBuild',
                         config => {
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
-                                run => [ qq{"$^X" "exit 2"} ],
+                                run => [ qq{"$^X" -le"exit 42"} ],
                                 fatal_errors => 0,
                                 quiet => 0,
                                 version => Dist::Zilla::Plugin::Run::Role::Runner->VERSION,

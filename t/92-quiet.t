@@ -13,7 +13,7 @@ my @configs = (
         eval => [ qq{die "oh noes"} ],
     },
     {
-        run => [ qq{"$^X" -le"exit 2"} ],
+        run => [ qq{"$^X" -le"exit 42"} ],
         eval => [ qq{print "# hello this is an eval command\\xa"} ],
     }
 );
@@ -78,7 +78,7 @@ foreach my $quiet (0, 1)
                 superbagof(
                     @run_messages,
                     re(qr/^\[plugin 0\] evaluation died: oh noes/),
-                    '[plugin 1] command exited with status 2 (512)',
+                    '[plugin 1] command exited with status 42 (10752)',
                 ),
                 "saw expected log messages when quiet=$quiet, verbose=$verbose",
             );
@@ -123,7 +123,7 @@ foreach my $quiet (0, 1)
                 path(qw(source dist.ini)) => simple_ini(
                     [ GatherDir => ],
                     [ MetaConfig => ],
-                    [ 'Run::BeforeBuild' => { quiet => 1, run => [ qq{"$^X" -le"print q/hi/; exit 2"} ] } ],
+                    [ 'Run::BeforeBuild' => { quiet => 1, run => [ qq{"$^X" -le"print q/hi/; exit 42"} ] } ],
                 ),
                 path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
             },
@@ -133,16 +133,16 @@ foreach my $quiet (0, 1)
     $tzil->chrome->logger->set_debug(0);    # explicitly *not* --verbose mode!
     like(
         exception { $tzil->build },
-        qr/command exited with status 2 \(512\)/,
+        qr/command exited with status 42 \(10752\)/,
         'build failed, reporting the error from the run command',
     );
 
     cmp_deeply(
         $tzil->log_messages,
         superbagof(
-            qq{[Run::BeforeBuild] executed: "$^X" -le"print q/hi/; exit 2"},
+            qq{[Run::BeforeBuild] executed: "$^X" -le"print q/hi/; exit 42"},
             '[Run::BeforeBuild] hi',
-            '[Run::BeforeBuild] command exited with status 2 (512)',
+            '[Run::BeforeBuild] command exited with status 42 (10752)',
         ),
         'log messages list what happened, after the fact',
     );
@@ -156,7 +156,7 @@ foreach my $quiet (0, 1)
                         class => 'Dist::Zilla::Plugin::Run::BeforeBuild',
                         config => {
                             'Dist::Zilla::Plugin::Run::Role::Runner' => {
-                                run => [ qq{"$^X" -le"print q/hi/; exit 2"} ],
+                                run => [ qq{"$^X" -le"print q/hi/; exit 42"} ],
                                 fatal_errors => 1,
                                 quiet => 1,
                                 version => Dist::Zilla::Plugin::Run::Role::Runner->VERSION,

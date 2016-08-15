@@ -37,10 +37,11 @@ is(
 );
 
 cmp_deeply(
-    $tzil->log_messages,
-    superbagof(
+    [ grep { /^\[Run::[^]]+\]/ } @{ $tzil->log_messages } ],
+    [
+        '[Run::BeforeBuild] evaluating: $self',
         re(qr/^\[Run::BeforeBuild\] evaluation died: Global symbol "\$self" requires explicit package name/),
-    ),
+    ],
     '$self is inaccessable to eval code',
 );
 

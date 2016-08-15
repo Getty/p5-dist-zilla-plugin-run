@@ -163,15 +163,15 @@ cmp_deeply(
 ) or diag 'got distmeta: ', explain $tzil->distmeta;
 
 cmp_deeply(
-    $tzil->log_messages,
-    superbagof(
+    [ grep { /^\[Run::[^]]+\]/ } @{ $tzil->log_messages } ],
+    [
         re(qr/^\Q[Run::BeforeBuild] evaluating: Path::Tiny::path('eval_out.txt')->append_raw('before_build \E/),
         re(qr/^\Q[Run::AfterBuild] evaluating: Path::Tiny::path('eval_out.txt')->append_raw('after_build \E/),
+        re(qr/^\Q[Run::BeforeArchive] evaluating: Path::Tiny::path('eval_out.txt')->append_raw('before_archive \E/),
         re(qr/^\Q[Run::BeforeRelease] evaluating: Path::Tiny::path('eval_out.txt')->append_raw('before_release \E/),
         re(qr/^\Q[Run::Release] evaluating: Path::Tiny::path('eval_out.txt')->append_raw('release \E/),
         re(qr/^\Q[Run::AfterRelease] evaluating: Path::Tiny::path('eval_out.txt')->append_raw('after_release \E/),
-        re(qr/^\Q[Run::BeforeArchive] evaluating: Path::Tiny::path('eval_out.txt')->append_raw('before_archive \E/),
-    ),
+    ],
     'got diagnostics when code is evaluated',
 );
 

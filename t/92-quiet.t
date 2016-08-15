@@ -22,7 +22,7 @@ foreach my $quiet (0, 1)
 {
     foreach my $verbose (0, 1)
     {
-        note "quiet = $quiet, verbose logging = $verbose";
+        note "\nquiet = $quiet, verbose logging = $verbose";
 
         my $plugin_count = 0;
         my $tzil = Builder->from_config(
@@ -74,9 +74,11 @@ foreach my $quiet (0, 1)
         else
         {
             cmp_deeply(
-                $tzil->log_messages,
-                superbagof(
+                [ grep { /^\[plugin [01]\]/ } @{ $tzil->log_messages } ],
+                bag(
                     @run_messages,
+                    $quiet && !$verbose ? () : ( '[plugin 0] # hello this is a run command' ),
+                    $verbose ? ( '[plugin 0] command executed successfully' ) : (),
                     re(qr/^\[plugin 0\] evaluation died: oh noes/),
                     '[plugin 1] command exited with status 42 (10752)',
                 ),
@@ -138,12 +140,12 @@ foreach my $quiet (0, 1)
     );
 
     cmp_deeply(
-        $tzil->log_messages,
-        superbagof(
+        [ grep { /^\[Run::[^]]+\]/ } @{ $tzil->log_messages } ],
+        [
             qq{[Run::BeforeBuild] executed: "$^X" -le"print q/hi/; exit 42"},
             '[Run::BeforeBuild] hi',
             '[Run::BeforeBuild] command exited with status 42 (10752)',
-        ),
+        ],
         'log messages list what happened, after the fact',
     );
 
@@ -198,11 +200,11 @@ foreach my $quiet (0, 1)
     );
 
     cmp_deeply(
-        $tzil->log_messages,
-        superbagof(
+        [ grep { /^\[Run::[^]]+\]/ } @{ $tzil->log_messages } ],
+        [
             '[Run::BeforeBuild] evaluated: die "oh noes"',
             re(qr/^\[Run::BeforeBuild\] evaluation died: oh noes/),
-        ),
+        ],
         'log messages list what happened, after the fact',
     );
 

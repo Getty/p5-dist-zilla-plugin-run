@@ -30,11 +30,11 @@ use Test::Fatal;
     );
 
     cmp_deeply(
-        $tzil->log_messages,
-        superbagof(
+        [ grep { /^\[Run::[^]]+\]/ } @{ $tzil->log_messages } ],
+        [
             qq{[Run::BeforeBuild] executing: "$^X" -le"exit 42"},
             '[Run::BeforeBuild] command exited with status 42 (10752)',
-        ),
+        ],
         'log messages list what happened',
     );
 
@@ -91,10 +91,10 @@ use Test::Fatal;
 
     cmp_deeply(
         $tzil->log_messages,
-        superbagof(
+        [
             '[Run::BeforeBuild] evaluating: die "oh noes"',
             re(qr/^\[Run::BeforeBuild\] evaluation died: oh noes/),
-        ),
+        ],
         'log messages list what happened',
     );
 
@@ -149,11 +149,11 @@ use Test::Fatal;
     );
 
     cmp_deeply(
-        $tzil->log_messages,
-        superbagof(
+        [ grep { /^\[Run::[^]]+\]/ } @{ $tzil->log_messages } ],
+        [
             qq{[Run::BeforeBuild] executing: "$^X" -le"exit 42"},
             '[Run::BeforeBuild] command exited with status 42 (10752)',
-        ),
+        ],
         'log messages list what happened',
     );
 
@@ -209,11 +209,11 @@ use Test::Fatal;
     );
 
     cmp_deeply(
-        $tzil->log_messages,
-        superbagof(
+        [ grep { /^\[Run::[^]]+\]/ } @{ $tzil->log_messages } ],
+        [
             '[Run::BeforeBuild] evaluating: die "oh noes"',
             re(qr/^\[Run::BeforeBuild\] evaluation died: oh noes/),
-        ),
+        ],
         'log messages list what happened',
     );
 

@@ -17,7 +17,6 @@ install:
   - cpanm JSON::PP
   - cpanm --verbose --skip-satisfied Dist::Zilla
   - cpanm --verbose Dist::Zilla::App::Command::stale
-  - "dzil stale --all | cpanm"
   - "dzil authordeps --missing | grep -vP '[^\\w:]' | xargs -n 5 -P 10 cpanm"
   - "dzil listdeps --author --missing | grep -vP '[^\\w:]' | cpanm"
 language: perl

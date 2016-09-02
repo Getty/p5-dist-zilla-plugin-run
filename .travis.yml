@@ -1,26 +1,13 @@
----
 sudo: false
 addons:
   apt:
     packages:
       - aspell
-before_install:
-  - export AUTOMATED_TESTING=1
-  - export HARNESS_OPTIONS=j10:c
-  - export HARNESS_TIMER=1
-  - git config --global user.name "TravisCI"
-  - git config --global user.email $HOSTNAME":not-for-mail@travis-ci.org"
-install:
-  - export AUTOMATED_TESTING=1
-  - export HARNESS_OPTIONS=j1:c
-  - export HARNESS_TIMER=1
-  - cpanm JSON::PP
-  - cpanm --verbose --skip-satisfied Dist::Zilla
-  - cpanm --verbose Dist::Zilla::App::Command::stale
-  - "dzil authordeps --missing | grep -vP '[^\\w:]' | xargs -n 5 -P 10 cpanm"
-  - "dzil listdeps --author --missing | grep -vP '[^\\w:]' | cpanm"
+      - aspell-en
 language: perl
 perl:
+  - "blead"
+  - "5.24"
   - "5.22"
   - "5.20"
   - "5.18"
@@ -28,8 +15,44 @@ perl:
   - "5.14"
   - "5.12"
   - "5.10"
+  - "5.8"
+matrix:
+  include:
+    - perl: 5.18
+      env: COVERAGE="Coveralls Codecov"
+  allow_failures:
+    - perl: "blead"
+before_install:
+  # - git config --global user.name "TravisCI"
+  # - git config --global user.email $HOSTNAME":not-for-mail@travis-ci.org"
+  - git clone git://github.com/travis-perl/helpers ~/travis-perl-helpers
+  - source ~/travis-perl-helpers/init
+  - build-perl
+  - perl -V
+  - build-dist
+install:
+  # # * `dzil` build (note: does not provide coverage info)
+  # - cd $TRAVIS_BUILD_DIR
+  # - cpanm --notest Dist::Zilla
+  # - cpanm --skip-satisfied --force --notest Dist::Zilla::App::Command::stale
+  # - "dzil authordeps | cpanm --force --notest"
+  # - "dzil listdeps --author | cpanm --force --notest"
+  # * idiomatic build
+  - cd "$BUILD_DIR"          # $BUILD_DIR is set by the build-dist command
+  - cpan-install --deps      # installs prereqs, including recommends
+  - cpan-install --coverage  # installs converage prereqs, if enabled
+before_script:
+  - coverage-setup
 script:
-  - export AUTOMATED_TESTING=1
-  - export HARNESS_OPTIONS=j10:c
-  - export HARNESS_TIMER=1
-  - dzil test --author --smoke
+  - export AUTOMATED_TESTING=1 HARNESS_OPTIONS=j10:c HARNESS_TIMER=1
+  # # * `dzil` build (note: does not provide coverage info)
+  # - cd "$TRAVIS_BUILD_DIR"
+  # - dzil test ## _or_ "dzil test --author --smoke"
+  # * idiomatic build (portable variant)
+  - cd "$BUILD_DIR"
+  - perl Build.PL
+  - perl Build
+  - prove -l -j$(test-jobs)              # tests
+  - prove -l -j$(test-jobs) xt/author/*  # "author" tests
+after_success:
+  - coverage-report  # coveralls.io + codecov.io

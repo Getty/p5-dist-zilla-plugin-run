@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-Plugin-Run
 
 {{$NEXT}}
+  - PENDING
 
 0.043     2016-02-15 04:20:20Z
   - new [Run::BeforeArchive] plugin

@@ -16,9 +16,12 @@ use namespace::autoclean;
 
 sub after_build {
   my ($self, $param) = @_;
+  use Path::Tiny 'path';
+  my $dir = $param->{ build_root };
+  my $dir_canonical = path($dir)->canonpath;
   $self->_call_script({
-    dir =>  $param->{ build_root },
-    pos => [$param->{ build_root }, sub { $self->zilla->version }]
+    dir =>  $dir,
+    pos => [$dir_canonical, sub { $self->zilla->version }]
   });
 }
 

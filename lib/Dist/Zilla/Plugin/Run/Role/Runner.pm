@@ -241,8 +241,10 @@ sub build_formatter {
 
         # build dir or mint dir
         d => sub {
+            use Path::Tiny 'path'; # includes Win32 bug fixes
             # stringify build directory
             my $dir = $params->{dir} || $self->zilla->built_in;
+            $dir = path($dir)->canonpath if defined $dir;
             $dir ? "$dir" : '';
         },
 

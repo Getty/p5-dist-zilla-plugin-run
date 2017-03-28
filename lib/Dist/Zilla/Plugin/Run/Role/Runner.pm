@@ -166,18 +166,15 @@ sub _run_cmd {
     # combine STDOUT and STDERR for ease of proxying through the logger
     my $pid = IPC::Open3::open3(my ($in, $out), undef, $command);
     binmode $out, ':crlf' if $^O eq 'MSWin32';
-    chomp(my @lines = <$out>); # logger appends its own newline
-    $self->${ $self->quiet ? \'log_debug' : \'log' }($_) for @lines;
+    while(defined(my $line = <$out>)){
+        chomp($line); # logger appends its own newline
+        $self->${ $self->quiet ? \'log_debug' : \'log' }($line);
+    }
 
     # zombie repellent
     waitpid($pid, 0);
 
     if (my $status = ($? >> 8)) {
-        if ($self->fatal_errors and $self->quiet and not $self->zilla->logger->get_debug) {
-            $self->log([ 'executed: %s', $command ]);
-            $self->log($_) for @lines;
-        }
-
         $self->${ $self->fatal_errors ? \'log_fatal' : $self->quiet ? \'log_debug' : \'log'}
             ([ 'command exited with status %s (%s)', $status, $? ]);
     }

@@ -1,6 +1,8 @@
 Revision history for Dist-Zilla-Plugin-Run
 
 {{$NEXT}}
+  - once again streaming command output as each line is produced, rather than
+    buffering until the process ends (this behaviour was changed in 0.040)
 
 0.043     2016-02-15 04:20:20Z
   - new [Run::BeforeArchive] plugin
@@ -14,7 +16,8 @@ Revision history for Dist-Zilla-Plugin-Run
 0.040     2015-08-02 02:20:25Z
   - drop use of Path::Class, when Dist::Zilla is new enough
   - if a dying command causes the build to fail and the command diagnostics
-    were not shown, show them before dying, to aid debugging
+    were not shown, show them before dying, to aid debugging (reverted in
+    0.044, as it did not behave as intended)
 
 0.039     2015-06-18 05:59:06Z
   - fix test failures when using a perl with whitespace in its path

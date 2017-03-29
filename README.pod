@@ -8,7 +8,7 @@ Dist::Zilla::Plugin::Run - Run external commands and code at specific phases of 
 
 =head1 VERSION
 
-version 0.043
+version 0.044
 
 =head1 SYNOPSIS
 
@@ -146,7 +146,7 @@ C<%p> path separator ('/' on Unix, '\\' on Win32... useful for cross-platform F<
 
 =item *
 
-C<%v> the distribution version
+C<%v> the distribution version, if available (depending on the phase, the C<VersionProvider> plugin may not be able to return a version)
 
 =item *
 

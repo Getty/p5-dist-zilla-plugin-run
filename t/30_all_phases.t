@@ -52,7 +52,7 @@ SCRIPT
         n => 'DZT-Sample',
         d => path($tzil->tempdir)->child('build'),
         v => '0.001',
-        x => Dist::Zilla::Plugin::Run::Role::Runner->current_perl_path,
+        x => do { my $path = Dist::Zilla::Plugin::Run::Role::Runner->current_perl_path; $path =~ s{\\}{/}g; $path },
     );
 
     # test constant conversions as well as positional %s for backward compatibility

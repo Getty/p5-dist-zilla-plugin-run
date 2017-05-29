@@ -8,6 +8,9 @@ use Test::Fatal;
 use Test::Deep;
 use Path::Tiny;
 
+use lib 't/lib';
+use TestHelper;
+
 # protect from external environment
 local $ENV{TRIAL};
 local $ENV{RELEASE_STATUS};
@@ -67,7 +70,7 @@ release for [Run::Release], $f{a} $f{n} $f{v} $f{d}/a $f{d}/b $f{a} $f{x}
 after_release for [Run::AfterRelease], $f{d} $f{v} $f{a} $f{v} $f{n} $f{a} $f{x}
 OUTPUT
 
-is(
+is_path(
     $source_dir->child('eval_out.txt')->slurp_raw,
     $expected,
     'all phases evaluate their code directly',

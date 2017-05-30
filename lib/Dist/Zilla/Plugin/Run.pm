@@ -5,7 +5,7 @@ package Dist::Zilla::Plugin::Run;
 # ABSTRACT: Run external commands and code at specific phases of Dist::Zilla
 # KEYWORDS: plugin tool distribution build release run command shell execute
 
-our $VERSION = '0.045';
+our $VERSION = '0.046';
 
 1;
 __END__

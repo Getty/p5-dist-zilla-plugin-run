@@ -8,7 +8,7 @@ Dist::Zilla::Plugin::Run - Run external commands and code at specific phases of 
 
 =head1 VERSION
 
-version 0.044
+version 0.045
 
 =head1 SYNOPSIS
 

@@ -87,7 +87,7 @@ Only run the given command if this is a release.
 
 Only run a given command if this isn't a release.
 
-=head2 eval (EXPERIMENTAL)
+=head2 eval
 
 Treats the input as a list of lines of Perl code; the code is evaluated at the
 specific L<Dist::Zilla> phase given by the plugin. The code is executed in its

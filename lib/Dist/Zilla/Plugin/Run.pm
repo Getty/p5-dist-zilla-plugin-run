@@ -129,8 +129,8 @@ for passing as arguments to the specified commands and eval strings
 (though not all values are available at all phases).
 
 =for :list
-* C<%a> the archive of the release (available to all C<*Release> phases)
-* C<%d> the directory in which the distribution was built (or minted) (not in C<BeforeBuild>)
+* C<%a> the archive of the release (only available to all C<*Release> phases)
+* C<%d> the directory in which the distribution was built (or minted) (not available in C<BeforeBuild>)
 * C<%n> the distribution name
 * C<%p> path separator ('/' on Unix, '\\' on Win32... useful for cross-platform F<dist.ini> files)
 * C<%v> the distribution version, if available (depending on the phase, the C<VersionProvider> plugin may not be able to return a version)

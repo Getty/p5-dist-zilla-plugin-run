@@ -144,7 +144,7 @@ for passing as arguments to the specified commands and eval strings
 (though not all values are available at all phases).
 
 =for :list
-* C<%a> the archive of the release (only available to all C<*Release> phases)
+* C<%a> the archive of the release (only available to all C<*Release> phases), as documented to be passed to BeforeRelease, Release, AfterRelease plugins
 * C<%o> the directory in which the distribution source originated
 * C<%d> the directory in which the distribution was built (or minted) (not available in C<BeforeBuild>)
 * C<%n> the distribution name

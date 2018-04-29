@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-Plugin-Run
 
 {{$NEXT}}
+  - added new formatting code %o to represent the source dir
 
 0.046     2017-07-24 02:08:24Z
   - now logging a warning when using %d in [Run::BeforeBuild], or %a in a

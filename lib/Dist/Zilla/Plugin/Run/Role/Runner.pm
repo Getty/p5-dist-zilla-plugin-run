@@ -240,6 +240,12 @@ sub build_formatter {
             '';
         },
 
+        # source dir
+        o => sub {
+            my $dir = $params->{source_dir} || $self->zilla->root;
+            return $dir ? "$dir" : '';
+        },
+
         # build dir or mint dir
         d => sub {
             # stringify build directory

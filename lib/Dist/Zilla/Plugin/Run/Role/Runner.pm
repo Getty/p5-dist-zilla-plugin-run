@@ -244,7 +244,6 @@ sub build_formatter {
         d => sub {
             # stringify build directory
             my $dir = $params->{dir} || $self->zilla->built_in;
-            # $self->log(... warn that %d is not available here) if not $dir;  # and test me
             return "$dir" if $dir;
             $self->log('attempting to use %d in before_build');
             '';

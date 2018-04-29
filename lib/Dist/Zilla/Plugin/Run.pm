@@ -122,6 +122,21 @@ All commands for a given option name are executed together, in the order in
 which they are documented above.  Within commands of the same option name,
 order is preserved (from the order provided in F<dist.ini>).
 
+=head1 ENVIRONMENT
+
+=for stopwords subshell
+
+For executed commands, L<IPC::Open3/open3> is used -- there is no subshell.
+Consequently environment variables may or may not be available depending on
+the individual architecture used.  For Perl strings that are evaluated, they
+are done in the dzil process, so all current global variables and other state
+is available for use.
+
+The current working directory is undefined, and may vary depending on the
+version of Dist::Zilla being used. If the state of the filesystem is
+important, explicitly change directories first, or base your relative paths
+off of the build root (available as C<%d>, see below).
+
 =head1 CONVERSIONS
 
 The following conversions/format specifiers are defined

@@ -4,19 +4,18 @@ addons:
   apt:
     packages:
       - aspell
+env:
+  global:
+    - AUTHOR_TESTING=1
+    - AUTOMATED_TESTING=1
+    - RELEASE_TESTING=0
+    - HARNESS_OPTIONS=j10:c
+    - HARNESS_TIMER=1
+    - DZIL_AIRPLANE=1
 before_install:
-  - export AUTOMATED_TESTING=1
-  - export RELEASE_TESTING=0
-  - export HARNESS_OPTIONS=j10:c
-  - export HARNESS_TIMER=1
   - git config --global user.name "TravisCI"
   - git config --global user.email $HOSTNAME":not-for-mail@travis-ci.org"
 install:
-  - export AUTOMATED_TESTING=1
-  - export RELEASE_TESTING=0
-  - export HARNESS_OPTIONS=j1:c
-  - export HARNESS_TIMER=1
-  - export DZIL_AIRPLANE=1
   - cpanm JSON::PP
   - cpanm --verbose --skip-satisfied Dist::Zilla
   - "dzil authordeps --missing | grep -vP '[^\\w:]' | xargs -n 5 -P 10 cpanm"
@@ -33,8 +32,4 @@ perl:
   - "5.12"
   - "5.10"
 script:
-  - export AUTOMATED_TESTING=1
-  - export RELEASE_TESTING=0
-  - export HARNESS_OPTIONS=j10:c
-  - export HARNESS_TIMER=1
   - dzil test --author --smoke

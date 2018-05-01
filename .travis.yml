@@ -1,27 +1,12 @@
----
 sudo: false
 addons:
   apt:
     packages:
       - aspell
-env:
-  global:
-    - AUTHOR_TESTING=1
-    - AUTOMATED_TESTING=1
-    - RELEASE_TESTING=0
-    - HARNESS_OPTIONS=j10:c
-    - HARNESS_TIMER=1
-    - DZIL_AIRPLANE=1
-before_install:
-  - git config --global user.name "TravisCI"
-  - git config --global user.email $HOSTNAME":not-for-mail@travis-ci.org"
-install:
-  - cpanm JSON::PP
-  - cpanm --verbose --skip-satisfied Dist::Zilla
-  - "dzil authordeps --missing | grep -vP '[^\\w:]' | xargs -n 5 -P 10 cpanm"
-  - "dzil listdeps --author --missing | grep -vP '[^\\w:]' | cpanm"
 language: perl
 perl:
+  - blead       # builds perl from git
+  - dev         # latest point release
   - "5.26"
   - "5.24"
   - "5.22"
@@ -32,5 +17,22 @@ perl:
   - "5.12"
   - "5.10"
   - "5.8"
+env:
+  global:
+    - AUTHOR_TESTING=1
+    - AUTOMATED_TESTING=1
+    - RELEASE_TESTING=0
+before_install:
+  - git clone git://github.com/travis-perl/helpers ~/travis-perl-helpers
+  - source ~/travis-perl-helpers/init
+  - build-perl
+  - perl -V
+  - build-dist
+  - cd $BUILD_DIR
+install:
+  - perl -M5.014 -e1 2>/dev/null || cpan-install Dist::Zilla@5.048
+  - cpan-install --deps
 script:
-  - dzil test --author --smoke
+  - perl Build.PL
+  - ./Build
+  - prove -b -r -s -j$(test-jobs) $(test-files)

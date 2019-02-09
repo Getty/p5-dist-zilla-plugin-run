@@ -3,7 +3,7 @@ use warnings;
 package Dist::Zilla::Plugin::Run::Role::Runner;
 # vim: set ts=8 sts=4 sw=4 tw=115 et :
 
-our $VERSION = '0.048';
+our $VERSION = '0.049';
 
 use Moose::Role;
 use namespace::autoclean;

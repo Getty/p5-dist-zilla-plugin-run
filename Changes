@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-Plugin-Run
 
 {{$NEXT}}
+  - more fixes for MSWin path canonicalization
 
 0.047     2018-05-01 01:39:08Z
   - added new formatting code %o to represent the source dir

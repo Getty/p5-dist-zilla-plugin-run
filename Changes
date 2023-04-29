@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-Plugin-Run
 
+{{$NEXT}}
+
 0.049     2023-04-29 15:32:05Z
   - fix some test failures on MSWin32 due to path separators (Graham Ollis,
     #17)

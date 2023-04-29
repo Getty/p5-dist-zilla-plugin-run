@@ -55,14 +55,13 @@ around dump_config => sub
 
     $config->{+__PACKAGE__} = {
         version => $VERSION,
-        (map { $_ => $self->$_ ? 1 : 0 } qw(fatal_errors quiet)),
-        map {
+        (map +($_ => $self->$_ ? 1 : 0), qw(fatal_errors quiet)),
+        map
             @{ $self->$_ }
                 # look for user:password URIs
-                ? ( $_ => [ map { $self->censor_commands || /\b\w+:[^@]+@\b/ ? 'REDACTED' : $_ } @{ $self->$_ } ] )
-                : ()
-        }
-        qw(run run_if_trial run_no_trial run_if_release run_no_release eval),
+                ? ( $_ => [ map $self->censor_commands || /\b\w+:[^@]+@\b/ ? 'REDACTED' : $_, @{ $self->$_ } ] )
+                : (),
+            qw(run run_if_trial run_no_trial run_if_release run_no_release eval),
     };
 
     return $config;

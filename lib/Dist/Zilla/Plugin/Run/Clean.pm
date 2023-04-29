@@ -22,7 +22,7 @@ use namespace::autoclean;
         [
             clean => sub {
                 my ($zilla, $dry_run) = @_;
-                foreach my $plugin (grep { $_->isa(__PACKAGE__) } @{ $zilla->plugins })
+                foreach my $plugin (grep $_->isa(__PACKAGE__), @{ $zilla->plugins })
                 {
                     # Dist::Zilla really ought to have a -CleanerProvider hook...
                     $plugin->clean($dry_run);

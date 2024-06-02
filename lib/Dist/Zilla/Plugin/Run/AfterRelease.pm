@@ -4,7 +4,7 @@ use warnings;
 package Dist::Zilla::Plugin::Run::AfterRelease;
 # ABSTRACT: execute a command of the distribution after release
 
-our $VERSION = '0.050';
+our $VERSION = '0.051';
 
 use Moose;
 with qw(

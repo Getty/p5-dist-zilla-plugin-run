@@ -4,7 +4,7 @@ package Dist::Zilla::Plugin::Run::Clean;
 # ABSTRACT: execute a command of the distribution on 'dzil clean'
 # vim: set ts=8 sts=2 sw=2 tw=115 et :
 
-our $VERSION = '0.050';
+our $VERSION = '0.051';
 
 use Moose;
 with
